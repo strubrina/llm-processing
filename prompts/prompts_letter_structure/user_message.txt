@@ -1,0 +1,1 @@
+Encode the following text into TEI XML according to the provided encoding rules and examples.

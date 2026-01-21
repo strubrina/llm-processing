@@ -1,0 +1,9 @@
+.venv
+__pycache__/
+*.pyc
+keys.py
+_project/
+data/input/plaintext/letters
+data/input/json/editorial_interventions
+data/input/json/max
+

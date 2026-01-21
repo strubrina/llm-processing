@@ -1,0 +1,163 @@
+# Input-Output Examples
+
+Ich bitte Ew. Wohlgeboren meinen aufrichtigsten Dank für die Güte mit der Sie sich meines Mskpts der Geschichte der persischen Poesie und Redekunst annahmen, und des Vorwortes mit dem Sie dieselbe in den GGA eingegliedert haben, ab. Ob es Ew. Wg. bey sich behalten oder in der Bibliothek deponieren ist mir gleich lieb.
+
+<body>
+  <div type="letter">
+    <p>Ich bitte Ew. Wohlgeboren meinen aufrichtigsten Dank für die Güte mit der Sie sich meines Mskpts der Geschichte
+          der persischen Poesie und Redekunst annahmen, und des Vorwortes mit dem Sie dieselbe in den GGA eingegliedert
+          haben, ab. Ob es Ew. Wg. bey sich behalten oder in der Bibliothek deponieren ist mir gleich lieb.</p>
+  </div>
+</body>
+
+---
+9 Mars
+Monsieur et cher ami
+Comme Dieu sait quand et comment j’aurai une autre occasion pour vous entretenir, il vaut mieux ne pas perdre la présente pour au moins accuser vos missives du 8, 15, 20, 21, 23 Janvier reçues à la fois avant-hier. – Je vous répète, renvoyez-moi mon Niebuhr à Smyrne, car je ne l’ai prêté à mon ami Hammer et non pas à des capitaines de vaisseaux ou de régates. Je suis un homme litéral et je ne confonds jamais Pierre avec Paul et ne n’aime pas par conséquent que l’on le fasse vis-à-vis de moi. – Pour Marsigli, j’aimerais mieux envoyer à mon frère son rappel dans un ballon aérostat au lieu de lui munir de quoi prolonger des spéculations interminables et déjà assez injurieuses. Adieu. Portez-vous bien en tout sens et surtout pensez à votre sincère et dévoué ami.
+
+S
+
+<body>
+  <div type="letter">
+    <opener>
+      <dateline>9 Mars</dateline>
+      <salute>Monsieur et cher ami</salute>
+    </opener>
+    <p>Comme Dieu sait quand et comment j’aurai une autre occasion pour vous entretenir, il vaut mieux ne pas
+        perdre la présente pour au moins accuser vos missives du 8, 15, 20, 21, 23 Janvier reçues à la fois
+        avant-hier. – Je vous répète, renvoyez-moi mon Niebuhr à Smyrne, car je ne l’ai prêté à mon ami Hammer
+        et non pas à des capitaines de vaisseaux ou de régates. Je suis un homme litéral et je ne confonds
+        jamais Pierre avec Paul et ne n’aime pas par conséquent que l’on le fasse vis-à-vis de moi. – Pour Marsigli,
+        j’aimerais mieux envoyer à mon frère son rappel dans un ballon aérostat au lieu de lui munir de quoi
+        prolonger des spéculations interminables et déjà assez injurieuses. <salute>Adieu. Portez-vous bien en
+        tout sens et surtout pensez à votre sincère et dévoué ami.</salute></p>
+    <closer>
+      <signed>S</signed>
+    </closer>
+  </div>
+</body>
+
+---
+Serjeants Inn Fleet Street 23 Nov 1801
+Sir
+I have the honour of sending You the first volume of Blackstones Commentaries for Your perusal.
+
+Blackstone, was one of our English Judges, and his Commentaries comprised in four volumes, contain the substance of a course of lectures delivered by him in the university of Oxford previous to his promotion to the Bench. And this first volume will be found particularly interesting to any gentleman, wheter Native or Foreigner, who wishes to acquaine some theoretical knowledge of the nature of the constitution and Laws of England or indeed of Laws in general.
+
+About Thursday or Friday I think I shall go to Gloucester a hundred miles from hence for a few days and shall take the University of Oxford, the town of Cheltenham etc.etc. in my way down, and the Cities of Bristol and Bath upon my way return. All these places, particularly Oxford and Bath peculiarly, claim the Attention of a Foreigner, and I happen to have friends at each place, who will pride themselves in showing to adventage everything worth seeing.
+
+I shall not necessarily be absent more than nine or ten days and if from the account I have given, You think that You should be pleased as I think you would, with an excursion of this sort, I shall think myself honoured by Your company and I flatter myself You will be not a little pleased with the Dean of Gloucester and the Prebendaries whom I am going to visit and to whom I shall feel singular pleasure in introducing You. I am with the greatest respect, Sir, Your most obedient humble
+
+Saml Whitcombe
+
+Hammer Esquire
+
+<body>
+  <div type="letter">
+    <opener>
+      <dateline>Serjeants Inn Fleet Street 23 Nov 1801</dateline>
+      <salute>Sir</salute>
+    </opener>
+    <p>I have the honour of sending You the first volume of Blackstones Commentaries for Your perusal.</p>
+    <p>Blackstone, was one of our English Judges, and his Commentaries comprised in four volumes, contain
+          the substance of a course of lectures delivered by him in the university of Oxford previous to
+          his promotion to the Bench. And this first volume will be found particularly interesting to any
+          gentleman, wheter Native or Foreigner, who wishes to acquaine some theoretical knowledge of the
+          nature of the constitution and Laws of England or indeed of Laws in general.</p>
+    <p>About Thursday or Friday I think I shall go to Gloucester a hundred miles from hence for a few days and
+          shall take the University of Oxford, the town of Cheltenham etc.etc. in my way down, and the Cities of
+          Bristol and Bath upon my way return. All these places, particularly Oxford and Bath peculiarly, claim the
+          Attention of a Foreigner, and I happen to have friends at each place, who will pride themselves in showing
+          to adventage everything worth seeing.</p>
+    <p>I shall not necessarily be absent more than nine or ten days and if from the account I have given,
+          You think that You should be pleased as I think you would, with an excursion of this sort, I shall think
+          myself honoured by Your company and I flatter myself You will be not a little pleased with the Dean of
+          Gloucester and the Prebendaries whom I am going to visit and to whom I shall feel singular pleasure in
+          introducing You. <salute>I am with the greatest respect, Sir, Your most obedient humble</salute></p>
+    <closer>
+      <signed>Saml Whitcombe</signed>
+    </closer>
+  </div>
+  <div type="address">
+    <address>
+      <addrLine>Hammer Esquire</addrLine>
+    </address>
+  </div>
+</body>
+
+---
+9/3 45.
+
+Cum tot sustineas et tanta negotia: könnten Sie nicht doch Donnerstag den 13ten d. um 4 Uhr bei uns zu Tisch kommen und vielleicht auch Dr. List den Unsichtbaren mitbringen? Lassen Sie mir mein Schicksal bald wissen, da ich, wenn es ungünstig ausfiele, ich chercher fortune ailleurs müsste; denn es wird Herr von Pulsky bei mir speisen, dem ich angenehme Gäste zuführen möchte und inzwischen habe ich, ausser der häuslichen nur einen Ihrer Proscribierten Arneth, was ich sogar anzeige, um Sie nicht zu überraschen.
+
+D
+
+<body>
+  <div type="letter">
+    <opener>
+      <dateline>9/3 45.</dateline>
+    </opener>
+    <p>Cum tot sustineas et tanta negotia: könnten Sie nicht doch Donnerstag den 13ten
+             d. um 4 Uhr bei uns zu Tisch kommen und vielleicht auch Dr. List den Unsichtbaren mitbringen?
+             Lassen Sie mir mein Schicksal bald wissen, da ich, wenn es ungünstig ausfiele,
+             ich chercher fortune ailleurs müsste; denn es wird Herr von Pulsky bei mir speisen,
+             dem ich angenehme Gäste zuführen möchte und inzwischen habe ich, ausser der häuslichen nur
+             einen Ihrer Proscribierten Arneth, was ich sogar anzeige, um Sie nicht  zu überraschen.</p>
+    <closer>
+      <signed>D</signed>
+    </closer>
+  </div>
+</body>
+
+---
+Hochwohlgebohrener Freiherr,
+Hochgeehrter Herr und Freund
+ich danke für Ihr freundliches Schreiben vom 29. v M und die mit demselben gegebenen Nachrichten aus denen hervorgeht, daß man jetzt zu Wien doch wohl mit der A Z etwas mehr zufrieden sein dürfte, als Sie mir früher angedeutet.
+
+Indessen habe ich in Antwort auf meine desfallsige Eingabe von Herrn Staatsminister von Bruck einen Erlass erhalten, der mir über den Stand der Postunterhandlungen Österreichs mit den Nachbarstaaten einige Nachricht gibt und mich hoffen lässt, daß eine Ermäßigung der Postportogebühren in nicht ferner Zeit stattfinden solle.
+
+Allein es bleibt dabei doch ein Portoaufschlag von 25% in Aussicht nebst 2 rh Stempel pro Blatt, im ganzen also müsse jenen 25% vom Ankaufspreis noch weitere f 12:10 Stempelgebühr für 1 Exlr der Zeitung per annum, wonach also die A Z im besten Falle doch f 33,25 in Österreich kosten würde.
+
+Das ist immer noch exorbitant und fast so viel als eine Ausschließung der ausländischen Zeitungen, indem von den österreichischen nur 15% für den Postverschluß erhoben werden, so daß diese um f 15, f 16, f 18 zu haben sein werden. Preußen bezieht nur 20% und hat jeden Stempel den Grundrechten gemäß abgeschafft, so daß die A Z zum Beispiel in ganz Preußen nur f 21 kostet.
+
+Indessen, wenn der Preis der allgemeinen Zeitung von f 50 – f 85, wie sie in den entfernteren Teilen der Monarchie kostet, nur bald auf f 33 heruntergesetzt würde.
+
+Der Zeitungsstempel kann nirgends mehr gehalten werden, früher oder später wird ihn Österreich doch auch aufgeben. Bis dahin aber sind die auswärtigen Zeitungen vertrieben, und doch dürfte dem Gouvernment eine gute auswärtige Zeitung auch willkommen, ja nötig sein.
+
+Ich wünsche von Herzen glückliches Neujahr und bin für immer Euer hochwohlgeboren geehrtester
+
+Georg v Cotta
+Stgdt 4/I 49
+
+<body>
+  <div type="letter">
+    <opener>
+      <salute>Hochwohlgebohrener Freiherr,<lb/>Hochgeehrter Herr und Freund</salute>
+    </opener>
+    <p>ich
+         danke für Ihr freundliches Schreiben vom 29. v M und die mit demselben gegebenen Nachrichten aus
+         denen hervorgeht, daß man jetzt zu Wien doch wohl mit der A Z etwas mehr zufrieden sein dürfte,
+         als Sie mir früher angedeutet.</p>
+    <p>Indessen habe ich in Antwort auf meine desfallsige Eingabe von Herrn Staatsminister von Bruck einen
+         Erlass erhalten, der mir über den Stand der Postunterhandlungen Österreichs mit den Nachbarstaaten
+         einige Nachricht gibt und mich hoffen lässt, daß eine Ermäßigung der Postportogebühren in nicht
+         ferner Zeit stattfinden solle.</p>
+    <p>Allein es bleibt dabei doch ein Portoaufschlag von 25% in Aussicht nebst 2 rh Stempel pro Blatt, im
+         ganzen also müsse jenen 25% vom Ankaufspreis noch weitere f 12:10 Stempelgebühr für 1 Exlr der
+         Zeitung per annum, wonach also die A Z im besten Falle doch f 33,25 in Österreich kosten würde.</p>
+    <p>Das ist immer noch exorbitant und fast so viel als eine Ausschließung der ausländischen Zeitungen,
+         indem von den österreichischen nur 15% für den Postverschluß erhoben werden, so daß diese um f 15,
+         f 16, f 18 zu haben sein werden. Preußen bezieht nur 20% und hat jeden Stempel den Grundrechten
+         gemäß abgeschafft, so daß die A Z zum Beispiel in ganz Preußen nur f 21 kostet.</p>
+    <p>Indessen, wenn der Preis der allgemeinen Zeitung von f 50 – f 85, wie sie in den entfernteren Teilen
+         der Monarchie kostet, nur bald auf f 33 heruntergesetzt würde.</p>
+    <p>Der Zeitungsstempel kann nirgends mehr gehalten werden, früher oder später wird ihn Österreich doch
+        auch aufgeben. Bis dahin aber sind die auswärtigen Zeitungen vertrieben, und doch dürfte dem
+        Gouvernment eine gute auswärtige Zeitung auch willkommen, ja nötig sein.</p>
+    <closer>
+      <salute>Ich wünsche von Herzen glückliches Neujahr und bin für immer Euer hochwohlgeboren geehrtester</salute>
+      <signed>Georg v Cotta</signed>
+      <dateline>Stgdt 4/I 49</dateline>
+    </closer>
+  </div>
+</body>

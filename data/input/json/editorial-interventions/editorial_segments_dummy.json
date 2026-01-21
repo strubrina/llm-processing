@@ -1,0 +1,12 @@
+[
+  {
+    "element_id": "L1418_div1_opener1_dateline1",
+    "filename": "letter1418.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "Wien den 24 Februar [1]813",
+    "bracketed_sequences": [
+      "[1]813"
+    ],
+    "index": 2
+  }
+]

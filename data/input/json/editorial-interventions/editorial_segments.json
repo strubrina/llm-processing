@@ -1,0 +1,581 @@
+[
+  {
+    "element_id": "L1418_div1_opener1_dateline1",
+    "filename": "letter1418.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "Wien den 24 Februar [1]813",
+    "bracketed_sequences": [
+      "[1]813"
+    ],
+    "index": 0
+  },
+  {
+    "element_id": "L1418_div1_p1",
+    "filename": "letter1418.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()",
+    "full_element_text": "[…]",
+    "bracketed_sequences": [
+      "[…]"
+    ],
+    "index": 1
+  },
+  {
+    "element_id": "L1418_div1_p1_persName1",
+    "filename": "letter1418.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/persName[1]/text()",
+    "full_element_text": "G[raf]",
+    "bracketed_sequences": [
+      "G[raf]"
+    ],
+    "index": 2
+  },
+  {
+    "element_id": "L1418_div1_p2_persName2",
+    "filename": "letter1418.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[2]/persName[2]/text()",
+    "full_element_text": "gibt fürs nächste Jahr einen Musenalmanach heraus, zu dem er mich vor ein paar Tagen auf dem Ball der Fr[au] Pichler um Beiträge angegangen, die ich ihm auch versprochen habe. […]",
+    "bracketed_sequences": [
+      "Fr[au]",
+      "[…]"
+    ],
+    "index": 3
+  },
+  {
+    "element_id": "L1644_div1_p1",
+    "filename": "letter1644.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[8]",
+    "full_element_text": "und von Oest[erreich] aus das übrige folgen: Ihre Verwendung in der Staatskanzlei",
+    "bracketed_sequences": [
+      "Oest[erreich]"
+    ],
+    "index": 4
+  },
+  {
+    "element_id": "L1644_div1_p1",
+    "filename": "letter1644.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[12]",
+    "full_element_text": "spricht erschöpfend, ich hoffe, bald öst[erreichische] Fahnen in Paris wehen zu sehen – so wie es mir die Zeit erlaubt, sammle ich überall, wo ich hinkomme, und habe bereits 5 Kisten mit Büchern nach Wien",
+    "bracketed_sequences": [
+      "öst[erreichische]"
+    ],
+    "index": 5
+  },
+  {
+    "element_id": "L1651_div1_p1",
+    "filename": "letter1651.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[1]",
+    "full_element_text": "Je prends la plume, mon cher ami, pour vous donner de mes nouvelles, après quatre mois de silence, d´horreur et de deuil. Je n´ai rien souffert personnellement, quoique j´ai réfusé de signer la soidisante [sic] Constitution du monstre que l´enfer avoit encore une fois vomi sur la France",
+    "bracketed_sequences": [
+      "Je n´ai rien souffert personnellement, quoique j´ai réfusé de signer la soidisante [sic]"
+    ],
+    "index": 6
+  },
+  {
+    "element_id": "L1651_div1_p1",
+    "filename": "letter1651.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[2]",
+    "full_element_text": "لعنة الله واللاعنون. Mais hélas! que [sic] de maux il nous a causés dans ces quatre funestes mois, et quem vocet divum populus ruentis imperi rebus",
+    "bracketed_sequences": [
+      "Mais hélas! que [sic]"
+    ],
+    "index": 7
+  },
+  {
+    "element_id": "L1651_div1_p1",
+    "filename": "letter1651.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[3]",
+    "full_element_text": "? Le croirait-on? il [sic] extiste pourtant encore des imbécilles, ou plutôt des scélérats",
+    "bracketed_sequences": [
+      "il [sic]"
+    ],
+    "index": 8
+  },
+  {
+    "element_id": "L1651_div1_p5",
+    "filename": "letter1651.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[5]/text()[3]",
+    "full_element_text": ". Faites mes complimens à M. le B[ar]on",
+    "bracketed_sequences": [
+      "B[ar]on"
+    ],
+    "index": 9
+  },
+  {
+    "element_id": "L1651_div1_closer1_signed1",
+    "filename": "letter1651.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/signed[1]/text()",
+    "full_element_text": "Le B[aron]",
+    "bracketed_sequences": [
+      "B[aron]"
+    ],
+    "index": 10
+  },
+  {
+    "element_id": "L177_div1_p3_persName1",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[3]/persName[1]/text()",
+    "full_element_text": "Sidney [Smith]",
+    "bracketed_sequences": [
+      "[Smith]"
+    ],
+    "index": 11
+  },
+  {
+    "element_id": "L177_div1_p4_hi1",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/hi[1]/text()",
+    "full_element_text": "[sé]jour",
+    "bracketed_sequences": [
+      "[sé]jour"
+    ],
+    "index": 12
+  },
+  {
+    "element_id": "L177_div1_p5_persName1",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[5]/persName[1]/text()",
+    "full_element_text": "Sidney [Smith]",
+    "bracketed_sequences": [
+      "[Smith]"
+    ],
+    "index": 13
+  },
+  {
+    "element_id": "L177_div1_p6_persName4",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[6]/persName[4]/text()",
+    "full_element_text": "Sidney [Smith]",
+    "bracketed_sequences": [
+      "[Smith]"
+    ],
+    "index": 14
+  },
+  {
+    "element_id": "L177_div1_p7",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[7]/text()",
+    "full_element_text": "On dit qu’il y [a] avec lui 5000 Mamelouks et 5000 Arabes.",
+    "bracketed_sequences": [
+      "[a]"
+    ],
+    "index": 15
+  },
+  {
+    "element_id": "L177_div1_p8_persName1",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[8]/persName[1]/text()",
+    "full_element_text": "Sidney [Smith]",
+    "bracketed_sequences": [
+      "[Smith]"
+    ],
+    "index": 16
+  },
+  {
+    "element_id": "L177_div1_p8",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[8]/text()[2]",
+    "full_element_text": "ne veut point me laisser en repos, et qu’il me propose d’aller dans la haute Égypte c[‘est]-à-d[ire] à l’armée des Mamelouks, au lieu de rester avec des livres. Cependant je n’ai pas encore feuilleté des livres, car tout le loisir que j’ai eu jusqu'à présent, je l’ai employé à écrire des lettres.",
+    "bracketed_sequences": [
+      "c[‘est]-à-d[ire]"
+    ],
+    "index": 17
+  },
+  {
+    "element_id": "L177_div2_p6",
+    "filename": "letter177.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[2]/p[6]/text()[9]",
+    "full_element_text": "] mir keine Ruhe lassen will und dass er mir vorschlägt, nach Oberägypten, das heißt zur Armee der Mameluken zu gehen, anstatt bei den Büchern zu bleiben. Ich habe jedoch noch nicht die Bücher durchgeblättert, denn ich habe die ganze Freizeit, die ich bis jetzt hatte, zum Schreiben von Briefen verwendet. Außerdem ist zu bemerken, dass der Weg dieser Reise entweder durch die schreckliche Wüste oder durch französische Posten [führt]. Es ist jedoch möglich, dass mich die Umstände dazu bewegen, wenn ich ein wichtiges Ziel sehe oder wenn ich genauere Details über das Ziel sehe, das man vorhat. […]",
+    "bracketed_sequences": [
+      "[führt].",
+      "[…]"
+    ],
+    "index": 18
+  },
+  {
+    "element_id": "L1890_div1_p3",
+    "filename": "letter1890.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[3]/text()[9]",
+    "full_element_text": "– „that[?] […] lectures[“.] – What is doing in the Literary world of Germany –",
+    "bracketed_sequences": [
+      "„that[?]",
+      "[…]",
+      "lectures[“.]"
+    ],
+    "index": 19
+  },
+  {
+    "element_id": "L2835_div1_opener1_dateline1",
+    "filename": "letter2835.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "St. Florian, am 7 Febr[uar] [1]823",
+    "bracketed_sequences": [
+      "Febr[uar]",
+      "[1]823"
+    ],
+    "index": 20
+  },
+  {
+    "element_id": "L3101_div1_p1",
+    "filename": "letter3101.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[2]",
+    "full_element_text": "] It is impossible to spell the name to a certainty as there are no vowels; to you know a name resembling to it of a manwho was governor of a town in The Carnatic in the above mentioned year? […] Now the most vurious content of this paper proves to me, that Lord",
+    "bracketed_sequences": [
+      "[…]"
+    ],
+    "index": 21
+  },
+  {
+    "element_id": "L3101_div1_p1",
+    "filename": "letter3101.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[4]",
+    "full_element_text": ". […]",
+    "bracketed_sequences": [
+      "[…]"
+    ],
+    "index": 22
+  },
+  {
+    "element_id": "L3522_div1_p1",
+    "filename": "letter3522.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[1]",
+    "full_element_text": "Den Schwulst der türkischen Kunstrichter hätten Sie sicher etwas lächerlich machen können von den Bakis haben haben[sic] Sie eher zu wenig als zu viel gesagt; ich finde kein Wort zu ändern, wenn nicht der letzte Satz worin Sie mich zu viel gelobt, und dem Pedanten",
+    "bracketed_sequences": [
+      "haben[sic]"
+    ],
+    "index": 23
+  },
+  {
+    "element_id": "L4039_div1_opener1_dateline1",
+    "filename": "letter4039.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "St. Florian, am 9 October [1]829.",
+    "bracketed_sequences": [
+      "[1]829."
+    ],
+    "index": 24
+  },
+  {
+    "element_id": "L5028_div1_p1",
+    "filename": "letter5028.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()",
+    "full_element_text": "Die Tage meiner Kindheit umleuchtete ein doppeltes Morgenrot, aus der Jugend und des Orients. Ich sah das Paradies der h[eiligen] Schrift offen und vor dem geschlossenen die Statuen der Könige und Propheten der alten Geschichte. An der Säule des Orients rankte sich bildend mein Geist empor. Die Bilder des Morgenlandes belebten die Fantasie des Knaben, ehe er seine abendländische Umgebung kannte.",
+    "bracketed_sequences": [
+      "h[eiligen]"
+    ],
+    "index": 25
+  },
+  {
+    "element_id": "L5028_div1_closer1_salute1",
+    "filename": "letter5028.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/salute[1]/text()",
+    "full_element_text": "Ich habe die Ehre zu sein, Herr Hofrat! dankerfüllter D[iene]r",
+    "bracketed_sequences": [
+      "D[iene]r"
+    ],
+    "index": 26
+  },
+  {
+    "element_id": "L5035_div1_opener1_dateline1",
+    "filename": "letter5035.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "Teplitz d[en] 15 Jul[i] 1834.",
+    "bracketed_sequences": [
+      "d[en]",
+      "Jul[i]"
+    ],
+    "index": 27
+  },
+  {
+    "element_id": "L5035_div1_p2",
+    "filename": "letter5035.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[2]/text()[2]",
+    "full_element_text": "sind richtig in Berlin angekommen, der erste Band nicht lange vor meiner Abreise und der zweite vor einigen Wochen, wie mir von dem Sekretär der k[öniglichen] Bibliothek vor einigen Tagen gemeldet worden ist. Ein Exemplar der Chronik des",
+    "bracketed_sequences": [
+      "k[öniglichen]"
+    ],
+    "index": 28
+  },
+  {
+    "element_id": "L5035_div1_p2",
+    "filename": "letter5035.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[2]/text()[3]",
+    "full_element_text": ", welche Sie nach Ihrem mir nachgesendeten Briefe vom 30. Mai d[ieses Jahres] zu erhalten wünschten, besitzt die k[önigliche] Bibliothek zu Berlin nicht.",
+    "bracketed_sequences": [
+      "d[ieses Jahres]",
+      "k[önigliche]"
+    ],
+    "index": 29
+  },
+  {
+    "element_id": "L5035_div1_p4",
+    "filename": "letter5035.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/text()[1]",
+    "full_element_text": "Das Teplitzer Bad bekommt mir fortwährend gut, und das Zusammensein mit Alex[ander]",
+    "bracketed_sequences": [
+      "Alex[ander]"
+    ],
+    "index": 30
+  },
+  {
+    "element_id": "L6043_div1_opener1_dateline1",
+    "filename": "letter6043.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/opener[1]/dateline[1]/text()",
+    "full_element_text": "Hainfeld 9. Oct[ober] 1839",
+    "bracketed_sequences": [
+      "Oct[ober]"
+    ],
+    "index": 31
+  },
+  {
+    "element_id": "L6043_div1_p1",
+    "filename": "letter6043.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[1]",
+    "full_element_text": "hat mich so eben noch vor meinem Scheiden von Hainfeld getroffen, und ich beantworte dasselbe noch lieber hier in der Ruhe des Landes, als von Wien aus, wo mich für die ersten vierzehn Tage, die Reinigung und Ordnung meiner Bibliothek und zwanzig andere Dinge, die meiner harren, vom Briefeschreiben abhalten dürften. Da ich mirs zum Gesetz gemacht, während der Zeit meines Hierseins mich mit gar nichts Orientalischem zu befassen und in, nebst Spaziergängen und Lustfahren, der Ordnung und Lesung des Archivs zu leben, so sind mir alle Nachrichten, die Sie mir von orientalischer Literatur und Literatoren mitteilen, um so kostbarer und ich bin Ihnen so dankbarer[sic] dafür. Ich dachte mir",
+    "bracketed_sequences": [
+      "Da ich mirs zum Gesetz gemacht, während der Zeit meines Hierseins mich mit gar nichts Orientalischem zu befassen und in, nebst Spaziergängen und Lustfahren, der Ordnung und Lesung des Archivs zu leben, so sind mir alle Nachrichten, die Sie mir von orientalischer Literatur und Literatoren mitteilen, um so kostbarer und ich bin Ihnen so dankbarer[sic]"
+    ],
+    "index": 32
+  },
+  {
+    "element_id": "L6043_div1_p2_salute1",
+    "filename": "letter6043.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[2]/salute[1]/text()[2]",
+    "full_element_text": "s Kindern, den ich schönstens grüße, u[nd] aufrichtigst verharre",
+    "bracketed_sequences": [
+      "u[nd]"
+    ],
+    "index": 33
+  },
+  {
+    "element_id": "L6100_div1_closer1_dateline1",
+    "filename": "letter6100.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/dateline[1]/text()",
+    "full_element_text": "Graz am 4. März [1]840",
+    "bracketed_sequences": [
+      "[1]840"
+    ],
+    "index": 34
+  },
+  {
+    "element_id": "L6884_div1_p1",
+    "filename": "letter6884.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[3]",
+    "full_element_text": "s Invektiven den Artikel eingereicht, zu welchen E[uer] Hochwohlg[eboren] so vollständiges und vorzügliches Material zu Beginn des vorigen Monats geliefert haben.",
+    "bracketed_sequences": [
+      "E[uer]",
+      "Hochwohlg[eboren]"
+    ],
+    "index": 35
+  },
+  {
+    "element_id": "L6884_div1_p3",
+    "filename": "letter6884.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[3]/text()[1]",
+    "full_element_text": "H[er]r",
+    "bracketed_sequences": [
+      "H[er]r"
+    ],
+    "index": 36
+  },
+  {
+    "element_id": "L6884_div1_p4",
+    "filename": "letter6884.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/text()[1]",
+    "full_element_text": "s Lobredner im Hauptblatt sowie im Januar-Ergänzungshefte der A[llgemeinen] Z[eitung]",
+    "bracketed_sequences": [
+      "A[llgemeinen]",
+      "Z[eitung]"
+    ],
+    "index": 37
+  },
+  {
+    "element_id": "L6884_div1_p4",
+    "filename": "letter6884.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/text()[3]",
+    "full_element_text": "in Heidelberg, der auch Kritiken und Anzeigen historischer Schriften in die Beilagen genannten Blattes liefert und eben neulich eine „Geschichte der Rheinpfalz“ herausgeben, die H[er]r",
+    "bracketed_sequences": [
+      "H[er]r"
+    ],
+    "index": 38
+  },
+  {
+    "element_id": "L6884_div1_p7",
+    "filename": "letter6884.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[7]/text()[1]",
+    "full_element_text": "Leider sind meine ohnehin nur sehr mittelmäßigen oriental[ischen] Studien nach und nach völlig eingeschlummert und ich lese, außer hie und da etwas Türkisches schon seit Jahren nichts mehr. Man vergißt aber viel schneller, als man gelernt hat. Für die gute Meinung, die man in „Isarigrad“",
+    "bracketed_sequences": [
+      "oriental[ischen]"
+    ],
+    "index": 39
+  },
+  {
+    "element_id": "L7118_div1_p1",
+    "filename": "letter7118.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[6]",
+    "full_element_text": "mußte ich die eisernen Röhren wegtun, weil dieselben sich in kurzer Zeit mit Tuff [sic] füllten.",
+    "bracketed_sequences": [
+      "[sic]"
+    ],
+    "index": 40
+  },
+  {
+    "element_id": "L7455_div2_p1",
+    "filename": "letter7455.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[2]/p[1]/text()",
+    "full_element_text": "Con una mia lettera del 18 corr[en]te avrete ricevuto una lettera di vostro Figlio. In questo istante ne ricevo un’altra apportatrice di buona nuova ed in questo istante Ve la mando. Io ho null’altro da soggiungere fuorché molto mi congratulo con Voi di questo bene e di poi che molto desidero che cessi una guerra che tanto offende la civiltà e l’umanità, ma con una pace che sia secondo la giustizia. Vi saluto di cuore e mi sottoscrivo al solito.",
+    "bracketed_sequences": [
+      "corr[en]te"
+    ],
+    "index": 41
+  },
+  {
+    "element_id": "L7455_div2_closer1_salute1",
+    "filename": "letter7455.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[2]/closer[1]/salute[1]/text()",
+    "full_element_text": "Vostro devot[issi]mo",
+    "bracketed_sequences": [
+      "devot[issi]mo"
+    ],
+    "index": 42
+  },
+  {
+    "element_id": "L7455_div2_postscript1_p1",
+    "filename": "letter7455.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[2]/postscript[1]/p[1]/text()[1]",
+    "full_element_text": "Non dimenticate di scrivere al C[on]te Pompeo",
+    "bracketed_sequences": [
+      "C[on]te"
+    ],
+    "index": 43
+  },
+  {
+    "element_id": "L832_div1_p1",
+    "filename": "letter832.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[1]",
+    "full_element_text": "[…] Le",
+    "bracketed_sequences": [
+      "[…]"
+    ],
+    "index": 44
+  },
+  {
+    "element_id": "L855_div1_p1",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[1]",
+    "full_element_text": "H[err]",
+    "bracketed_sequences": [
+      "H[err]"
+    ],
+    "index": 45
+  },
+  {
+    "element_id": "L855_div1_p1",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[3]",
+    "full_element_text": "hat für mich die Freundschaft gehabt, sich [wegen] meiner Übersetzung von",
+    "bracketed_sequences": [
+      "[wegen]"
+    ],
+    "index": 46
+  },
+  {
+    "element_id": "L855_div1_p3",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[3]/text()[2]",
+    "full_element_text": "bei, wo das Türkische bleiben oder weggelassen werden kann. Wenn es bleibt, so bitte ich den H[errn] Korrektor um Verdoppelung seiner Aufmerksamkeit auf die türkischen Worte Buchstaben für Buchstaben. Dieselbe Bitte tue ich auch im Voraus für",
+    "bracketed_sequences": [
+      "H[errn]"
+    ],
+    "index": 47
+  },
+  {
+    "element_id": "L855_div1_p3",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[3]/text()[3]",
+    "full_element_text": "dort, wo persische Namen vorkommen. Er befindet sich dermalen in H[errn]",
+    "bracketed_sequences": [
+      "H[errn]"
+    ],
+    "index": 48
+  },
+  {
+    "element_id": "L855_div1_p4",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/text()[2]",
+    "full_element_text": "Lieferungen meiner Arbeit erhalten; die vierte aber (wo Vorrede und Index) liegt noch in Cons[tantino]pel, wo dieselbe aus zu großer Sorgfalt des Freundes, der dieselbe durch Kurier hätte über Berlin befördern sollen, über Jahr und Tag liegen geblieben ist. Indessen hoffe ich, auch diese Lieferung nächstens hier zu erhalten, und Ihnen dann über Leipzig sicher zu übermachen. Bis zum Eintreffen derselben bitte ich Sie aber, mit dem Drucke oder wenigstens mit der Herausgabe inne zu halten, indem, wenn nicht die",
+    "bracketed_sequences": [
+      "Cons[tantino]pel,"
+    ],
+    "index": 49
+  },
+  {
+    "element_id": "L855_div1_p4_hi3",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/hi[3]/text()",
+    "full_element_text": "M[anu]s[kri]pte",
+    "bracketed_sequences": [
+      "M[anu]s[kri]pte"
+    ],
+    "index": 50
+  },
+  {
+    "element_id": "L855_div1_closer1_salute1",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/salute[1]/text()[2]",
+    "full_element_text": "freut es aufrichtig, daß meine Reise nach Wien und meines Freundes H[e]r[rn]",
+    "bracketed_sequences": [
+      "H[e]r[rn]"
+    ],
+    "index": 51
+  },
+  {
+    "element_id": "L855_div1_closer1_dateline1",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/dateline[1]/text()",
+    "full_element_text": "Wien den 26. August [1]807",
+    "bracketed_sequences": [
+      "[1]807"
+    ],
+    "index": 52
+  },
+  {
+    "element_id": "L855_div1_postscript1_p1",
+    "filename": "letter855.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/postscript[1]/p[1]/text()[1]",
+    "full_element_text": "NS. H[err]",
+    "bracketed_sequences": [
+      "H[err]"
+    ],
+    "index": 53
+  },
+  {
+    "element_id": "L965_div1_p1",
+    "filename": "letter965.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[1]/text()[2]",
+    "full_element_text": "sind beinahe zwei Jahre verflossen, seit [ich] von dem Herrn Konsistorialrat",
+    "bracketed_sequences": [
+      "[ich]"
+    ],
+    "index": 54
+  },
+  {
+    "element_id": "L965_div1_p4",
+    "filename": "letter965.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/p[4]/text()[2]",
+    "full_element_text": "] habe ich auch Sie als den Verfasser der Encyclopädie der orientalischen Wissenschaften kennen lernen [dürfen], welches Buch mir, ob ich gleich der orientalischen Sprachen ganz unkundig bin, dennoch zu einer so angenehmen als lehrreichen Lektüre diente.",
+    "bracketed_sequences": [
+      "[dürfen],"
+    ],
+    "index": 55
+  },
+  {
+    "element_id": "L965_div1_closer1_signed1",
+    "filename": "letter965.xml",
+    "xpath": "/TEI[1]/text[1]/body[1]/div[1]/closer[1]/signed[1]/text()",
+    "full_element_text": "Fr[iedrich]",
+    "bracketed_sequences": [
+      "Fr[iedrich]"
+    ],
+    "index": 56
+  }
+]

@@ -1,0 +1,20 @@
+# Encoding Rules for Letter Structure
+
+## General Remarks:
+- Maintain original historical spelling and orthography, and preserve special characters and foreign words as they appear in the text
+- Maintain original paragraph sectioning. Only mark new line beginnings in salutations
+- Ensure consistency with TEI Guidelines (except for salutations and addresses - see rules below)
+- Preserve the original structure, and order
+- Do not abbreviate any text. Fully represent all letter content in the XML output
+- Only return the XML code without additional explanations.
+
+## Document sectioning
+- Start with a body element as the root and use the following child elements for general structuring
+- Use a div typed "letter" for the main letter including dateline, salutations, letter content, signature and postscript
+- Use a div typed "address" for addresses
+
+**Exception from TEI valid encoding**:
+
+## 1. Contrary to the standard TEI content model, p elements may contain a salute element when the salutation is embedded within a paragraph and not visually set off as a separate block.
+
+## 2. Contrary to the standard TEI content model, refrain from using an ab element - div elements may contain an address element without being nested in an ab element.

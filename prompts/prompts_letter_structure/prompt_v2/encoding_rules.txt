@@ -1,0 +1,50 @@
+# Encoding Rules for Letter Structure
+
+## General Remarks:
+- Maintain original historical spelling and orthography.
+- Preserve special characters and foreign words as they appear in the text.
+- Ensure consistency with TEI Guidelines (except for salutations and addresses - see rules below)
+- Preserve the original structure, and order
+- Do not abbreviate any text. Fully represent all letter content in the XML output
+- Only return the XML code without additional explanations.
+
+## 1. Document sectioning
+- Start with a body element as the root and use the following child elements for general structuring
+- Use a div typed "letter" for the main letter including dateline, salutations, letter content, signature and postscript
+- Use a div typed "address" for addresses
+
+
+## 2. Document layout
+- Maintain original paragraph sectioning
+- Mark new line beginnings only in salutations and signatures using an lb tag
+
+## 3. Letter Structure
+- If a letter contains multiple writing sessions (indicated by multiple datelines) wrap each writing session into a div typed as "writingSession"
+- Use salute tags for salutations
+- Use dateline tags for datelines
+- Use signed tags for the signature of the letter
+- Use a postscript tag for any letter text after the closer with a nested p element for paragraphs
+- Use p tags for any other letter content between opener and closer if available
+
+**Exception from TEI valid encoding**: Contrary to the standard TEI content model, p elements may contain a salute element when the salutation is embedded within a paragraph and not visually set off as a separate block.
+
+### Handling Salutations
+Two encoding patterns apply depending on the visual layout:
+
+**Block-level salutations** (visually set off - on its own line):
+- Wrap in salute tags
+- Include in opener (at beginning) or closer (at end) tags
+
+**Embedded salutations** (within paragraph text):
+- Wrap in salute tags within the p element
+- Do NOT wrap in opener or closer tags
+
+### Note on opener and closer elements:
+- opener: Contains dateline and/or block-level salute at the beginning of the letter
+- closer: Contains signed and/or block-level salute and/or dateline at the end of the letter
+
+## 4. Addresses
+- Use an address tag for address sections. This can be a single line indicating the recipient or a postal address
+- Use addrLine within address for single address information
+
+**Exception from TEI valid encoding**: Contrary to the standard TEI content model, refrain from using an ab element - div elements may contain an address element without being nested in an ab element.

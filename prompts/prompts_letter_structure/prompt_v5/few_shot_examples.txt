@@ -1,0 +1,73 @@
+# Input-Output Examples
+
+Serjeants Inn Fleet Street 23 Nov 1801
+Sir
+I have the honour of sending You the first volume of Blackstones Commentaries for Your perusal.
+
+Blackstone, was one of our English Judges, and his Commentaries comprised in four volumes, contain the substance of a course of lectures delivered by him in the university of Oxford previous to his promotion to the Bench. And this first volume will be found particularly interesting to any gentleman, wheter Native or Foreigner, who wishes to acquaine some theoretical knowledge of the nature of the constitution and Laws of England or indeed of Laws in general.
+
+I shall not necessarily be absent more than nine or ten days and if from the account I have given, You think that You should be pleased as I think you would, with an excursion of this sort, I shall think myself honoured by Your company and I flatter myself You will be not a little pleased with the Dean of Gloucester and the Prebendaries whom I am going to visit and to whom I shall feel singular pleasure in introducing You. I am with the greatest respect, Sir, Your most obedient humble
+
+Saml Whitcombe
+
+Hammer Esquire
+
+<body>
+  <div type="letter">
+    <opener>
+      <dateline>Serjeants Inn Fleet Street 23 Nov 1801</dateline>
+      <salute>Sir</salute>
+    </opener>
+    <p>I have the honour of sending You the first volume of Blackstones Commentaries for Your perusal.</p>
+    <p>Blackstone, was one of our English Judges, and his Commentaries comprised in four volumes, contain
+          the substance of a course of lectures delivered by him in the university of Oxford previous to
+          his promotion to the Bench. And this first volume will be found particularly interesting to any
+          gentleman, wheter Native or Foreigner, who wishes to acquaine some theoretical knowledge of the
+          nature of the constitution and Laws of England or indeed of Laws in general.</p>
+    <p>I shall not necessarily be absent more than nine or ten days and if from the account I have given,
+          You think that You should be pleased as I think you would, with an excursion of this sort, I shall think
+          myself honoured by Your company and I flatter myself You will be not a little pleased with the Dean of
+          Gloucester and the Prebendaries whom I am going to visit and to whom I shall feel singular pleasure in
+          introducing You. <salute>I am with the greatest respect, Sir, Your most obedient humble</salute></p>
+    <closer>
+      <signed>Saml Whitcombe</signed>
+    </closer>
+  </div>
+  <div type="address">
+    <address>
+      <addrLine>Hammer Esquire</addrLine>
+    </address>
+  </div>
+</body>
+
+---
+Hochwohlgebohrener Freiherr,
+Hochgeehrter Herr und Freund
+ich danke für Ihr freundliches Schreiben vom 29. v M und die mit demselben gegebenen Nachrichten aus denen hervorgeht, daß man jetzt zu Wien doch wohl mit der A Z etwas mehr zufrieden sein dürfte, als Sie mir früher angedeutet.
+
+Der Zeitungsstempel kann nirgends mehr gehalten werden, früher oder später wird ihn Österreich doch auch aufgeben. Bis dahin aber sind die auswärtigen Zeitungen vertrieben, und doch dürfte dem Gouvernment eine gute auswärtige Zeitung auch willkommen, ja nötig sein.
+
+Ich wünsche von Herzen glückliches Neujahr und bin für immer Euer hochwohlgeboren geehrtester
+
+Georg v Cotta
+Stgdt 4/I 49
+
+<body>
+  <div type="letter">
+    <opener>
+      <salute>Hochwohlgebohrener Freiherr,<lb/>Hochgeehrter Herr und Freund</salute>
+    </opener>
+    <p>ich
+         danke für Ihr freundliches Schreiben vom 29. v M und die mit demselben gegebenen Nachrichten aus
+         denen hervorgeht, daß man jetzt zu Wien doch wohl mit der A Z etwas mehr zufrieden sein dürfte,
+         als Sie mir früher angedeutet.</p>
+    <p>Der Zeitungsstempel kann nirgends mehr gehalten werden, früher oder später wird ihn Österreich doch
+        auch aufgeben. Bis dahin aber sind die auswärtigen Zeitungen vertrieben, und doch dürfte dem
+        Gouvernment eine gute auswärtige Zeitung auch willkommen, ja nötig sein.</p>
+    <closer>
+      <salute>Ich wünsche von Herzen glückliches Neujahr und bin für immer Euer hochwohlgeboren geehrtester</salute>
+      <signed>Georg v Cotta</signed>
+      <dateline>Stgdt 4/I 49</dateline>
+    </closer>
+  </div>
+</body>

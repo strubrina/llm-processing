@@ -2,7 +2,7 @@
 # Python Version Requirement
 # =============================================================================
 # This project requires Python 3.8 or higher
-# Tested with: Python 3.10, 3.11
+# Tested with: Python 3.9, 3.11
 # For reproducibility, use the exact Python version used for published results
 
 # =============================================================================

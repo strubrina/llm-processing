@@ -6,4 +6,5 @@ _project/
 data/input/plaintext/letters
 data/input/json/editorial_interventions
 data/input/json/max
+models/
 

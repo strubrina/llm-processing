@@ -73,6 +73,27 @@ psutil                      # System resource monitoring
 
 **Important**: For GPU support with local models, install `llama-cpp-python` with CUDA wheels (see Installation section below).
 
+## What to Prepare
+
+Before you begin, ensure you have the following ready:
+
+### Minimal Requirements
+- **Input data**: A folder containing plaintext files (`.txt`) OR a JSON file, depending on your workflow
+- **Prompt**: A prompt directory in `prompts/` containing at least a `prompt.txt` file (see Prompt Configuration section for details)
+
+### Model-Specific Requirements
+
+**For Cloud Models (GPT, Claude):**
+- **API Key**: Either:
+  - Create a `keys.py` file in the project root with your API keys, OR
+  - Set environment variables with your API keys (see Installation section)
+
+**For Local Models (Qwen, OLMo):**
+- **Model file**: A downloaded GGUF model file
+  - For GPU: Download a model appropriate for your VRAM (see Model Versions section)
+  - For CPU: Download a quantized model from HuggingFace (e.g., [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF) - smallest version ~4.7 GB)
+  - **Important**: Check your available RAM in Task Manager before downloading and ensure the model size is smaller than your available RAM
+
 ## Installation
 
 1. **Install dependencies**
@@ -80,7 +101,7 @@ psutil                      # System resource monitoring
    pip install -r requirements.txt
    ```
 
-   **Important for Local Models (Qwen, OLMo):**
+   **Important for Local Models (Qwen, OLMo) used with GPU:**
    Please also install llama-cpp-python with CUDA support:
    ```bash
    pip uninstall llama-cpp-python
@@ -240,6 +261,11 @@ QWEN_USE_THINKING = True  # Enable/disable thinking mode
 TEMPERATURE = 0.6 # for local models this is the recommended temperature setting
 MAX_TOKENS = 8000
 ```
+
+**Note for CPU Usage:**
+If you plan to use the CPU instead of GPU, you can download GGUF model files from HuggingFace. For CPU usage, we recommend using quantized models that are optimized for smaller memory footprints. A good option is the [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF) model, specifically the smallest quantized version (approximately 4.7 GB). 
+
+**Important:** Before downloading a model, check your available RAM in Task Manager (Windows) or Activity Monitor (macOS/Linux). Choose a model that is definitely smaller than your available RAM to ensure stable operation. The model file size should be significantly less than your total available RAM to leave room for the operating system and other processes.
 
 **Local Models (OLMo):**
 ```python
@@ -556,6 +582,9 @@ git rev-parse HEAD
 - **CUDA Toolkit** (for GPU processing): Version 11.8, 12.1, 12.4, or 13.0
 - **NVIDIA GPU** with sufficient VRAM (see model-specific requirements below)
 - **CPU alternative**: Models can run on CPU (slower, requires 8-9 GB RAM minimum)
+  - For CPU usage, download GGUF model files from HuggingFace
+  - Recommended model for CPU: [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF) (smallest quantized version, ~4.7 GB)
+  - **Before downloading**: Check your available RAM in Task Manager (Windows) or Activity Monitor (macOS/Linux) and choose a model that is definitely smaller than your available RAM
 
 **For Cloud Models (GPT, Claude):**
 - Internet connection for API access
@@ -583,6 +612,7 @@ git rev-parse HEAD
   - Q6_K: ~20 GB VRAM
   - IQ2_XS: ~8-9 GB RAM (CPU mode)
 - **Model Path**: Configured in `config.MODEL_PATH_QWEN3`
+- **CPU Usage**: For CPU processing, you can download GGUF files from HuggingFace. A recommended option is [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF), using the smallest quantized version (approximately 4.7 GB). **Important**: Check your available RAM in Task Manager before downloading and ensure the model size is significantly smaller than your available RAM.
 
 **OLMo2:**
 - **Model File**: GGUF format

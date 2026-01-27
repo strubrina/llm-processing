@@ -177,17 +177,22 @@ def create_test_response(items_to_analyze: List[str]) -> Dict[str, Any]:
 # JSON RESPONSE PARSING
 # =============================================================================
 
-def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Dict[str, Any]:
+def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Tuple[Dict[str, Any], bool, str]:
     """
     Parse JSON response from LLM, handling both thinking mode and regular responses.
+    
     Attempts to extract JSON object and falls back to structured text parsing.
 
     Args:
-        raw_response: Raw text response from LLM
-        items_to_analyze: List of items that should be in response (from configured JSON_ITEMS_KEY)
+        raw_response: Raw text response from LLM.
+        items_to_analyze: List of items that should be in response (from configured JSON_ITEMS_KEY).
 
     Returns:
-        Dictionary mapping items to their analyses
+        Tuple containing:
+            - results_dict: Dictionary mapping items to their analyses.
+            - parse_success: True if JSON was successfully parsed, False if fallback used.
+            - parse_method: "json" if JSON parsing succeeded, "fallback" if structured text 
+                parsing used, "error" if parsing failed.
     """
     try:
         # Extract thinking process and final output (for models with thinking mode)
@@ -203,10 +208,7 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Dict[
                 parsed_json = json.loads(json_match.group())
                 # Validate that the parsed JSON is a dictionary, not a list
                 if isinstance(parsed_json, dict):
-                    return parsed_json
-                else:
-                    # If it's a list or other type, fall through to structured text parsing
-                    print(f"Warning: LLM returned unexpected format: {type(parsed_json).__name__}")
+                    return parsed_json, True, 'json'
             except json.JSONDecodeError:
                 pass
 
@@ -256,7 +258,7 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Dict[
                     "tei_encoding": f"<!-- No encoding determined for: {seq} -->"
                 }
 
-        return results
+        return results, False, "fallback"
 
     except Exception as e:
         # Create error response for all items
@@ -267,7 +269,7 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Dict[
                 "explanation": f"Error parsing response: {str(e)}",
                 "tei_encoding": f"<!-- Parsing error for: {seq} -->"
             }
-        return results
+        return results, False, "error"
 
 
 # =============================================================================

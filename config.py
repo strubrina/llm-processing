@@ -52,13 +52,13 @@ QWEN_USE_THINKING = False
 # MODEL_PATH_OLMO2 = '../../../models/OLMo-2-0325-32B-Instruct-Q4_K_S.gguf'
 
 # CPU paths (requires ~8-9 GB RAM):
-MODEL_PATH_QWEN3 = '../models/Qwen_Qwen3-14B-IQ2_XS.gguf'
+MODEL_PATH_QWEN3 = 'models/Qwen_Qwen3-14B-IQ2_XS.gguf'
 
 
 
 # Model Parameters
-TEMPERATURE = 0.1
-MAX_TOKENS = 10000
+TEMPERATURE = 0.6
+MAX_TOKENS = 5000
 
 # Hardware Acceleration
 USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU)
@@ -92,7 +92,7 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = "data/input/json/test/dummy.json"
+INPUT_PATH = "data/input/json/editorial-interventions/editorial_segments_dummy.json"
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
@@ -119,6 +119,36 @@ JSON_ITEMS_KEY = "bracketed_sequences"
 
 # Keys to preserve as metadata in the output (list of key names)
 JSON_METADATA_KEYS = ["element_id", "filename", "xpath", "index"]
+
+# =============================================================================
+# XML UPDATE MAPPING KEYS (for key_extraction mode)
+# =============================================================================
+# Configure which JSON keys identify elements for XML update operations.
+# These map to your input JSON structure.
+
+# Key containing the filename to update
+XML_MAPPING_FILENAME_KEY = "filename"
+
+# Key containing the element identifier
+XML_MAPPING_ELEMENT_ID_KEY = "element_id"
+
+# Key containing the XPath location
+XML_MAPPING_XPATH_KEY = "xpath"
+
+# =============================================================================
+# JSON OUTPUT FIELD MAPPING (for key_extraction mode)
+# =============================================================================
+# Configure which field names the LLM uses in its JSON output.
+# Update these if your prompt generates different field names.
+
+# Field name for the TEI encoding in LLM output
+JSON_OUTPUT_TEI_FIELD = "tei_encoding"  # e.g., "tei" or "tei_encoding"
+
+# Field name for the intervention type in LLM output
+JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_type"
+
+# Field name for the explanation in LLM output (optional)
+JSON_OUTPUT_EXPLANATION_FIELD = "explanation"  # Set to None if not used
 
 
 # =============================================================================

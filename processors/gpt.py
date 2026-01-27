@@ -42,7 +42,7 @@ def get_openai_client() -> OpenAI:
 def encode_text_segment_gpt(
     text_segment: Dict[str, Any],
     coordinator: Optional[Any] = None
-) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int]:
+) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int, Dict[str, Any]]:
     """
     GPT-specific implementation for encoding text segments extracted from JSON objects.
 
@@ -62,6 +62,7 @@ def encode_text_segment_gpt(
             - total_tokens: Total token count (input + output).
             - input_tokens: Input token count.
             - output_tokens: Output token count.
+            - parsing_metadata: Dictionary with parse_success and parse_method fields.
 
     Raises:
         ValueError: If required fields are missing from text_segment.
@@ -131,13 +132,20 @@ def encode_text_segment_gpt(
             input_tokens = int(len((system_message + user_message).split()) * 1.3)
             output_tokens = int(len(raw_response.split()) * 1.3)
             total_tokens = input_tokens + output_tokens
+            
+            parsing_metadata = {'parse_success': True, 'parse_method': 'test_mode'}
 
-            return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+            return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, parsing_metadata
 
         # Parse the response using shared JSON parser
-        results = parse_json_response(raw_response, items_to_analyze)
+        results, parse_success, parse_method = parse_json_response(raw_response, items_to_analyze)
+        
+        parsing_metadata = {
+            'parse_success': parse_success,
+            'parse_method': parse_method
+        }
 
-        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, parsing_metadata
 
     except Exception as e:
         items_key = config.JSON_ITEMS_KEY
@@ -149,7 +157,8 @@ def encode_text_segment_gpt(
         # Create fallback messages for error case
         system_message = "Error occurred before message creation"
         user_message = f"Error prompt for: {text_segment.get(context_key, 'unknown text')}"
-        return results, (system_message, user_message), error_response, 0, 0, 0
+        parsing_metadata = {'parse_success': False, 'parse_method': 'error'}
+        return results, (system_message, user_message), error_response, 0, 0, 0, parsing_metadata
 
 
 def encode_text_gpt(

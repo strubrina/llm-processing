@@ -717,7 +717,13 @@ class LLMProcessingCoordinator:
                 return False
 
             # Process the text segments using the shared framework
-            results = self.process_text_segments_framework(analyzer, model_name=model_key)
+            try:
+                results = self.process_text_segments_framework(analyzer, model_name=model_key)
+            except RuntimeError as e:
+                # Fatal error during processing (e.g., model loading failure)
+                print(f"\nError: {e}")
+                print(f"Cannot continue without a working model. Please fix the configuration and try again.")
+                return False
 
             if not results:
                 print("No results generated.")
@@ -820,7 +826,13 @@ class LLMProcessingCoordinator:
                 return
 
             # Process the plaintext files using the shared framework
-            results = self.process_text_files_framework(analyzer, model_name=model_key)
+            try:
+                results = self.process_text_files_framework(analyzer, model_name=model_key)
+            except RuntimeError as e:
+                # Fatal error during processing (e.g., model loading failure)
+                print(f"\nError: {e}")
+                print(f"Cannot continue without a working model. Please fix the configuration and try again.")
+                return
 
             if not results:
                 print("No results generated.")
@@ -1032,7 +1044,13 @@ class LLMProcessingCoordinator:
                 return False
 
             # Process the JSON objects using the framework
-            results = self.process_json_objects_framework(analyzer, model_name=model_key)
+            try:
+                results = self.process_json_objects_framework(analyzer, model_name=model_key)
+            except RuntimeError as e:
+                # Fatal error during model loading
+                print(f"\nError: {e}")
+                print(f"Cannot continue without a working model. Please fix the configuration and try again.")
+                return False
 
             if not results:
                 print("No results generated.")
@@ -1360,6 +1378,15 @@ class LLMProcessingCoordinator:
         all_user_prompts = []  # Store only user prompts
         system_message = None  # Store system message once
 
+        # Track parsing statistics
+        parsing_stats = {
+            'total_responses': 0,
+            'json_parsed': 0,
+            'fallback_parsed': 0,
+            'parse_errors': 0,
+            'failed_elements': []
+        }
+
         for index, text_segment in enumerate(text_segments):
             # Use configured keys for metadata
             element_id = text_segment.get('element_id', f'element_{index}')
@@ -1374,14 +1401,32 @@ class LLMProcessingCoordinator:
             # Use the model-specific analyzer (pass coordinator instance)
             analyzer_result = model_analyzer(text_segment, coordinator=self)
 
-            # Handle different return formats (local models return 7 values, API models return 6, others return 3)
-            if len(analyzer_result) == 7:
-                # Local models (Qwen, OLMo) with GPU usage tracking
-                results, prompt_tuple, raw_response, segment_tokens, input_tokens, output_tokens, gpu_usage = analyzer_result
+            # Track parsing metadata
+            parsing_metadata = None
+
+            # Handle different return formats (now expecting 8/7/3 values with parsing_metadata)
+            if len(analyzer_result) == 8:
+                # Local models (Qwen, OLMo) with GPU usage tracking + parsing metadata
+                results, prompt_tuple, raw_response, segment_tokens, input_tokens, output_tokens, gpu_usage, parsing_metadata = analyzer_result
                 self.total_tokens_processed += segment_tokens
                 self.total_input_tokens += input_tokens
                 self.total_output_tokens += output_tokens
                 self.gpu_usage_data.append(gpu_usage)
+            elif len(analyzer_result) == 7:
+                # Check if 7th element is dict (parsing_metadata) or dict (gpu_usage for old format)
+                if isinstance(analyzer_result[6], dict) and 'parse_success' in analyzer_result[6]:
+                    # API models (Claude, GPT) with token tracking + parsing metadata
+                    results, prompt_tuple, raw_response, segment_tokens, input_tokens, output_tokens, parsing_metadata = analyzer_result
+                    self.total_tokens_processed += segment_tokens
+                    self.total_input_tokens += input_tokens
+                    self.total_output_tokens += output_tokens
+                else:
+                    # Old format: Local models with GPU usage (no parsing metadata)
+                    results, prompt_tuple, raw_response, segment_tokens, input_tokens, output_tokens, gpu_usage = analyzer_result
+                    self.total_tokens_processed += segment_tokens
+                    self.total_input_tokens += input_tokens
+                    self.total_output_tokens += output_tokens
+                    self.gpu_usage_data.append(gpu_usage)
             elif len(analyzer_result) == 6:
                 # API models (Claude, GPT) with token tracking
                 results, prompt_tuple, raw_response, segment_tokens, input_tokens, output_tokens = analyzer_result
@@ -1391,6 +1436,18 @@ class LLMProcessingCoordinator:
             else:
                 # Other processors (Apertus, etc.)
                 results, prompt_tuple, raw_response = analyzer_result
+
+            # Update parsing statistics
+            if parsing_metadata:
+                parsing_stats['total_responses'] += 1
+                if parsing_metadata['parse_method'] == 'json':
+                    parsing_stats['json_parsed'] += 1
+                elif parsing_metadata['parse_method'] == 'fallback':
+                    parsing_stats['fallback_parsed'] += 1
+                    parsing_stats['failed_elements'].append(element_id)
+                elif parsing_metadata['parse_method'] == 'error':
+                    parsing_stats['parse_errors'] += 1
+                    parsing_stats['failed_elements'].append(element_id)
 
             # Extract system and user messages from tuple
             if isinstance(prompt_tuple, tuple) and len(prompt_tuple) == 2:
@@ -1578,13 +1635,30 @@ USER MESSAGE:
         total_items_processed = sum(len(result.get(items_key, [])) for result in all_results)
         print(f"Total items processed ({items_key}): {total_items_processed}")
 
+        # Print parsing statistics
+        if parsing_stats["total_responses"] > 0:
+            print(f"\n{'='*60}")
+            print("JSON PARSING REPORT")
+            print(f"{'='*60}")
+            print(f"Total LLM responses: {parsing_stats['total_responses']}")
+            print(f"Successfully parsed as JSON: {parsing_stats['json_parsed']} ({parsing_stats['json_parsed']/parsing_stats['total_responses']*100:.1f}%)")
+            if parsing_stats["fallback_parsed"] > 0:
+                print(f"Fallback parsing used: {parsing_stats['fallback_parsed']} ({parsing_stats['fallback_parsed']/parsing_stats['total_responses']*100:.1f}%)")
+            if parsing_stats["parse_errors"] > 0:
+                print(f"Parse errors: {parsing_stats['parse_errors']} ({parsing_stats['parse_errors']/parsing_stats['total_responses']*100:.1f}%)")
+            if parsing_stats["fallback_parsed"] > 0 or parsing_stats["parse_errors"] > 0:
+                print(f"\nWarning: Some LLM responses could not be parsed as valid JSON.")
+                print(f"Check the responses file for details: {responses_file}")
+            print(f"{'='*60}")
+
         # Count intervention types
         intervention_types = []
+        type_field = config.JSON_OUTPUT_TYPE_FIELD
         for result in all_results:
             for seq, encoding in result['tei_encodings'].items():
                 # Safety check: ensure encoding is a dictionary before calling .get()
                 if isinstance(encoding, dict):
-                    intervention_types.append(encoding.get('intervention_type', 'unknown'))
+                    intervention_types.append(encoding.get(type_field, 'unknown'))
                 else:
                     # Handle case where encoding is not a dictionary (e.g., list, string, etc.)
                     print(f"Warning: Unexpected encoding format for sequence '{seq}': {type(encoding).__name__}")
@@ -2340,16 +2414,33 @@ USER MESSAGE:
 
         Part of Editorial Intervention Analysis Workflow.
         Creates mappings for updating existing XML files with TEI encodings.
+
+        Uses configurable keys from config:
+        - XML_MAPPING_FILENAME_KEY, XML_MAPPING_ELEMENT_ID_KEY, XML_MAPPING_XPATH_KEY
+        - JSON_CONTEXT_KEY for context text
+        - JSON_OUTPUT_* fields for LLM output structure
         """
         try:
             xml_update_map = {}
             context_key = config.JSON_CONTEXT_KEY
+            filename_key = config.XML_MAPPING_FILENAME_KEY
+            element_id_key = config.XML_MAPPING_ELEMENT_ID_KEY
+            xpath_key = config.XML_MAPPING_XPATH_KEY
+
+            # Get configurable JSON output field names
+            tei_field = config.JSON_OUTPUT_TEI_FIELD
+            type_field = config.JSON_OUTPUT_TYPE_FIELD
+            explanation_field = config.JSON_OUTPUT_EXPLANATION_FIELD
 
             for element_result in results:
-                filename = element_result['filename']
-                element_id = element_result['element_id']
-                xpath = element_result['xpath']
+                filename = element_result.get(filename_key)
+                element_id = element_result.get(element_id_key)
+                xpath = element_result.get(xpath_key)
                 context_text = element_result.get(context_key, '')
+
+                if not filename:
+                    print(f"Warning: Missing '{filename_key}' in result, skipping element")
+                    continue
 
                 if filename not in xml_update_map:
                     xml_update_map[filename] = []
@@ -2357,25 +2448,33 @@ USER MESSAGE:
                 # Create replacements for this element
                 element_replacements = []
                 for item_seq, encoding_info in element_result['tei_encodings'].items():
-                    element_replacements.append({
+                    replacement = {
                         'original_item': item_seq,
-                        'tei_encoding': encoding_info['tei_encoding'],
-                        'intervention_type': encoding_info['intervention_type'],
-                        'explanation': encoding_info['explanation']
-                    })
+                        'tei_encoding': encoding_info.get(tei_field, ''),
+                        'intervention_type': encoding_info.get(type_field, 'unknown')
+                    }
+                    # Only add explanation if the field is configured
+                    if explanation_field:
+                        replacement['explanation'] = encoding_info.get(explanation_field, '')
+                    element_replacements.append(replacement)
 
-                xml_update_map[filename].append({
-                    'element_id': element_id,
-                    'xpath': xpath,
+                # Build element update using configurable keys
+                element_update = {
+                    element_id_key: element_id,
+                    xpath_key: xpath,
                     context_key: context_text,
                     'replacements': element_replacements,
                     'num_replacements': len(element_replacements)
-                })
+                }
+
+                xml_update_map[filename].append(element_update)
 
             return xml_update_map
 
         except Exception as e:
             print(f"Error creating XML update mapping: {e}")
+            import traceback
+            traceback.print_exc()
             return {}
 
     def save_xml_update_mapping(

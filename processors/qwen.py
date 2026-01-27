@@ -426,7 +426,7 @@ def get_qwen_model() -> Optional[Any]:
 def encode_text_segment_qwen(
     text_segment: Dict[str, Any],
     coordinator: Optional[Any] = None
-) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int, Dict[str, Any]]:
+) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int, Dict[str, Any], Dict[str, Any]]:
     """
     Qwen-specific implementation for encoding text segments extracted from JSON objects.
 
@@ -447,6 +447,7 @@ def encode_text_segment_qwen(
             - input_tokens: Input token count.
             - output_tokens: Output token count.
             - gpu_usage: Dictionary with GPU usage metrics (before/after/system/thinking_mode).
+            - parsing_metadata: Dictionary with parse_success and parse_method fields.
     """
     try:
         # Validate and extract required fields
@@ -484,18 +485,33 @@ def encode_text_segment_qwen(
         )
 
         # Parse response expecting the configured items
-        results = parse_json_response(raw_response, items_to_analyze)
+        results, parse_success, parse_method = parse_json_response(raw_response, items_to_analyze)
+        
+        # Add parsing metadata to results
+        parsing_metadata = {
+            'parse_success': parse_success,
+            'parse_method': parse_method
+        }
 
-        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, gpu_usage
+        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, gpu_usage, parsing_metadata
 
     except Exception as e:
         # Create error response for all items
         items_key = config.JSON_ITEMS_KEY
+        
+        # Check if this is a model loading error - these should be fatal
+        error_str = str(e).lower()
+        if "failed to initialize" in error_str or "model file not found" in error_str or "llama-cpp-python" in error_str:
+            # Fatal error - re-raise to stop execution
+            raise RuntimeError(f"Model loading failed: {e}") from e
+        
+        # For other errors, return error response
         results = create_segment_error_response(
             text_segment.get(items_key, []), "Qwen", str(e)
         )
         error_response = f"ERROR: {str(e)}"
-        return results, ("", ""), error_response, 0, 0, 0, {}
+        parsing_metadata = {'parse_success': False, 'parse_method': 'error'}
+        return results, ("", ""), error_response, 0, 0, 0, {}, parsing_metadata
 
 
 def encode_text_qwen(

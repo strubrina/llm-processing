@@ -21,7 +21,9 @@ WORKFLOWS SUPPORTED:
         - Functions: process_text_segments_framework(), encode_text_segment_*()
      b) Object Processing: Processes complete JSON objects as units
         - Input: JSON file with any JSON structure (config.INPUT_PATH when INPUT_TYPE='json')
-        - Output: Direct output files (XML/RDF)
+        - Output: Direct JSON output files with two modes:
+          * Raw mode: Extracts content after <think> tags (anything between { and })
+          * Valid mode: Creates properly structured JSON array with validated objects
         - Functions: process_json_objects_framework(), process_json_object_*()
 """
 
@@ -634,11 +636,13 @@ class LLMProcessingCoordinator:
     def get_json_output_mode(self) -> str:
         """
         Ask user to choose output mode for JSON batch processing.
-        Returns 'combined' or 'separate'.
+        Returns 'raw' or 'valid'.
         """
         print("\nOutput Mode Options:")
-        print("1. Combined - All RDF outputs in one file")
-        print("2. Separate - Individual RDF/XML file for each JSON object")
+        print("1. Raw Extraction - Extract content after <think> tags (anything between { and })")
+        print("   Combined into one file - may need post-processing for valid JSON")
+        print("2. Valid JSON - Create properly structured JSON array with individual objects")
+        print("   Always produces valid JSON code")
         print()
 
         while True:
@@ -647,11 +651,11 @@ class LLMProcessingCoordinator:
                 choice_num = int(choice)
 
                 if choice_num == 1:
-                    print("Selected: Combined output (single file)")
-                    return 'combined'
+                    print("Selected: Raw extraction mode (combined file)")
+                    return 'raw'
                 elif choice_num == 2:
-                    print("Selected: Separate files")
-                    return 'separate'
+                    print("Selected: Valid JSON mode (structured array)")
+                    return 'valid'
                 else:
                     print("Invalid choice. Please enter 1 or 2.")
             except ValueError:
@@ -2168,7 +2172,7 @@ USER MESSAGE:
         self,
         results: List[Dict[str, Any]],
         output_dir: Optional[str] = None,
-        output_mode: str = 'separate'
+        output_mode: str = 'valid'
     ) -> Dict[str, Any]:
         """
         Save JSON batch processing outputs to files.
@@ -2176,13 +2180,12 @@ USER MESSAGE:
         Args:
             results: List of result dictionaries from process_json_objects_framework
             output_dir: Base directory to save output files (defaults to config.OUTPUT_DIR)
-            output_mode: 'combined' to save all outputs in one file, 'separate' for individual files
+            output_mode: 'raw' to extract content after <think> tags, 'valid' for structured JSON array
 
         Returns:
             Dictionary with statistics about saved files
         """
         output_base_dir = output_dir or config.OUTPUT_DIR
-        output_ext = config.OUTPUT_EXTENSION
 
         # Create model-specific subdirectory
         model_name = config.MODEL_NAME
@@ -2203,11 +2206,9 @@ USER MESSAGE:
             'output_dir': output_dir
         }
 
-        if output_mode == 'combined':
-            # Combine all outputs into a single file
+        if output_mode == 'raw':
+            # Raw extraction mode: Extract content after <think> tags (anything between { and })
             combined_content = []
-            combined_content.append('<?xml version="1.0" encoding="UTF-8"?>')
-            combined_content.append('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">')
 
             for result in results:
                 object_id = result['object_id']
@@ -2219,20 +2220,20 @@ USER MESSAGE:
                     stats['skipped'] += 1
                     continue
 
-                # Clean up the output content (remove XML declaration, root tags if present)
-                cleaned_content = self.clean_rdf_output(output_content)
-                if cleaned_content:
-                    combined_content.append(f"  <!-- Object: {object_id} -->")
-                    # Indent each line of the cleaned content
-                    for line in cleaned_content.split('\n'):
-                        if line.strip():
-                            combined_content.append(f"  {line}")
+                # Extract content after <think> tags or </think> tags
+                extracted = self.extract_json_after_think(output_content)
+                
+                if extracted:
+                    combined_content.append(f"// Object: {object_id}")
+                    combined_content.append(extracted)
                     combined_content.append("")  # Empty line between objects
-
-            combined_content.append('</rdf:RDF>')
+                    stats['saved'] += 1
+                else:
+                    print(f"  Skipping {object_id}: No JSON content found after <think> tags")
+                    stats['skipped'] += 1
 
             # Save combined file
-            combined_filename = f"output{output_ext}"
+            combined_filename = "output.json"
             combined_path = os.path.join(output_dir, combined_filename)
 
             try:
@@ -2240,7 +2241,6 @@ USER MESSAGE:
                     f.write('\n'.join(combined_content))
 
                 print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
-                stats['saved'] = sum(1 for r in results if r.get('success') and r.get('output_content', '').strip())
                 stats['files'].append(combined_filename)
 
             except Exception as e:
@@ -2248,38 +2248,53 @@ USER MESSAGE:
                 stats['failed'] = 1
 
         else:
-            # Save separate files for each object
+            # Valid JSON mode: Create properly structured JSON array
+            combined_data = []
+
             for result in results:
                 object_id = result['object_id']
                 output_content = result.get('output_content', '')
                 success = result.get('success', False)
 
-                # Generate output filename from entry_id (sanitize for filesystem)
-                safe_id = str(object_id).replace('/', '_').replace('\\', '_').replace(':', '_').replace('#', '_')
-                # Truncate if too long
-                if len(safe_id) > 100:
-                    safe_id = safe_id[:100]
-                output_filename = f"{safe_id}{output_ext}"
-                output_path = os.path.join(output_dir, output_filename)
-
-                # Only save if processing was successful and we have content
                 if not success or not output_content or not output_content.strip():
                     print(f"  Skipping {object_id}: No valid output generated")
                     stats['skipped'] += 1
                     continue
 
+                # Try to parse as JSON, otherwise store as string
                 try:
-                    # Save the output to file
-                    with open(output_path, 'w', encoding='utf-8') as f:
-                        f.write(output_content)
+                    parsed_output = json.loads(output_content)
+                except (json.JSONDecodeError, ValueError):
+                    # Try to extract JSON from response
+                    extracted = self.extract_json_after_think(output_content)
+                    if extracted:
+                        try:
+                            parsed_output = json.loads(extracted)
+                        except (json.JSONDecodeError, ValueError):
+                            parsed_output = output_content.strip()
+                    else:
+                        parsed_output = output_content.strip()
 
-                    print(f"  Saved: {model_name}/processing_{timestamp}/{output_filename}")
-                    stats['saved'] += 1
-                    stats['files'].append(output_filename)
+                combined_data.append({
+                    'object_id': object_id,
+                    'output': parsed_output
+                })
+                stats['saved'] += 1
 
-                except Exception as e:
-                    print(f"  Error saving {output_filename}: {e}")
-                    stats['failed'] += 1
+            # Save combined JSON file
+            combined_filename = "output.json"
+            combined_path = os.path.join(output_dir, combined_filename)
+
+            try:
+                with open(combined_path, 'w', encoding='utf-8') as f:
+                    json.dump(combined_data, f, indent=2, ensure_ascii=False)
+
+                print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
+                stats['files'].append(combined_filename)
+
+            except Exception as e:
+                print(f"  Error saving combined output: {e}")
+                stats['failed'] = 1
 
         # Print summary
         print(f"\n{'='*50}")
@@ -2294,6 +2309,41 @@ USER MESSAGE:
         print(f"Output directory: {output_dir}")
 
         return stats
+
+    def extract_json_after_think(self, content: str) -> str:
+        """
+        Extract JSON content after <think> or </think> tags.
+        Finds content that starts with { and ends with }.
+
+        Args:
+            content: Raw output from LLM
+
+        Returns:
+            Extracted JSON string, or empty string if not found
+        """
+        if not content or not content.strip():
+            return ""
+
+        # Look for content after </think> tag first
+        think_patterns = [
+            r'</think>\s*(\{.*\})',  # After closing think tag
+            r'<think>.*?</think>\s*(\{.*\})',  # After think block
+        ]
+
+        for pattern in think_patterns:
+            match = re.search(pattern, content, re.DOTALL | re.IGNORECASE)
+            if match:
+                return match.group(1).strip()
+
+        # If no think tags found, try to find JSON content directly
+        # Find the first { and the last }
+        first_brace = content.find('{')
+        last_brace = content.rfind('}')
+        
+        if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+            return content[first_brace:last_brace + 1].strip()
+
+        return ""
 
     def clean_rdf_output(self, content: str) -> str:
         """

@@ -37,10 +37,14 @@ Extracts and analyzes specific keys from JSON objects, providing TEI encodings f
 **Output**: XML update mappings with TEI encodings
 
 #### b) Object Processing Mode
-Processes complete JSON objects as units, generating direct output files.
+Processes complete JSON objects as units, generating direct output files in JSON format with two output modes:
+
+**Raw Extraction Mode**: Extracts content after `<think>` tags (anything between `{` and `}`). Output is combined into one file and may need post-processing for valid JSON.
+
+**Valid JSON Mode**: Creates properly structured JSON array with individual objects. Always produces valid JSON code.
 
 **Input**: JSON file with any JSON structure
-**Output**: Direct output files (XML/RDF)
+**Output**: JSON file (combined, either raw or valid format)
 
 ## Requirements
 

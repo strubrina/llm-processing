@@ -243,8 +243,8 @@ class LLMProcessingCoordinator:
         log_dir = os.path.join(processing_dir, "log")
         os.makedirs(log_dir, exist_ok=True)
 
-        # Path to the processing-specific metadata JSON file
-        json_filepath = os.path.join(log_dir, "processing_metadata.json")
+        # Path to the processing-specific metadata JSON file (saved in processing folder, not log folder)
+        json_filepath = os.path.join(processing_dir, "processing_metadata.json")
 
         # Save the single entry
         try:
@@ -2566,8 +2566,8 @@ USER MESSAGE:
         log_dir = os.path.join(processing_dir, "log")
         os.makedirs(log_dir, exist_ok=True)
 
-        # Path to the XML mapping file
-        xml_mapping_file = os.path.join(log_dir, "xml_update_mapping.json")
+        # Path to the XML mapping file (saved in processing folder, not log folder)
+        xml_mapping_file = os.path.join(processing_dir, "xml_update_mapping.json")
 
         # Save the mapping
         with open(xml_mapping_file, 'w', encoding='utf-8') as f:

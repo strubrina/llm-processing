@@ -49,6 +49,7 @@ import pandas as pd
 
 # Local imports
 import config
+from utils.utils import extract_xml_from_response, extract_json_from_response
 
 
 class LLMProcessingCoordinator:
@@ -980,7 +981,7 @@ class LLMProcessingCoordinator:
         if extraction_type == 'information_extraction':
             data_keys = getattr(config, 'JSON_DATA_KEYS', [])
             data_labels = getattr(config, 'JSON_DATA_LABELS', [])
-            
+
             if data_labels and len(data_labels) != len(data_keys):
                 print(f"\nWarning: JSON_DATA_LABELS length ({len(data_labels)}) doesn't match JSON_DATA_KEYS length ({len(data_keys)})")
                 print(f"JSON_DATA_KEYS: {data_keys}")
@@ -1063,8 +1064,10 @@ class LLMProcessingCoordinator:
         ):
             return
 
-        # Ask user for output mode
-        output_mode = self.get_json_output_mode()
+        # Get output mode from config instead of prompting
+        # Map config JSON_OUTPUT_MODE to expected output_mode values
+        # config "raw" → "raw", config "json-array" → "valid"
+        output_mode = 'valid' if config.JSON_OUTPUT_MODE == 'json-array' else 'raw'
 
         # Run object processing
         success = self.run_json_batch_processing(model_key, output_mode=output_mode)
@@ -1300,7 +1303,7 @@ class LLMProcessingCoordinator:
         # Get configured labels (if any)
         data_keys = getattr(config, 'JSON_DATA_KEYS', [])
         data_labels = getattr(config, 'JSON_DATA_LABELS', [])
-        
+
         # Create a mapping from keys to labels
         key_to_label = {}
         if data_labels and len(data_labels) == len(data_keys):
@@ -1309,7 +1312,7 @@ class LLMProcessingCoordinator:
         else:
             # Fall back to using key names as labels
             key_to_label = {key: key for key in data_keys}
-        
+
         # Format the data as key-value pairs with labels
         data_lines = []
         for key, value in data_dict.items():
@@ -1969,7 +1972,6 @@ USER MESSAGE:
 
             if output_ext == ".json":
                 # Extract JSON from response
-                from utils.utils import extract_json_from_response
                 output_content = extract_json_from_response(raw_response)
                 success = bool(output_content and output_content.strip())
 
@@ -2202,6 +2204,9 @@ USER MESSAGE:
             return []
 
         print(f"Found {len(json_objects)} JSON objects to process.")
+        
+        # Extract base filename for output naming
+        input_base_name = os.path.splitext(os.path.basename(input_file))[0]
 
         all_results = []
         all_responses = []
@@ -2248,6 +2253,9 @@ USER MESSAGE:
             # Add metadata to the results
             object_result = {
                 "object_id": object_id,
+                "object_index": index + 1,
+                "input_filename": input_base_name,
+                "total_objects": len(json_objects),
                 "input_json": json_object,
                 "output_content": results.get('output_content', ''),
                 "success": results.get('success', False)
@@ -2395,6 +2403,7 @@ USER MESSAGE:
     ) -> Dict[str, Any]:
         """
         Save JSON batch processing outputs to files.
+        Supports both JSON and XML output based on config.OUTPUT_EXTENSION.
 
         Args:
             results: List of result dictionaries from process_json_objects_framework
@@ -2425,99 +2434,197 @@ USER MESSAGE:
             'output_dir': output_dir
         }
 
+        # Check if we're outputting XML or JSON
+        is_xml_output = config.OUTPUT_EXTENSION == ".xml"
+
+        def sanitize_filename(filename: str) -> str:
+            """Sanitize a string to be a valid filename by replacing invalid characters."""
+            # Replace characters invalid in Windows filenames
+            invalid_chars = ['<', '>', ':', '"', '/', '\\', '|', '?', '*', '#']
+            sanitized = filename
+            for char in invalid_chars:
+                sanitized = sanitized.replace(char, '_')
+            # Also replace multiple underscores with single underscore
+            while '__' in sanitized:
+                sanitized = sanitized.replace('__', '_')
+            return sanitized
+
         if output_mode == 'raw':
-            # Raw extraction mode: Extract content after <think> tags (anything between { and })
-            combined_content = []
+            # Raw extraction mode
+            if is_xml_output:
+                # Extract XML content and save as separate files
+                for result in results:
+                    object_id = result['object_id']
+                    input_filename = result.get('input_filename', 'output')
+                    object_index = result.get('object_index', 1)
+                    total_objects = result.get('total_objects', 1)
+                    output_content = result.get('output_content', '')
+                    success = result.get('success', False)
 
-            for result in results:
-                object_id = result['object_id']
-                output_content = result.get('output_content', '')
-                success = result.get('success', False)
+                    if not success or not output_content or not output_content.strip():
+                        print(f"  Skipping {object_id}: No valid output generated")
+                        stats['skipped'] += 1
+                        continue
 
-                if not success or not output_content or not output_content.strip():
-                    print(f"  Skipping {object_id}: No valid output generated")
-                    stats['skipped'] += 1
-                    continue
+                    # Extract XML using the appropriate function
+                    extracted_xml = extract_xml_from_response(output_content)
 
-                # Extract content after <think> tags or </think> tags
-                extracted = self.extract_json_after_think(output_content)
+                    if extracted_xml:
+                        # Generate filename based on input file and object count
+                        if total_objects == 1:
+                            xml_filename = f"{input_filename}.xml"
+                        else:
+                            xml_filename = f"{input_filename}_{object_index}.xml"
+                        xml_path = os.path.join(output_dir, xml_filename)
 
-                if extracted:
-                    combined_content.append(f"// Object: {object_id}")
-                    combined_content.append(extracted)
-                    combined_content.append("")  # Empty line between objects
-                    stats['saved'] += 1
-                else:
-                    print(f"  Skipping {object_id}: No JSON content found after <think> tags")
-                    stats['skipped'] += 1
+                        try:
+                            with open(xml_path, 'w', encoding='utf-8') as f:
+                                f.write(extracted_xml)
 
-            # Save combined file
-            combined_filename = "output.json"
-            combined_path = os.path.join(output_dir, combined_filename)
+                            print(f"  Saved: {model_name}/processing_{timestamp}/{xml_filename}")
+                            stats['files'].append(xml_filename)
+                            stats['saved'] += 1
+                        except Exception as e:
+                            print(f"  Error saving {xml_filename}: {e}")
+                            stats['failed'] += 1
+                    else:
+                        print(f"  Skipping {object_id}: No XML content found")
+                        stats['skipped'] += 1
+            else:
+                # JSON output - Extract content after <think> tags (anything between { and })
+                combined_content = []
 
-            try:
-                with open(combined_path, 'w', encoding='utf-8') as f:
-                    f.write('\n'.join(combined_content))
+                for result in results:
+                    object_id = result['object_id']
+                    output_content = result.get('output_content', '')
+                    success = result.get('success', False)
 
-                print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
-                stats['files'].append(combined_filename)
+                    if not success or not output_content or not output_content.strip():
+                        print(f"  Skipping {object_id}: No valid output generated")
+                        stats['skipped'] += 1
+                        continue
 
-            except Exception as e:
-                print(f"  Error saving combined output: {e}")
-                stats['failed'] = 1
+                    # Extract content after <think> tags or </think> tags
+                    extracted = self.extract_json_after_think(output_content)
+
+                    if extracted:
+                        combined_content.append(f"// Object: {object_id}")
+                        combined_content.append(extracted)
+                        combined_content.append("")  # Empty line between objects
+                        stats['saved'] += 1
+                    else:
+                        print(f"  Skipping {object_id}: No JSON content found after <think> tags")
+                        stats['skipped'] += 1
+
+                # Save combined file
+                combined_filename = "output.json"
+                combined_path = os.path.join(output_dir, combined_filename)
+
+                try:
+                    with open(combined_path, 'w', encoding='utf-8') as f:
+                        f.write('\n'.join(combined_content))
+
+                    print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
+                    stats['files'].append(combined_filename)
+
+                except Exception as e:
+                    print(f"  Error saving combined output: {e}")
+                    stats['failed'] = 1
 
         else:
-            # Valid JSON mode: Create properly structured JSON array
-            combined_data = []
+            # Valid mode
+            if is_xml_output:
+                # Extract XML content and save as separate files
+                for result in results:
+                    object_id = result['object_id']
+                    input_filename = result.get('input_filename', 'output')
+                    object_index = result.get('object_index', 1)
+                    total_objects = result.get('total_objects', 1)
+                    output_content = result.get('output_content', '')
+                    success = result.get('success', False)
 
-            for result in results:
-                object_id = result['object_id']
-                output_content = result.get('output_content', '')
-                success = result.get('success', False)
+                    if not success or not output_content or not output_content.strip():
+                        print(f"  Skipping {object_id}: No valid output generated")
+                        stats['skipped'] += 1
+                        continue
 
-                if not success or not output_content or not output_content.strip():
-                    print(f"  Skipping {object_id}: No valid output generated")
-                    stats['skipped'] += 1
-                    continue
+                    # Extract XML using the appropriate function
+                    extracted_xml = extract_xml_from_response(output_content)
 
-                # Try to parse as JSON, otherwise store as string
-                try:
-                    parsed_output = json.loads(output_content)
-                except (json.JSONDecodeError, ValueError):
-                    # Try to extract JSON from response
-                    extracted = self.extract_json_after_think(output_content)
-                    if extracted:
+                    if extracted_xml:
+                        # Generate filename based on input file and object count
+                        if total_objects == 1:
+                            xml_filename = f"{input_filename}.xml"
+                        else:
+                            xml_filename = f"{input_filename}_{object_index}.xml"
+                        xml_path = os.path.join(output_dir, xml_filename)
+
                         try:
-                            parsed_output = json.loads(extracted)
-                        except (json.JSONDecodeError, ValueError):
-                            parsed_output = output_content.strip()
+                            with open(xml_path, 'w', encoding='utf-8') as f:
+                                f.write(extracted_xml)
+
+                            print(f"  Saved: {model_name}/processing_{timestamp}/{xml_filename}")
+                            stats['files'].append(xml_filename)
+                            stats['saved'] += 1
+                        except Exception as e:
+                            print(f"  Error saving {xml_filename}: {e}")
+                            stats['failed'] += 1
                     else:
-                        parsed_output = output_content.strip()
+                        print(f"  Skipping {object_id}: No XML content found")
+                        stats['skipped'] += 1
+            else:
+                # Valid JSON mode: Create properly structured JSON array
+                combined_data = []
 
-                combined_data.append({
-                    'object_id': object_id,
-                    'output': parsed_output
-                })
-                stats['saved'] += 1
+                for result in results:
+                    object_id = result['object_id']
+                    output_content = result.get('output_content', '')
+                    success = result.get('success', False)
 
-            # Save combined JSON file
-            combined_filename = "output.json"
-            combined_path = os.path.join(output_dir, combined_filename)
+                    if not success or not output_content or not output_content.strip():
+                        print(f"  Skipping {object_id}: No valid output generated")
+                        stats['skipped'] += 1
+                        continue
 
-            try:
-                with open(combined_path, 'w', encoding='utf-8') as f:
-                    json.dump(combined_data, f, indent=2, ensure_ascii=False)
+                    # Try to parse as JSON, otherwise store as string
+                    try:
+                        parsed_output = json.loads(output_content)
+                    except (json.JSONDecodeError, ValueError):
+                        # Try to extract JSON from response
+                        extracted = self.extract_json_after_think(output_content)
+                        if extracted:
+                            try:
+                                parsed_output = json.loads(extracted)
+                            except (json.JSONDecodeError, ValueError):
+                                parsed_output = output_content.strip()
+                        else:
+                            parsed_output = output_content.strip()
 
-                print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
-                stats['files'].append(combined_filename)
+                    combined_data.append({
+                        'object_id': object_id,
+                        'output': parsed_output
+                    })
+                    stats['saved'] += 1
 
-            except Exception as e:
-                print(f"  Error saving combined output: {e}")
-                stats['failed'] = 1
+                # Save combined JSON file
+                combined_filename = "output.json"
+                combined_path = os.path.join(output_dir, combined_filename)
+
+                try:
+                    with open(combined_path, 'w', encoding='utf-8') as f:
+                        json.dump(combined_data, f, indent=2, ensure_ascii=False)
+
+                    print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
+                    stats['files'].append(combined_filename)
+
+                except Exception as e:
+                    print(f"  Error saving combined output: {e}")
+                    stats['failed'] = 1
 
         # Print summary
+        output_type = "XML" if is_xml_output else "JSON"
         print(f"\n{'='*50}")
-        print(f"JSON Batch Output Summary ({output_mode} mode):")
+        print(f"{output_type} Batch Output Summary ({output_mode} mode):")
         print(f"{'='*50}")
         print(f"Total objects processed: {stats['total']}")
         print(f"Successfully saved: {stats['saved']}")

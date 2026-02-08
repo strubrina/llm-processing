@@ -1,0 +1,31 @@
+[
+  {
+    "id": 294,
+    "writer": "Hammer-Purgstall, J.",
+    "gndCandidates": [
+      {
+        "gnd": "130174270",
+        "preferredName": "Hammer-Purgstall, Karoline von",
+        "birthYear": 1797,
+        "deathYear": 1844,
+        "bio": "Tochter des Bankiers J. von Henikstein, 1816 Ehefrau des Orientalisten J. von Hammer (später Hammer-Purgstall)"
+      },
+      {
+        "gnd": "118545426",
+        "preferredName": "Hammer-Purgstall, Joseph von",
+        "birthYear": 1774,
+        "deathYear": 1856,
+        "bio": "Österr. Orientalist, Diplomat, Historiker, Literaturhistoriker, Dolmetscher; Sohn des Gubernialrates Joseph (Edler von) Hammer (1791 geadelt), 11.5.1836 Erhebung in den Freiherrenstand",
+        "professions": [
+          "Orientalist",
+          "Politiker",
+          "Schriftsteller",
+          "Diplomat",
+          "Historiker",
+          "Philologe",
+          "Schriftsteller"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+# General Guidelines
+
+- Focus on accuracy over guessing
+- Provide a confidence score ranging from 1.0 (very certain) to 0.0 (very uncertain)
+- Consider all available biographical information: birth/death years, professions, biographical notes
+- If no clear match can be determined, choose the most likely candidate but assign a lower confidence score
+
+# Selection Rules
+
+## Time Period Matching:
+- The collection spans 1794-1856
+- Verify the candidate was alive during this period based on birth and death years
+- Eliminate candidates who died before 1794 or were born after 1856
+
+## Name Matching:
+- Compare the writer's name with the candidate's preferredName
+- Consider name abbreviations (e.g., "J." for Joseph or Johannes)
+- Account for name particles (von, de, etc.)
+- Consider gender implications of names where relevant
+
+## Biographical Context:
+- Joseph von Hammer-Purgstall was an Orientalist, diplomat, and historian
+- Likely correspondents include scholars, diplomats, orientalists, historians, writers, nobility
+- Consider professional and social circles of early 19th century Austrian-German intellectual life
+
+## Confidence Scoring:
+- 1.0: Perfect name match, time period fits, biographical context strongly supports
+- 0.9-0.99: Strong name match, time period fits, biographical context supports
+- 0.7-0.89: Good name match or time period fits with reasonable biographical context
+- 0.5-0.69: Name match is ambiguous or biographical context is unclear but plausible
+- Below 0.5: Uncertain match, use only if no better alternative exists

@@ -8,7 +8,7 @@ This project processes plaintext files and generates structured output (TEI XML 
 
 **Key Features:**
 - **Multi-model support**: OpenAI GPT, Anthropic Claude, Alibaba Qwen, OLMo
-- **Flexible output formats**: Generate TEI XML or JSON from plaintext inputs
+- **Flexible output formats**: Generate TEI-XML, RDF-XML, or JSON from text or JSON inputs
 - **Flexible configuration**: Easily switch between models, prompts, parameters, and output formats
 - **Configurable JSON processing**: Adapt to any JSON structure by configuring key mappings
 - **Comprehensive metrics**: Token usage tracking, cost estimation, processing time
@@ -19,17 +19,19 @@ This project processes plaintext files and generates structured output (TEI XML 
 ## Supported Workflows
 
 ### 1. Text Processing Workflow
-Processes complete plaintext files into structured output (TEI XML or JSON). This workflow:
+Processes complete plaintext files into structured output (XML or JSON). This workflow:
 - Takes plaintext files from a configured directory
 - Generates structured output based on configuration
 - Supports batch processing of multiple files
 - Saves outputs with comprehensive logging
-- Configurable output format via `OUTPUT_EXTENSION` setting
+- Configurable output format via `OUTPUT_EXTENSION` and `XML_OUTPUT_TYPE` settings
 
 **Input**: Plaintext files (`.txt` files in a directory)
 
 **Output Options**:
-- **TEI XML files** (`.xml`): Traditional text encoding workflow with full TEI XML structure
+- **XML files** (`.xml`): XML-based encodings with two types:
+  - **TEI-XML** (`XML_OUTPUT_TYPE = "tei"`): Traditional text encoding with full TEI XML structure
+  - **RDF-XML** (`XML_OUTPUT_TYPE = "rdf"`): RDF-XML semantic data output
 - **JSON files** (`.json`): Plaintext to JSON workflow with two modes:
   - **Raw mode**: Individual JSON objects per input file
   - **JSON-array mode**: Combined JSON array file with all outputs
@@ -70,21 +72,27 @@ Extracts and analyzes specific keys from JSON objects. This mode supports two wo
 }
 ```
 
-**Output Options** (configurable via `KEY_EXTRACTION_OUTPUT_FORMAT`):
-- **XML update mappings**: TEI encodings for updating existing XML files (TEI encoding workflow only)
-- **JSON output**: Analysis results as JSON files with two modes:
+**Output Options** (configurable via `KEY_EXTRACTION_OUTPUT_FORMAT` and `OUTPUT_EXTENSION`):
+- **XML update mappings** (`KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"`): TEI encodings for updating existing XML files (TEI encoding workflow only)
+- **JSON output** (`KEY_EXTRACTION_OUTPUT_FORMAT = "json"`): Analysis results as JSON files with two modes:
   - **Raw mode**: Individual JSON files per element
   - **JSON-array mode**: Combined JSON array with all analyses
+- **XML files** (when using other processing modes): Can output as:
+  - **TEI-XML** (`XML_OUTPUT_TYPE = "tei"`): Traditional TEI encoding
+  - **RDF-XML** (`XML_OUTPUT_TYPE = "rdf"`): RDF semantic data output
 
 #### b) Object Processing Mode
-Processes complete JSON objects as units, generating direct output files in JSON format with two output modes:
+Processes complete JSON objects as units, generating output files based on `OUTPUT_EXTENSION` setting.
 
-**Raw Extraction Mode**: Extracts content after `<think>` tags (anything between `{` and `}`). Output is combined into one file and may need post-processing for valid JSON.
-
-**Valid JSON Mode**: Creates properly structured JSON array with individual objects. Always produces valid JSON code.
+**Output Options**:
+- **JSON output** (`OUTPUT_EXTENSION = ".json"`): Two modes available:
+  - **Raw mode** (`JSON_OUTPUT_MODE = "raw"`): Extracts content after `<think>` tags, combined into one file (may need post-processing)
+  - **JSON-array mode** (`JSON_OUTPUT_MODE = "json-array"`): Properly structured JSON array with individual objects (always valid JSON)
+- **XML output** (`OUTPUT_EXTENSION = ".xml"`): Two types available:
+  - **TEI-XML** (`XML_OUTPUT_TYPE = "tei"`): Traditional TEI encoding format
+  - **RDF-XML** (`XML_OUTPUT_TYPE = "rdf"`): RDF semantic data format
 
 **Input**: JSON file with any JSON structure
-**Output**: JSON file (combined, either raw or valid format)
 
 ## Requirements
 
@@ -434,8 +442,12 @@ JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_
 OUTPUT_DIR = "data/output"
 
 # Output file extension (for text processing workflows)
-# Options: ".xml" for TEI XML files, ".json" for JSON output
+# Options: ".xml" for XML files, ".json" for JSON output
 OUTPUT_EXTENSION = ".xml"
+
+# XML output type (only used when OUTPUT_EXTENSION = ".xml")
+# Options: "tei" for TEI XML encoding, "rdf" for RDF-XML output
+XML_OUTPUT_TYPE = "tei"  # Options: "tei" or "rdf"
 
 # JSON output mode (only used when OUTPUT_EXTENSION = ".json" for text processing)
 #   - "raw": Individual JSON files per input file

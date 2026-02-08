@@ -1,5 +1,4 @@
-"""
-Configuration module for LLM processing.
+"""Configuration module for LLM processing.
 
 This module contains all configuration settings for the LLM processing pipeline,
 including model selection, API keys, prompt configuration, and input/output paths.
@@ -7,6 +6,8 @@ including model selection, API keys, prompt configuration, and input/output path
 API keys are loaded from keys.py (which should not be committed to version control).
 See keys.py.example for the expected format.
 """
+
+import os
 
 # =============================================================================
 # API KEYS
@@ -27,7 +28,7 @@ except (ImportError, AttributeError):
 # =============================================================================
 
 # Set to True to enable API calls, False for test mode (prompts only)
-ENABLE_API_CALLS = True
+ENABLE_API_CALLS = False
 
 # =============================================================================
 # MODEL CONFIGURATION
@@ -48,11 +49,11 @@ QWEN_USE_THINKING = False
 # Local Model Paths - Adjust based on your hardware
 
 # GPU paths (requires ~20 GB VRAM):
-# MODEL_PATH_QWEN3 = '../../../models/Qwen_Qwen3-14B-Q6_K.gguf'
-# MODEL_PATH_OLMO2 = '../../../models/OLMo-2-0325-32B-Instruct-Q4_K_S.gguf'
+# MODEL_PATH_QWEN3 = os.path.join('..', '..', '..', 'models', 'Qwen_Qwen3-14B-Q6_K.gguf')
+# MODEL_PATH_OLMO2 = os.path.join('..', '..', '..', 'models', 'OLMo-2-0325-32B-Instruct-Q4_K_S.gguf')
 
 # CPU paths (requires ~8-9 GB RAM):
-MODEL_PATH_QWEN3 = 'models/Qwen_Qwen3-14B-IQ2_XS.gguf'
+MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
 
 
 
@@ -71,10 +72,10 @@ USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU
 # Available versions should be in prompts/{version}/ directories
 # Each version must contain prompt.txt (required)
 # Optional files: encoding_rules.txt, few_shot_examples.txt
-PROMPT_VERSION = "prompts_editorial_interventions"
+PROMPT_VERSION = "prompts_disambiguation"
 
 # Derived path to prompt directory (do not modify)
-PROMPT_DIR = f"prompts/{PROMPT_VERSION}"
+PROMPT_DIR = os.path.join("prompts", PROMPT_VERSION)
 
 # User message template file (optional)
 # This file should be in the prompt folder specified by PROMPT_VERSION
@@ -92,32 +93,33 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = "data/input/json/editorial-interventions/dummy.json"
+INPUT_PATH = os.path.join("data", "input", "json", "disambiguation", "disambiguation_review.json")
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
 #   - "object_processing": Processes complete JSON objects as units
-JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_processing"
+JSON_PROCESSING_MODE = "object_processing"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = "data/output/json/editorial-interventions/test"
+OUTPUT_DIR = os.path.join("data", "output", "json", "disambiguation", "test")
 
-# Output file extension (for text processing workflows)
-# Options: ".xml" for TEI XML files, ".json" for JSON output
+# Output file extension
+# Options: ".xml" for XML files, ".json" for JSON output
 OUTPUT_EXTENSION = ".json"
+
+# XML output type (only used when OUTPUT_EXTENSION = ".xml")
+# Options: "tei" for TEI XML encoding, "rdf" for RDF-XML output
+XML_OUTPUT_TYPE = "rdf"  # Options: "tei" or "rdf"
 
 # JSON output mode (only used when OUTPUT_EXTENSION = ".json" for text processing)
 #   - "raw": Extract content after <think> tags (anything between { and })
 #   - "json-array": Create properly structured JSON array with validated objects
 JSON_OUTPUT_MODE = "json-array"  # Options: "raw" or "json-array"
 
-# Key extraction output format (only used when JSON_PROCESSING_MODE = "key_extraction")
-#   - "xml_mapping": Create XML update mapping files for TEI encoding workflows
-#   - "json": Output as JSON (uses JSON_OUTPUT_MODE for raw/json-array)
-KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 
 # =============================================================================
 # JSON KEY EXTRACTION CONFIGURATION
+# (Only used when JSON_PROCESSING_MODE = "key_extraction")
 # =============================================================================
 # Configure the type of key extraction workflow to use
 
@@ -125,6 +127,12 @@ KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 #   - "tei_encoding": TEI encoding workflow (context + text segments to encode)
 #   - "information_extraction": Extract specific key-value pairs from JSON
 JSON_EXTRACTION_TYPE = "tei_encoding"  # Options: "tei_encoding" or "information_extraction"
+
+# Key extraction output format
+#   - "xml_mapping": Create XML update mapping files for TEI encoding workflows
+#   - "json": Output as JSON (uses JSON_OUTPUT_MODE for raw/json-array)
+KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
+
 
 # =============================================================================
 # TEI ENCODING WORKFLOW CONFIGURATION
@@ -146,24 +154,6 @@ JSON_METADATA_KEYS = ["element_id", "filename", "xpath", "index"]
 JSON_CONTEXT_LABEL = "Context"
 JSON_ITEMS_LABEL = "Bracketed Sequences"
 
-# =============================================================================
-# INFORMATION EXTRACTION WORKFLOW CONFIGURATION
-# (Only used when JSON_EXTRACTION_TYPE = "information_extraction")
-# =============================================================================
-# For workflows that extract specific metadata fields from JSON objects
-
-# Keys to extract from each JSON object (array of key names)
-# Example: ["dateline", "signature", "salutation"]
-JSON_DATA_KEYS = ["dateline", "signature"]
-
-# Labels for data keys used in user prompts (must match order and length of JSON_DATA_KEYS)
-# If not provided or empty, will use the key names directly
-# Example: ["Dateline", "Signature", "Salutation"]
-JSON_DATA_LABELS = ["Dateline", "Signature"]
-
-# Keys from the input JSONto preserve as metadata in the output
-# These will be included in the output JSON but not processed by the LLM
-JSON_METADATA_KEYS_INFO = ["letter"]
 
 # =============================================================================
 # XML UPDATE MAPPING KEYS (for TEI encoding workflow with xml_mapping output)
@@ -194,6 +184,26 @@ JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_ty
 
 # Field name for the explanation in LLM output (optional)
 JSON_OUTPUT_EXPLANATION_FIELD = None  # Set to None if not used
+
+
+# =============================================================================
+# INFORMATION EXTRACTION WORKFLOW CONFIGURATION
+# (Only used when JSON_EXTRACTION_TYPE = "information_extraction")
+# =============================================================================
+# For workflows that extract specific metadata fields from JSON objects
+
+# Keys to extract from each JSON object (array of key names)
+# Example: ["dateline", "signature", "salutation"]
+JSON_DATA_KEYS = ["dateline", "signature"]
+
+# Labels for data keys used in user prompts (must match order and length of JSON_DATA_KEYS)
+# If not provided or empty, will use the key names directly
+# Example: ["Dateline", "Signature", "Salutation"]
+JSON_DATA_LABELS = ["Dateline", "Signature"]
+
+# Keys from the input JSONto preserve as metadata in the output
+# These will be included in the output JSON but not processed by the LLM
+JSON_METADATA_KEYS_INFO = ["letter"]
 
 
 # =============================================================================

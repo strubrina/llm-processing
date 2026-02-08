@@ -20,7 +20,7 @@ from utils.utils import (
     create_test_tei_response,
     create_text_encoding_error,
     create_text_encoding_result,
-    extract_tei_xml_from_response,
+    extract_xml_from_response,
     parse_json_response,
     prepare_prompts_for_segment,
     validate_text_data
@@ -237,7 +237,7 @@ def encode_text_gpt(
             total_tokens = input_tokens + output_tokens
 
         # Parse the response to extract TEI XML
-        tei_xml = extract_tei_xml_from_response(raw_response)
+        tei_xml = extract_xml_from_response(raw_response)
 
         # Create results dictionary
         results = create_text_encoding_result(tei_xml)

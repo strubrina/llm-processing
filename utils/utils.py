@@ -61,6 +61,87 @@ def extract_tei_xml_from_response(response: str) -> str:
     return response
 
 
+def extract_rdf_xml_from_response(response: str) -> str:
+    """
+    Extract RDF-XML content from LLM response.
+    Handles cases where XML is wrapped in markdown code blocks or other text.
+    Works with responses from Claude, GPT, Qwen, and OLMo.
+
+    Args:
+        response: Raw response from any LLM
+
+    Returns:
+        Extracted RDF-XML string, or empty string if not found
+    """
+    # Remove thinking process tags if present (Qwen with thinking mode)
+    if '<think>' in response and '</think>' in response:
+        think_end = response.find('</think>')
+        response = response[think_end + len('</think>'):].strip()
+    elif '</think>' in response:
+        # Handle case where only closing tag is present
+        think_end = response.find('</think>')
+        response = response[think_end + len('</think>'):].strip()
+
+    # Remove markdown code blocks if present
+    response = response.strip()
+
+    # Remove ```xml and ``` markers if present
+    if response.startswith('```'):
+        lines = response.split('\n')
+        # Remove first line (```xml or ```)
+        lines = lines[1:]
+        # Remove last line if it's ```
+        if lines and lines[-1].strip() == '```':
+            lines = lines[:-1]
+        response = '\n'.join(lines).strip()
+
+    # Try to extract content between <rdf:RDF> and </rdf:RDF> tags
+    if '<rdf:RDF' in response and '</rdf:RDF>' in response:
+        start = response.find('<rdf:RDF')
+        end = response.find('</rdf:RDF>') + len('</rdf:RDF>')
+        return response[start:end]
+
+    # Alternative: Try <RDF> tags (without namespace prefix)
+    if '<RDF' in response and '</RDF>' in response:
+        start = response.find('<RDF')
+        end = response.find('</RDF>') + len('</RDF>')
+        return response[start:end]
+
+    # If no RDF wrapper tags, try to extract XML content directly
+    # Find the first XML tag (starts with <) and extract until the end
+    if '<' in response and '>' in response:
+        # Find the first opening tag
+        start = response.find('<')
+        # Find the last closing tag
+        last_close = response.rfind('>')
+        if start != -1 and last_close != -1 and last_close > start:
+            return response[start:last_close + 1].strip()
+
+    # If no XML found, return empty string
+    return ""
+
+
+def extract_xml_from_response(response: str) -> str:
+    """
+    Extract XML content from LLM response based on configured XML output type.
+    Routes to appropriate extraction function based on config.XML_OUTPUT_TYPE.
+
+    Args:
+        response: Raw response from any LLM
+
+    Returns:
+        Extracted XML string (TEI or RDF based on config), or empty string if not found
+    """
+    import config
+    
+    xml_type = getattr(config, 'XML_OUTPUT_TYPE', 'tei')
+    
+    if xml_type == 'rdf':
+        return extract_rdf_xml_from_response(response)
+    else:
+        return extract_tei_xml_from_response(response)
+
+
 def extract_json_from_response(response: str) -> str:
     """
     Extract JSON content from LLM response.

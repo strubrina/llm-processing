@@ -25,7 +25,7 @@ from utils.utils import (
     create_test_tei_response,
     create_text_encoding_error,
     create_text_encoding_result,
-    extract_tei_xml_from_response,
+    extract_xml_from_response,
     get_gpu_usage,
     get_system_usage,
     parse_json_response,
@@ -558,7 +558,7 @@ def encode_text_qwen(
             gpu_usage = {'before': {}, 'after': {}, 'system': get_system_usage(), 'thinking_mode': config.QWEN_USE_THINKING}
 
             # Parse the response to extract TEI XML
-            tei_xml = extract_tei_xml_from_response(raw_response)
+            tei_xml = extract_xml_from_response(raw_response)
 
             results = create_text_encoding_result(tei_xml)
 
@@ -615,7 +615,7 @@ def encode_text_qwen(
         }
 
         # Parse the response to extract TEI XML
-        tei_xml = extract_tei_xml_from_response(raw_response)
+        tei_xml = extract_xml_from_response(raw_response)
 
         # Create results dictionary
         results = create_text_encoding_result(tei_xml)

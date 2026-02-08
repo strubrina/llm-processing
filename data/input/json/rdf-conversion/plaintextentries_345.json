@@ -1,0 +1,446 @@
+[
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T1",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item de una Rota xxxv d. pro precio cum expensis nostris"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T2",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item für ein hintergestell und für ein förders gestell dabimus sibi in tantum sicud pro una Rota ubi supra"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T3",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item für eynen deischelschaff dabimus sibi ix d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T4",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item ümb eyn Ex ix d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T5",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item ümb eynen Armen ix d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T6",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item für eynen chipsstock iii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T7",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item für ein pflugrat xiii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T8",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item fur ein felgen iii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T9",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item ii d. für spechen"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T10",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_wagner",
+    "year": "1463",
+    "entry": "Item ümb eyn kumat zu machen xii d. pro precio"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T11",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus de ie posorum a plebano in uttenkoffen vi gr."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T12",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus ii s. pro iie avene ab linhardo"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T13",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus xv d. pro pisis"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T14",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus i s. pro ie avene"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T15",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus v s. x d. pro pisis venditis"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#N1",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Nota vendimus illis Amberger antiquum triticum schaff. pro xviii s. dimidiam parte dabunt et exsolvant Jacobi et Reliquam partem michaelis sic explicatum est per leonem nautam et hellenodrer Acta sunt hec feria 5a post pasche Anno etc. lxiiio"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T16",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item primo receperunt xii schaff. tritici feria 2a post quasimodogeniti"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T17",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item postea receperunt xii schaff. tritici feria 3a post ulrici facit totum liiii lb."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T18",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "In hoc dedit Symon Amberger dedit viii f. Ung. unum pro ix s. x d. Idem dederunt ambo in absencia nostra priori et Celleario nostro xxiiii lb. v s. xiiii d. in auro et pecunia minuta et sic tenentur pro finali solucione xx lb."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#N2",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item vendidimus eisdem triticum nostrum quod adhuc habetur de premanibus schaff. pro xviii s. sed adhuc non est mensuratum"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T19",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item Receperunt de prescripto tritico vendito xxi sch. facit xlvii lb. lx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T20",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item vendidimus Vilßpecken in vilßhoffen x schaff. tritici schaff. pro xviii s. feria 6a ante georii facit xxiij̸ lb. solvit totum in die Marci ewangeliste Vitus abbas"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T21",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item recepimus ab Erhardo Amberger pistore In pfarkirchen dominica ante luce ewangeliste per Hellnoder officialem nostrum xiiii lb. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T22",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item eodem die Recepimus A Symone Amberger per prefatum famulum xj̸ lb. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T23",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Item postea dedit nobis erhardus amberger sabbato post Epiphanyam domini Anno etc. lxiiii xxiii lb. minus xl d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T24",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "Idem dedit eodem die v s. x d. et sic tenetur pro finali solucione omnibus computatis ac prescriptis xix lb. lx d. videlicet de xxi sch. tritici quam receperunt"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T25",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "In hoc dedit per hellnoder vi lb. sabbato ante esto michi et sic tenetur pro finali xiii lb. lx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T26",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_getreide",
+    "year": "1463",
+    "entry": "In hoc dedit x lb. d. feria 3a post pasca et sic tenetur pro finali solucione iii lb. lx d. solvit totum"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T27",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus a martino loher pro ii schöber iii s. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T28",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus a Johanne Hön pro ii schöber hew iii s. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T29",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus a martino balneatori in Cadling ex parte prati xiiii s. d. v d. videlicet de Anno etc. lxiiicio"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T30",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus i f. Rhen. ab illo glatzell de vilshoven pro i fuder Althew"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T31",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus ab hospite nostro ii f. Rhen. pro i fuder Althew"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T32",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item dedimus preconi de Awnkirchen iii schöber athew vel dabit"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T33",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus A plebano In Ayttenpach pro iiii schober Althew i lb. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T34",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_heu",
+    "year": "1463",
+    "entry": "Item recepimus pro veno videlicet vendito lxx d. ab illo Horndel"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T35",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_furfura",
+    "year": "1464",
+    "entry": "Item recepimus A fratre Michaele pistrinario pro furfure vendita j̸ lb. d. feria 3a post festum xiM virginum"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T36",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_furfura",
+    "year": "1464",
+    "entry": "Item recepimus pro furfure vendito xlii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T37",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_schwein",
+    "year": "1464",
+    "entry": "Item recepimus A lienhardo Hollerpecken pro xxix porcis sibi venditis xxviii f. Rhen. feria 4a ante Misericordia"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T38",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_schwein",
+    "year": "1464",
+    "entry": "Item recepimus pro iiii porcis a linhardo puekgram xx s. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T39",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_schwein",
+    "year": "1464",
+    "entry": "Item recepimus a magistro heinrico lapicide pro i porco vii s. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T40",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_pferd",
+    "year": "1464",
+    "entry": "Item recepimus A iudice in Vilshoven pro i equo sibi vendito iiii f. Rhen. quod erat infirmum ex stabulo nostro"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T41",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#einnahmen_pferd",
+    "year": "1464",
+    "entry": "Item recepimus i lb. d. pro i equo ab illo Wacel"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T42",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#tierhaut",
+    "year": "1464",
+    "entry": "Item recepimus de cutibus vaccinis et vitulinis iii lb. minus xxx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T43",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#tierhaut",
+    "year": "1464",
+    "entry": "Item recepimus de cutibus animalium venditis Johanni sutori de Aytenpach videlicet pro xiiii cutibus vaccinis et xv cutibus vitulinis vii lb. xiiii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T44",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item pro dulce Vino tempore placitacionis x s. xi d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T45",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item Cellerarius dedit domino Symoni Reysenegkher viii lb. d. de concessu"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T46",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item Cellarius consumpsit cum Symoni Reysnegkcher xv s. minus vi d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T47",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item Cellerarius dedit magistro Hagenawer de Garß i f. Rhen. propina"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T48",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item dominus Abbas dedit domino Sebastiano layminger pro honorancia x f. Rhen. tempore placitacionis"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T49",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item pro Subarracione Johannis Zuner i f. Rhen."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T50",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item Tiburcio Sindico i f. Rhen. pro arra et fatigacione ex parte symonis Reysnegkher et unam bernam valentem i lb. d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T51",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item concessimus domino Symoni Reysnegkher iii f. Rhen. in die Agnetis"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T52",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item dominus Abbas et prior expenderunt ad dominum Episcopum patavie et alia diversa loca ex parte ecclesie xx lb. iii s. xiiii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T53",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item misimus per fratrem Steffanum priorem nostrum xvi f. Rhen. ad Cancellarium domini principis pro possessione"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T54",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item Accomodavimus domino Symoni Reysnegker ii sch. siliginis valentes v lb. d. et j̸ sch. avene valentem i lb. d. et ie pisorum"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T55",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item dedimus domino Johanni wintzrer xxviii f. Rhen. per explicacionem Layminger"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T56",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item dedimus Matheo tondel pro instrumento i f. Rhen. In vigilia bartholomei"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T57",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Item dedimus magistro Erasmo de Garß viii f. Rhen. feria 4a post festum xicim milium virginum"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#N3",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_kirche_münster",
+    "year": "1464",
+    "entry": "Suprascripta sunt computata In presencia fratris Mathie prioris fratris Steffani cellerarii et fratrisSteffani Capellani"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T58",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item Caplanus noster consumpsit ad capitulum generale et pro honoranciis ibidem videlicet decreto eleccionis ac aliis litteris xv lb. minus xx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T59",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item dedimus pro contribucionibus de tribus annis videlicet lxii lxiii lxiiiito xv f. Rhen. per eundem"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T60",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item capellanus consumpsit ad münster x d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T61",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item consumpsimus In exequiis istius klosner lxxxiii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T62",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item dedimus priori et cellerario pro vi s. v d. ad pataviam"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T63",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Ø Item cellerarius dedit pro minucione fratrum x d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T64",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item dedimus famulo nostro petro xlvi d. pro expensis ad pataviam ex parte equi quem domino episcopo accomodavimus"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T65",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item cellerarius consumpsit patavie lxviii d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T66",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item Caplanus noster consumpsit ad lanndshutam ex parte stewre ii lb. xliiii d. In octava nativitatis Christi Anno etc. lxvto"
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T67",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item Caplanus noster consumpsit patavie feria 3a post Epiphaniam xlvi d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T68",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item Caplanus noster consumpsit in Teckendorf xxx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T69",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item dedimus pro minucione nobis facta xxx d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T70",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item dedimus fratri Symoni et Andrea pro sumptibus xl d."
+  },
+  {
+    "id": "https://gams.uni-graz.at/o:depcha.aldersbach.o:depcha.aldersbach.L345GT#T71",
+    "rubric": "https://gams.uni-graz.at/o:depcha.aldersbach#ausgaben_klosterbrüder",
+    "year": "1464",
+    "entry": "Item Caplanus noster consumpsit ad wallzell v s. minus viii d. feria va ante pauli Anno lxvto"
+  }
+]

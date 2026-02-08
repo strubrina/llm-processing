@@ -1,0 +1,170 @@
+# Examples
+
+## INPUT:
+
+Weimar d[en] 1ten July 1796
+Euer Hochwohlgeboren
+Erhalten hier zwei Aushängebogen vom neuesten Stück des Merkurs, wozu Sie durch Herrn Hofrat Müller einen in jeder Rücksicht merkwürdigen und auserlesenen Aufsatz eingesendet haben. Da, wie wir hier aus den Zeitungen wissen, jener würdige Mann in wichtigen, Gott gebe für ganz Deutschland! wohltätigen Aufträgen nach London gegangen ist, so habe ich dem Verlangen des Herrn H[of]R[ates] gemäß Ihnen selbst das zuschicken wollen, was unser Vater Wieland gewiß mit einem Brief begleiten würde, wenn er hier wäre. Er ist aber seit einem Monat in Zürich bei seinem Schwiegersohn, dem Buchhändler Gesner, und kommt erst in 6 Wochen von da zurück.
+
+Wie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen.
+
+So viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener
+
+C. A. Böttiger
+Oberconsistorialrat
+
+
+## OUTPUT:
+{
+    "place": {
+        "value": "Weimar",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-07-01",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Böttiger, Karl August | Oberkonsistorialrat",
+        "conf": 1.0
+    },
+    "language": {
+        "value": "de",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Vienne, 15 Oct. 96
+
+Je compare actuellement l’Abulpharage Syriaque avec le même auteur arabe; l’un et l’autre malheureusement dans les traductions. Je vois que ce sont deux ouvrages tout à fait différents; celui qu’il a fait pour les Syriens, contient plus de détails des relations avec l’Asie mineure et l’empire grec; l’autre est plus solide par rapport à l’histoire des califes et de la littérature arabe.
+
+Ce soir je compte d’achever l’extrait de la bibliothèque de Photius, qui m’a extrêmement intéressé par le nombre de notices qu’elle renferme, qu’on ne trouve aucune autre part. C’est un bois qui a des sites uniques, comme il y en a à Weidling. – Je lis, en me faisant coiffer, un ouvrage nommé Elpizon, qui vient de paraître sur l’immortalité de l’âme, où toutes les objections et les raisons sont pesées avec un esprit infini et une impartialité singulière. La décision est pour; et elle s’appuie d’une quantité de motifs que je n’ai jamais vu présentés sous un meilleur jour. Ce livre me fait un vrai plaisir : on ne peut jamais, dans ce monde, savoir, être et faire tout ce qu’on devrait et que l’on voudrait; mais quand on a l’éternité de siècles en perspective, l’on trouve qu’il y a du temps pour tout (même pour les jolis vers, et pour les promenades dans le bois). Adieu, mon cher et bon ami etc.
+
+
+## OUTPUT:
+{
+    "place": {
+        "value": "Wien",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-10-15",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "unk",
+        "conf": 1.0
+    },
+        "language": {
+        "value": "fr",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Vienne ce 19 Juin [1]804
+
+Je viens de recevoir, mon très-cher Ami, votre chère lettre du 26 Mai, qui m’a donné la bonne nouvelle de l’heureuse arrivée des bijoux. J’ai été fort sensible à l’attention, et à l’exactitude, avec lesquelles vous voulez bien vous charger de cette commission, qui doit vous être fort désagréable, vu le dérèglement de la Tridant. Je sais apprécier tout ce que vous avez fait, et que vous ferez pour m’obliger, et vous pouvez compter que vous n’obligez pas un ingrat. Je ne me suis pas trompé en chargeant mon meilleur ami d’une affaire aussi délicate, et tout ce que je vous ai écrit sur le Schusseling n’était qu’une plaisanterie, ainsi que vous me le prouvez, et que je le savais d’avance, car je connais et votre tête et votre cœur, et je vous aurais confié des millions et tout ce que j’ai de plus cher au monde que je n’aurais pas eu la moindre inquiétude. J’espère, mon cher Ami, que vous aurez la même idée de moi, et alors il y aura peu de personnes au monde que l’amitié la plus pure réussisse si étroitement. Si vous trouvez, mon cher Ami, que pour arriver au but essentiel, c’est-à-dire, à être entièrement payé par la Tridant, il faille se départir de mes instructions, vous n’avez qu’à le faire ; d’après votre jugement, et les circonstances, et à vous en tenir simplement à l’esprit de mes instructions. Vous pouvez, par exemple, vous faire payer les pièces détachées d’après l’estimation, et pas plus, pourvu qu’à la fin je ne perde rien de toute ma créance. Quant aux 260 Piastres que vous avez déboursés pour frais de port, et consulats, il est naturel que c’est à la Tridant à vous les rembourser ; ainsi je vous prie d’ajouter cette somme à l’autre, et de ne lui donner les bijoux avant qu’elle ne vous l’ait payée aussi. J’espère au reste, que si elle ne paie pas, vous trouverez un acheteur qui donne toute la somme qu’elle me doit, au pis-aller, vous voudrez bien faire vendre à l’enchère, et par la voie juridique de la chancellerie ces bijoux, que vous achèterez pour mon compte, si personne ne veut donner toute la somme qui m’est due. Dans ce cas, je laisse à votre prudence à juger de quelle manière sûre, et prompte vous pourriez me renvoyer ici ces bijoux, pour lesquels je trouve à Vienne à tout moment 14 mille florins. J’espère au reste que cela n’arrivera pas, et que vous trouverez à Cons[tantino]ple au moins ce qu’il me faut. Vous vous acquittez de cette commission avec tant d’exactitude, qu’il n’est pas nécessaire de vous prier de me tenir informé de tout à chaque poste, et surtout de tâcher que je puisse toucher ici à Vienne, au plus tard le 30 Septembre, la somme entière que la Tridant me doit, car comme je suis garant envers M. Arthaber, qui a déboursé toute la somme, pour le capital, et intérêts, je voudrais pouvoir tenir parole. Enfin je vous recommande aussi les intérêts de ma bourse, c’est-à-dire, d’avoir bien soin de me faire gagner autant que possible par le cours du change, en me remettant l’argent ; car outre la satisfaction d’obliger, ou plutôt de me défaire ici de Meunier et des Ganneron, qui m’obsédaient journellement pour cette affaire, je voudrais aussi tirer quelque parti des chances favorables du change. –
+
+Au commencement du mois prochain partira la barque dont je vous ai parlé, et avec laquelle je vous expédierai la caisse aves les instrumen[t]s pour Ottenfels. J’y ajouterai tout ce que Harrach me donnera pour vous (qui m’a promis trois fois de m’envoyer le tout, et n’en a encore rien fait) et en outre le Métastase, et l’Adonis que vous me demandez aujourd’hui ainsi que le Temple de la divine beauté, etc., si je le trouve. À propos de Harrach, j’ai oublié de vous dire qu’il souhaiterait aussi des tensouchs qu’il aime à la folie. Vous pourriez lui en envoyer dans une lettre. Je demanderai à Dombay à l’échéance de votre traitement f[lorins]150.- pour faire face de mes débours pour Ottenfels et pour vous-même. J’ai commandé les épaulettes, que je vous expédierai par la diligence qui part en huit jours, et j’y ajouterai un autre portrait de ma figure, puisque vous trouvez que celui que je vous ai envoyé m’est qu’un Maulaffe. Brenner étant à Baden, je ne puis l’engager à profiter de cette occasion pour vous expédier son portrait. C’est aussi par la même diligence que le manganèse vous parviendra, et peut-être quelque livre ou journal qui se trouverait chez Seydl, et que celui-ci ne pourrait vous expédier si tôt. Quant aux portraits des Smith, l’artiste n’est pas encore de retour, et sa femme ne l’attend qu’au mois d’octobre. - Dans votre précédente vous m’annoncez l’envoie de la lorgnette cassée, mais elle ne s’est pas trouvé[e] dans le paquet, ni dans celui que je viens de recevoir aujourd’hui. Aussitôt que je l’aurai reçue, je la ferai réparer d’après vos souhaits. – Ludolf est toujours ici, mais il ne tardera pas à partir. C’est pour son fils François, qu’il veut placer au militaire, qu’il est obligé de s’arrêter si longtem[p]s. – J’ai remis à Lavoran la lettre pour Serez. – La caisse avec l’ouvrage arabe est arrivée de Trieste, et je l’ai remise aussitôt au Baron de Jenisch, qui ne m’a pas encore payé f[lorins] 14,46.-, que j’ai déboursé[s] pour frais de port, et douane. Fabri me mande que la selle n’était pas encore arrivée. – Les nouvelles de changemen[t]s de ministère, et de la retraite de l’Archiduc Charles sont fausses, et tout reste sur l’ancien pied. Aussitôt que la tranquillité aura été rétablie à Belgrade, Fleischhakl viendra à Vienne épouser Mlle Hartenfels, personne très-riche, et que vous devez avoir connue dans la maison Smitmer. N’ayant rien autre chose d’intéressant à vous apprendre, je finis en vous embrassant de tout mon cœur.
+
+Votre Ami très affectionné
+
+Chabert
+
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "Wien",
+        "conf": 0.8
+    },
+    "date": {
+        "value": "1804-06-16",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Chabert von Ostland, Thomas",
+        "conf": 0.7
+    },
+        "language": {
+        "value": "fr",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Wien, Leopoldstadt, Hotel
+zum weißen Roß,
+Sept. 27. 1848
+
+Dr. Bialloblotzky presents his compliments to the Baron of Hammer-Purgstall and being anxious to avail himself of the Barons kind consultation relative to the ancient Nili quaerere caput, would deem it a great favor if the Baron would obliging by appoint an early day on which Dr. B. might be permitted to wait up on him at his residence near Graz or Marburg. Dr. B. has forwarded tot he Baron’s residence at Vienna a printed plan of the intended journey to penetrate deeper into th region containing the various sources oft he Nile. A kind answer by return of port would oblige. Vale Fave
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "Wien",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1848-09-27",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Bialloblotzky | Dr.",
+        "conf": 1.0
+    },
+        "language": {
+        "value": "en",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+London Feby 802
+My dear Hammer
+I suppose you at Bath and therefore forward this letter to you there – I have written fully on the subject to Gen[era]l S[mith] by this post for your joint information and therefore need not to recapitulate here, though I write to transmit you what I don’t like to send to him on account of the familiarity and cordiality of the address and style though he knows the interest the lady has taken in the affair du femmes sont d’excellentes intermediaries you know and my sister in law says they never undertake a think but they go through with it and with address – I foresee it will be after the 24th before I can leave town tell my uncle this. I am sitting at the office where I came in hope to catch and intermediate half hour of Lord Hawkesbury but he is an has been for these three day and nights so totally occupied in the rapid correspondence of Amiens councils etc. that it is impossible to see him or to call his attention to anything else at the moment. I will work with others on your affairs meanwhile –
+
+Yours aff[ectionate]ly
+
+W.S.S.
+
+I have given Edward directions to forward your things as you require – I beg of you to enquire at the coach office of the Whitehard for the parcel forwarded by Mr Broughton of the secretary of state office – the day of my departure from Bath – open it to see if the is anything for you – there is here a similar one for the gen[era]l which I have desired to be forwarded
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "London",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1802-02",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Smith, Sidney William",
+        "conf": 0.7
+    },
+        "language": {
+        "value": "en",
+        "conf": 1.0
+    }
+}
+
+
+
+
+
+

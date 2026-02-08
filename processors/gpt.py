@@ -22,8 +22,8 @@ from utils.utils import (
     create_text_encoding_result,
     extract_tei_xml_from_response,
     parse_json_response,
-    validate_text_data,
-    validate_text_segment
+    prepare_prompts_for_segment,
+    validate_text_data
 )
 
 def get_openai_client() -> OpenAI:
@@ -68,17 +68,8 @@ def encode_text_segment_gpt(
         ValueError: If required fields are missing from text_segment.
     """
     try:
-        # Validate and extract required fields
-        context_value, items_to_analyze = validate_text_segment(text_segment)
-
-        # Create the prompt using the text segment data via centralized functions
-        if coordinator:
-            system_message = coordinator.create_system_message()
-            user_message = coordinator.create_user_message(context_value, items_to_analyze)
-        else:
-            # Fallback for backward compatibility
-            system_message = "System message placeholder"
-            user_message = f"Analyze: {context_value}"
+        # Prepare prompts using centralized routing logic
+        system_message, user_message, items_to_analyze = prepare_prompts_for_segment(text_segment, coordinator)
 
         # Call the OpenAI API (if enabled in config)
         if config.ENABLE_API_CALLS:
@@ -132,14 +123,14 @@ def encode_text_segment_gpt(
             input_tokens = int(len((system_message + user_message).split()) * 1.3)
             output_tokens = int(len(raw_response.split()) * 1.3)
             total_tokens = input_tokens + output_tokens
-            
+
             parsing_metadata = {'parse_success': True, 'parse_method': 'test_mode'}
 
             return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, parsing_metadata
 
         # Parse the response using shared JSON parser
         results, parse_success, parse_method = parse_json_response(raw_response, items_to_analyze)
-        
+
         parsing_metadata = {
             'parse_success': parse_success,
             'parse_method': parse_method

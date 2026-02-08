@@ -1,0 +1,46 @@
+# General Guidelines
+
+- Focus on accuracy over completeness
+- Provide a confidence score, ranging from 1.0 (very sure) to 0.0 (extremely unsure)
+
+# Normalization Rules
+
+## Date Normalization:
+- Convert dates to W3C format (YYYY-MM-DD) where possible
+- If no date available, write: unk
+
+## Place Normalization:
+- Normalize common variations to contemporary German standard spelling (e.g., "Wien" for Vienna, "Konstantinopel" for Constantinople)
+- If no clear place is mentioned, write: unk
+
+## Name Normalization:
+- Extract the writer's full name, if known
+- Normalize to: Surname, Forename Particle, Role|Rank|Title
+- Resolve abbreviations only, if very certain of the person's name
+- For multi-part names separated by "von", "de", or similar particles, use them after
+- Include titles, ranks, or honorifics if available
+
+## Language Normalization:
+- Identify the main language of the letter
+
+
+# Output format
+
+{
+    "place": {
+        "value": "Weimar",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-07-01",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Böttiger, Karl August | Oberkonsistorialrat",
+        "conf": 0.7
+    },
+    "language": {
+        "value": "de",
+        "conf": 1.0
+    }
+}

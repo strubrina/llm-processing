@@ -4,11 +4,12 @@ Automated TEI (Text Encoding Initiative) XML generation from plaintext sources u
 
 ## Overview
 
-This project processes plaintext and generates TEI XML encoded documents. It supports multiple LLM providers and allows for flexible prompt engineering and configuration.
+This project processes plaintext files and generates structured output (TEI XML or JSON). It supports multiple LLM providers and allows for flexible prompt engineering and configuration.
 
 **Key Features:**
 - **Multi-model support**: OpenAI GPT, Anthropic Claude, Alibaba Qwen, OLMo
-- **Flexible configuration**: Easily switch between models, prompts, and parameters
+- **Flexible output formats**: Generate TEI XML or JSON from plaintext inputs
+- **Flexible configuration**: Easily switch between models, prompts, parameters, and output formats
 - **Configurable JSON processing**: Adapt to any JSON structure by configuring key mappings
 - **Comprehensive metrics**: Token usage tracking, cost estimation, processing time
 - **GPU monitoring**: Track GPU utilization for local models
@@ -18,23 +19,62 @@ This project processes plaintext and generates TEI XML encoded documents. It sup
 ## Supported Workflows
 
 ### 1. Text Processing Workflow
-Processes complete plaintext files into TEI XML. This workflow:
+Processes complete plaintext files into structured output (TEI XML or JSON). This workflow:
 - Takes plaintext files from a configured directory
-- Generates TEI XML encoded documents
+- Generates structured output based on configuration
 - Supports batch processing of multiple files
 - Saves outputs with comprehensive logging
+- Configurable output format via `OUTPUT_EXTENSION` setting
 
 **Input**: Plaintext files (`.txt` files in a directory)
-**Output**: TEI XML files with full encoding
+
+**Output Options**:
+- **TEI XML files** (`.xml`): Traditional text encoding workflow with full TEI XML structure
+- **JSON files** (`.json`): Plaintext to JSON workflow with two modes:
+  - **Raw mode**: Individual JSON objects per input file
+  - **JSON-array mode**: Combined JSON array file with all outputs
 
 ### 2. JSON Processing Workflow
 Processes JSON files with two modes:
 
 #### a) Key Extraction Mode
-Extracts and analyzes specific keys from JSON objects, providing TEI encodings for the extracted values. This mode is configurable to work with any JSON structure by specifying which keys to extract and analyze.
+Extracts and analyzes specific keys from JSON objects. This mode supports two workflow types configured via `JSON_EXTRACTION_TYPE`:
 
-**Input**: JSON file with objects containing keys to extract
-**Output**: XML update mappings with TEI encodings
+**Workflow Type 1: TEI Encoding** (`JSON_EXTRACTION_TYPE = "tei_encoding"`)
+- Encodes text segments (items) based on surrounding context
+- Uses `JSON_CONTEXT_KEY` to specify the context field
+- Uses `JSON_ITEMS_KEY` to specify the list/string of items to encode
+- Example: "Encode bracketed sequences in letter text as TEI XML"
+
+**Input**: JSON file with objects like:
+```json
+{
+  "element_id": "p_123",
+  "text": "He lived in [Paris] from 1920-1925.",
+  "bracketed_sequences": ["Paris"]
+}
+```
+
+**Workflow Type 2: Information Extraction** (`JSON_EXTRACTION_TYPE = "information_extraction"`)
+- Extracts specific metadata values from JSON objects
+- Uses `JSON_DATA_KEYS` to specify which keys to extract and analyze
+- Uses `JSON_METADATA_KEYS_INFO` to specify which keys to include in output (but not analyze)
+- Example: "Extract dateline and signature information from letter metadata"
+
+**Input**: JSON file with objects like:
+```json
+{
+  "letter_id": "L_456",
+  "dateline": "Paris, June 15, 1925",
+  "signature": "Yours truly, M.B."
+}
+```
+
+**Output Options** (configurable via `KEY_EXTRACTION_OUTPUT_FORMAT`):
+- **XML update mappings**: TEI encodings for updating existing XML files (TEI encoding workflow only)
+- **JSON output**: Analysis results as JSON files with two modes:
+  - **Raw mode**: Individual JSON files per element
+  - **JSON-array mode**: Combined JSON array with all analyses
 
 #### b) Object Processing Mode
 Processes complete JSON objects as units, generating direct output files in JSON format with two output modes:
@@ -200,29 +240,100 @@ This is useful for:
 - Development and debugging
 - Estimating costs before processing
 
-### Processing Custom Text Files
+### Processing Plaintext to XML
 
 1. Place your plaintext files in `data/input/` (or a custom directory)
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "txt"
    INPUT_PATH = "data/input"  # Your input directory
+   OUTPUT_EXTENSION = ".xml"  # Generate TEI XML files
    ```
 3. Run `python llm_processing.py`
 
+### Processing Plaintext to JSON
+
+**Option 1: Individual JSON Objects (Raw Mode)**
+1. Place your plaintext files in `data/input/` (or a custom directory)
+2. Update `config.py`:
+   ```python
+   INPUT_TYPE = "txt"
+   INPUT_PATH = "data/input"  # Your input directory
+   OUTPUT_EXTENSION = ".json"  # Generate JSON files
+   JSON_OUTPUT_MODE = "raw"  # One JSON file per input
+   ```
+3. Run `python llm_processing.py`
+
+**Option 2: Combined JSON Array (JSON-Array Mode)**
+1. Place your plaintext files in `data/input/` (or a custom directory)
+2. Update `config.py`:
+   ```python
+   INPUT_TYPE = "txt"
+   INPUT_PATH = "data/input"  # Your input directory
+   OUTPUT_EXTENSION = ".json"  # Generate JSON output
+   JSON_OUTPUT_MODE = "json-array"  # Combine all outputs in one file
+   ```
+3. Run `python llm_processing.py`
+
+**Result**: All outputs are combined into a single `output.json` file with this structure:
+```json
+[
+  {
+    "filename": "letter1.txt",
+    "output": { ... }
+  },
+  {
+    "filename": "letter2.txt",
+    "output": { ... }
+  }
+]
+```
+
 ### Processing JSON Files
+
+#### Key Extraction Mode
+
+**Option 1: XML Update Mappings**
+1. Prepare your JSON file with the appropriate structure
+2. Update `config.py`:
+   ```python
+   INPUT_TYPE = "json"
+   INPUT_PATH = "data/input/json/your_file.json"
+   JSON_PROCESSING_MODE = "key_extraction"
+   KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Creates XML update mappings
+
+   # Configure the keys to extract:
+   JSON_CONTEXT_KEY = "your_context_field"
+   JSON_ITEMS_KEY = "your_items_field"
+   JSON_METADATA_KEYS = ["id", "filename", "xpath"]
+   ```
+3. Run `python llm_processing.py`
+
+**Option 2: JSON Output**
+1. Prepare your JSON file with the appropriate structure
+2. Update `config.py`:
+   ```python
+   INPUT_TYPE = "json"
+   INPUT_PATH = "data/input/json/your_file.json"
+   JSON_PROCESSING_MODE = "key_extraction"
+   KEY_EXTRACTION_OUTPUT_FORMAT = "json"  # Output as JSON
+   JSON_OUTPUT_MODE = "json-array"  # or "raw" for individual files
+
+   # Configure the keys to extract:
+   JSON_CONTEXT_KEY = "your_context_field"
+   JSON_ITEMS_KEY = "your_items_field"
+   JSON_METADATA_KEYS = ["id", "filename", "xpath"]
+   ```
+3. Run `python llm_processing.py`
+
+#### Object Processing Mode
 
 1. Prepare your JSON file with the appropriate structure
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "json"
    INPUT_PATH = "data/input/json/your_file.json"
-   JSON_PROCESSING_MODE = "key_extraction"  # or "object_processing"
-
-   # If using key_extraction mode, configure the keys:
-   JSON_CONTEXT_KEY = "your_context_field"
-   JSON_ITEMS_KEY = "your_items_field"
-   JSON_METADATA_KEYS = ["id", "filename", "xpath"]
+   JSON_PROCESSING_MODE = "object_processing"
    ```
 3. Run `python llm_processing.py`
 
@@ -267,7 +378,7 @@ MAX_TOKENS = 8000
 ```
 
 **Note for CPU Usage:**
-If you plan to use the CPU instead of GPU, you can download GGUF model files from HuggingFace. For CPU usage, we recommend using quantized models that are optimized for smaller memory footprints. A good option is the [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF) model, specifically the smallest quantized version (approximately 4.7 GB). 
+If you plan to use the CPU instead of GPU, you can download GGUF model files from HuggingFace. For CPU usage, we recommend using quantized models that are optimized for smaller memory footprints. A good option is the [bartowski/Qwen_Qwen3-14B-GGUF](https://huggingface.co/bartowski/Qwen_Qwen3-14B-GGUF) model, specifically the smallest quantized version (approximately 4.7 GB).
 
 **Important:** Before downloading a model, check your available RAM in Task Manager (Windows) or Activity Monitor (macOS/Linux). Choose a model that is definitely smaller than your available RAM to ensure stable operation. The model file size should be significantly less than your total available RAM to leave room for the operating system and other processes.
 
@@ -321,48 +432,151 @@ JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_
 
 # Output directory for generated files
 OUTPUT_DIR = "data/output"
+
+# Output file extension (for text processing workflows)
+# Options: ".xml" for TEI XML files, ".json" for JSON output
 OUTPUT_EXTENSION = ".xml"
+
+# JSON output mode (only used when OUTPUT_EXTENSION = ".json" for text processing)
+#   - "raw": Individual JSON files per input file
+#   - "json-array": Combined JSON array with all outputs in one file
+JSON_OUTPUT_MODE = "json-array"  # Options: "raw" or "json-array"
+
+# Key extraction output format (only used when JSON_PROCESSING_MODE = "key_extraction")
+#   - "xml_mapping": Create XML update mapping files (original behavior)
+#   - "json": Output as JSON (uses JSON_OUTPUT_MODE for raw/json-array)
+KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 ```
 
 ### JSON Key Mapping Configuration
 
-When using `JSON_PROCESSING_MODE = "key_extraction"`, you can configure which keys from your JSON structure to use:
+When using `JSON_PROCESSING_MODE = "key_extraction"`, you can configure which keys from your JSON structure to use. The system supports two workflow types configured via `JSON_EXTRACTION_TYPE`:
+
+#### Workflow Type Selection
 
 ```python
 # =============================================================================
-# JSON KEY MAPPING (for key_extraction mode)
+# JSON KEY EXTRACTION TYPE
 # =============================================================================
 
-# Key containing the context/text to analyze
-JSON_CONTEXT_KEY = "full_element_text"
-
-# Key containing the items to extract and process (expects a list)
-JSON_ITEMS_KEY = "bracketed_sequences"
-
-# Keys to preserve as metadata in the output (list of key names)
-JSON_METADATA_KEYS = ["element_id", "filename", "xpath", "index"]
+# Choose workflow type: "tei_encoding" or "information_extraction"
+JSON_EXTRACTION_TYPE = "information_extraction"  # or "tei_encoding"
 ```
 
-**Example:** If your JSON structure uses different key names:
+#### Workflow 1: TEI Encoding
 
+**Purpose**: Encode text segments (items) based on surrounding context, generating TEI XML encodings.
+
+**Configuration Options:**
+
+```python
+# =============================================================================
+# TEI ENCODING WORKFLOW
+# =============================================================================
+
+# Key containing the context text
+JSON_CONTEXT_KEY = "full_element_text"
+
+# Key containing items to encode (can be a list OR a single string)
+JSON_ITEMS_KEY = "bracketed_sequences"
+
+# Keys to preserve as metadata in the output
+JSON_METADATA_KEYS = ["element_id", "filename", "xpath", "index"]
+
+# Labels used in user prompts (customize for your use case)
+JSON_CONTEXT_LABEL = "Context"
+JSON_ITEMS_LABEL = "Items to Encode"
+```
+
+**Example Use Case 1: Context + List of Items**
+
+**JSON Structure:**
 ```json
 {
-  "id": "123",
-  "source_file": "letter.xml",
-  "text_context": "Some text with [annotations]",
-  "annotations": ["[annotation1]", "[annotation2]"]
+  "element_id": "p_123",
+  "filename": "letter10.xml",
+  "full_element_text": "to you, so that I I [sic] might be able to announce their departure to him[?]",
+  "bracketed_sequences": ["so that I I [sic]", "him[?]"]
 }
 ```
 
-You would configure:
-
+**Configuration:**
 ```python
-JSON_CONTEXT_KEY = "text_context"
-JSON_ITEMS_KEY = "annotations"
-JSON_METADATA_KEYS = ["id", "source_file"]
+JSON_EXTRACTION_TYPE = "tei_encoding"
+JSON_CONTEXT_KEY = "full_element_text"
+JSON_ITEMS_KEY = "bracketed_sequences"
+JSON_METADATA_KEYS = ["element_id", "filename"]
+JSON_CONTEXT_LABEL = "Context"
+JSON_ITEMS_LABEL = "Bracketed Sequences"
 ```
 
-This allows the same code to work with different JSON formats without modification. See `WORKFLOW_ANALYSIS.md` for more details on the JSON processing workflows.
+**Resulting Prompt:**
+```
+Context: "to you, so that I I [sic] might be able to announce their departure to him[?]"
+
+Bracketed Sequences:
+- so that I I [sic]
+- him[?]
+```
+
+
+#### Workflow 2: Information Extraction
+
+**Purpose**: Extract specific values containing metadata from JSON objects for LLM analysis.
+
+**Configuration Options:**
+
+```python
+# =============================================================================
+# INFORMATION EXTRACTION WORKFLOW
+# =============================================================================
+
+# Keys to extract and analyze (these go to the LLM)
+JSON_DATA_KEYS = ["dateline", "signature"]
+
+# Labels for data keys in user prompts (optional, must match order and length)
+# If not provided, will use key names directly
+JSON_DATA_LABELS = ["Dateline", "Signature"]
+
+# Keys to preserve as metadata in output (not analyzed by LLM)
+JSON_METADATA_KEYS_INFO = ["letter_id"]
+```
+
+**Example: Extract Date, Place and Writer from Dateline and Signature**
+
+**JSON Input Structure:**
+```json
+{
+  "letter_id": "L_456",
+  "dateline": "Paris, June 15, 1925",
+  "signature": "Yours truly, M.B."
+}
+```
+
+**Configuration:**
+```python
+JSON_EXTRACTION_TYPE = "information_extraction"
+JSON_DATA_KEYS = ["dateline", "signature"]
+JSON_DATA_LABELS = ["Date and Place", "Writer"]  # Optional: customize prompt labels
+JSON_METADATA_KEYS_INFO = ["letter_id"]
+```
+
+**Resulting Prompt:**
+```
+Date and Place: Paris, June 15, 1925
+Writer: Yours truly, M.B.
+```
+
+**Note:** If `JSON_DATA_LABELS` is not provided or doesn't match the length of `JSON_DATA_KEYS`, the system will use the key names directly (e.g., "dateline:" instead of "Date and Place:").
+
+**Key Points:**
+- **TEI encoding**: Uses `JSON_CONTEXT_KEY` + `JSON_ITEMS_KEY` for context-based encoding
+- `JSON_ITEMS_KEY` in TEI encoding can be **either a list OR a single string**
+- Use `JSON_CONTEXT_LABEL` and `JSON_ITEMS_LABEL` to customize TEI encoding prompts
+
+- **Information extraction**: Uses `JSON_DATA_KEYS` to specify which fields to analyze
+- Use `JSON_DATA_LABELS` to customize information extraction prompt labels (must match order and length of `JSON_DATA_KEYS`)
+- This allows the same code to work with different JSON formats without modification
 
 ### API Control
 
@@ -375,6 +589,7 @@ ENABLE_API_CALLS = True
 
 Processing results are organized in timestamped directories:
 
+### XML Output (OUTPUT_EXTENSION = ".xml"):
 ```
 data/output/{model_name}/processing_{timestamp}/
 ├── letter1.xml                    # LLM-generated TEI XML files
@@ -382,8 +597,30 @@ data/output/{model_name}/processing_{timestamp}/
 ├── ...
 └── log/
     ├── processing_metadata.json   # Processing metrics and costs
-    ├── llm_responses.txt          # Raw LLM responses
-    └── prompts_user.txt           # User prompts sent to LLM
+    ├── responses.txt              # Raw LLM responses
+    └── prompts.txt                # User prompts sent to LLM
+```
+
+### JSON Output - Raw Mode (OUTPUT_EXTENSION = ".json", JSON_OUTPUT_MODE = "raw"):
+```
+data/output/{model_name}/processing_{timestamp}/
+├── letter1.json                   # Individual JSON files
+├── letter2.json
+├── ...
+└── log/
+    ├── processing_metadata.json   # Processing metrics and costs
+    ├── responses.txt              # Raw LLM responses
+    └── prompts.txt                # User prompts sent to LLM
+```
+
+### JSON Output - Array Mode (OUTPUT_EXTENSION = ".json", JSON_OUTPUT_MODE = "json-array"):
+```
+data/output/{model_name}/processing_{timestamp}/
+├── output.json                    # Combined JSON array with all outputs
+└── log/
+    ├── processing_metadata.json   # Processing metrics and costs
+    ├── responses.txt              # Raw LLM responses
+    └── prompts.txt                # User prompts sent to LLM
 ```
 
 ### Processing Metadata
@@ -488,7 +725,7 @@ This installs the CUDA 12.1 version with proper GPU acceleration. Adjust the `cu
 
 ### Adding a New Model
 
-1. Create a new processor in `processors/`:
+1. Create a new processor in `processors/` with three required functions:
    ```python
    # processors/new_model_processor.py
    import config
@@ -499,29 +736,58 @@ This installs the CUDA 12.1 version with proper GPU acceleration. Adjust the `cu
        create_text_encoding_error,
        create_text_encoding_result,
        extract_tei_xml_from_response,
+       extract_json_from_response,
        parse_json_response,
        validate_text_data,
        validate_text_segment
    )
 
-   def analyze_letter_new_model(letter_data, coordinator=None):
-       # Implementation
+   def encode_text_newmodel(text_data, coordinator=None):
+       """
+       Process plaintext file and generate TEI XML or JSON output.
+       Used for text processing workflow.
+       """
+       # Implementation for plaintext to XML/JSON
+       pass
+
+   def encode_text_segment_newmodel(text_segment, coordinator=None):
+       """
+       Analyze specific keys from JSON and provide TEI encodings.
+       Used for JSON key extraction mode.
+       """
+       # Implementation for JSON key extraction
+       pass
+
+   def process_json_object_newmodel(json_object, coordinator=None):
+       """
+       Process complete JSON object and generate output.
+       Used for JSON object processing mode.
+       """
+       # Implementation for JSON object processing
        pass
    ```
 
-2. Register in `llm_processing.py`:
+2. Register in `llm_processing.py` (in the `__init__` method):
    ```python
    self.processors["newmodel"] = {
-       "name": "New Model",
+       "name": "New Model Name",
        "module": "processors.new_model_processor",
-       "letter_function": "analyze_letter_new_model"
+       "text_function": "encode_text_newmodel",
+       "json_extraction_function": "encode_text_segment_newmodel",
+       "json_object_function": "process_json_object_newmodel"
    }
    ```
 
-3. Add detection in `detect_model_from_config()`:
+3. Add model detection in `detect_model_from_config()` method:
    ```python
    elif "newmodel" in model_name_lower:
        return "newmodel"
+   ```
+
+4. Add configuration in `config.py`:
+   ```python
+   # MODEL_NAME = "newmodel-v1"  # Your model identifier
+   # Add any model-specific settings like API keys or model paths
    ```
 
 ### Creating a New Prompt Version

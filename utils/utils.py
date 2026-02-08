@@ -61,6 +61,47 @@ def extract_tei_xml_from_response(response: str) -> str:
     return response
 
 
+def extract_json_from_response(response: str) -> str:
+    """
+    Extract JSON content from LLM response.
+    Handles cases where JSON is wrapped in markdown code blocks or thinking tags.
+    Works with responses from Claude, GPT, Qwen, and OLMo.
+
+    Args:
+        response: Raw response from any LLM
+
+    Returns:
+        Extracted JSON string, or empty string if not found
+    """
+    # Remove thinking process tags if present (Qwen with thinking mode)
+    if '<think>' in response and '</think>' in response:
+        think_end = response.find('</think>')
+        response = response[think_end + len('</think>'):].strip()
+
+    # Remove markdown code blocks if present
+    response = response.strip()
+
+    # Remove ```json and ``` markers if present
+    if response.startswith('```'):
+        lines = response.split('\n')
+        # Remove first line (```json or ```)
+        lines = lines[1:]
+        # Remove last line if it's ```
+        if lines and lines[-1].strip() == '```':
+            lines = lines[:-1]
+        response = '\n'.join(lines).strip()
+
+    # Try to extract content between { and }
+    first_brace = response.find('{')
+    last_brace = response.rfind('}')
+    
+    if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+        return response[first_brace:last_brace + 1].strip()
+
+    # If no braces found, return the entire response (might be malformed)
+    return response
+
+
 # =============================================================================
 # GPU AND SYSTEM MONITORING
 # =============================================================================
@@ -436,8 +477,9 @@ def validate_text_segment(text_segment: Dict[str, Any]) -> Tuple[str, List[str]]
 
     Returns:
         Tuple containing:
-            - context_value: The value from the context key
+            - context_value: The value from the context key (string)
             - items_to_analyze: List of items from the items key
+              (converted to list if single string provided)
 
     Raises:
         ValueError: If required fields are missing from text_segment.
@@ -452,7 +494,120 @@ def validate_text_segment(text_segment: Dict[str, Any]) -> Tuple[str, List[str]]
     if items_key not in text_segment:
         raise ValueError(f"text_segment missing '{items_key}' field (configured as JSON_ITEMS_KEY)")
 
-    return text_segment[context_key], text_segment[items_key]
+    context_value = text_segment[context_key]
+    items_value = text_segment[items_key]
+    
+    # Flexibly handle both list and string for items_key
+    # This allows for two text segments OR a list of items
+    if isinstance(items_value, list):
+        items_to_analyze = items_value
+    elif isinstance(items_value, str):
+        # Single string - wrap in list for uniform processing
+        items_to_analyze = [items_value]
+    else:
+        # Try to convert to list if it's another iterable type
+        try:
+            items_to_analyze = list(items_value)
+        except (TypeError, ValueError):
+            raise ValueError(
+                f"'{items_key}' must be a string or list, got {type(items_value).__name__}"
+            )
+
+    return context_value, items_to_analyze
+
+
+def validate_information_extraction(json_object: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Validate and extract data keys for information extraction workflow.
+
+    Extracts values for keys specified in config.JSON_DATA_KEYS.
+
+    Args:
+        json_object: Dictionary containing JSON object data.
+            Should contain keys specified in config.JSON_DATA_KEYS.
+
+    Returns:
+        Dictionary mapping data keys to their values from the JSON object.
+        Missing keys will have None as their value.
+
+    Raises:
+        ValueError: If JSON_DATA_KEYS is not configured or empty.
+    """
+    import config
+
+    # Get the data keys to extract
+    data_keys = getattr(config, 'JSON_DATA_KEYS', None)
+    
+    if not data_keys or not isinstance(data_keys, list):
+        raise ValueError("JSON_DATA_KEYS must be configured as a list of key names")
+    
+    # Extract values for each data key
+    extracted_data = {}
+    for key in data_keys:
+        extracted_data[key] = json_object.get(key)
+    
+    return extracted_data
+
+
+def prepare_prompts_for_segment(text_segment: Dict[str, Any], coordinator=None) -> Tuple[str, str, list]:
+    """
+    Prepare system and user prompts for a text segment based on extraction type.
+
+    Routes to appropriate validation and message creation based on JSON_EXTRACTION_TYPE.
+    Handles both TEI encoding and information extraction workflows.
+
+    Args:
+        text_segment: Dictionary containing text segment/JSON object data.
+        coordinator: LLMProcessingCoordinator instance for accessing shared methods.
+            If None, uses fallback placeholder messages.
+
+    Returns:
+        Tuple containing:
+            - system_message: System prompt string
+            - user_message: User prompt string
+            - items_to_analyze: List of items (for test mode compatibility)
+
+    Raises:
+        ValueError: If validation fails or required fields are missing.
+    """
+    import config
+
+    # Check extraction type to route validation and message creation
+    extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+    
+    if extraction_type == 'information_extraction':
+        # Information extraction workflow: extract specific key-value pairs
+        data_dict = validate_information_extraction(text_segment)
+        if data_dict is None:
+            raise ValueError("Failed to extract required data keys from JSON object")
+        
+        # Create the prompt for information extraction
+        if coordinator:
+            system_message = coordinator.create_system_message()
+            user_message = coordinator.create_user_message_for_information_extraction(data_dict)
+        else:
+            # Fallback for backward compatibility
+            system_message = "System message placeholder"
+            data_str = "\n".join(f"{k}: {v}" for k, v in data_dict.items())
+            user_message = f"Analyze:\n{data_str}"
+        
+        # The rest of processing is same for both workflows
+        items_to_analyze = list(data_dict.keys())  # For test mode compatibility
+        
+    else:
+        # TEI encoding workflow: validate text segment structure
+        context_value, items_to_analyze = validate_text_segment(text_segment)
+        
+        # Create the prompt using the text segment data via centralized functions
+        if coordinator:
+            system_message = coordinator.create_system_message()
+            user_message = coordinator.create_user_message(context_value, items_to_analyze)
+        else:
+            # Fallback for backward compatibility
+            system_message = "System message placeholder"
+            user_message = f"Analyze: {context_value}"
+    
+    return system_message, user_message, items_to_analyze
 
 
 def validate_text_data(text_data: Dict[str, Any]) -> Tuple[str, str]:

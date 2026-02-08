@@ -8,10 +8,14 @@ WORKFLOWS SUPPORTED:
 ===================
 
 1. TEXT PROCESSING WORKFLOW (Active - Currently Used)
-   - Processes complete plaintext files into TEI XML
+   - Processes complete plaintext files into structured output
    - Input: Plaintext files from INPUT_PATH (when INPUT_TYPE='txt')
-   - Output: Generated TEI XML files
-   - Functions: process_text_files_framework(), analyze_text_*()
+   - Output: Generated files based on OUTPUT_EXTENSION
+     a) TEI XML files (.xml) - Traditional text encoding workflow
+     b) JSON files (.json) - New plaintext to JSON workflow
+        * Raw mode: Individual JSON files per input
+        * JSON-array mode: Combined JSON array file
+   - Functions: process_text_files_framework(), save_text_processing_outputs()
 
 2. JSON PROCESSING WORKFLOW
    - Two modes based on JSON_PROCESSING_MODE:
@@ -526,6 +530,21 @@ class LLMProcessingCoordinator:
             print(f"  Processing Mode: {config.JSON_PROCESSING_MODE}")
         print(f"  Input: {input_files}")
         print(f"  Output: {output_dir}")
+
+        # Show output format configuration for text processing workflow
+        if workflow_type == "text_processing":
+            print(f"  Output Format: {config.OUTPUT_EXTENSION}")
+            if config.OUTPUT_EXTENSION == ".json":
+                print(f"  JSON Output Mode: {config.JSON_OUTPUT_MODE}")
+
+        # Show output format configuration for key extraction workflow
+        if workflow_type == "key_extraction":
+            output_format = getattr(config, 'KEY_EXTRACTION_OUTPUT_FORMAT', 'xml_mapping')
+            print(f"  Output Format: {output_format}")
+            if output_format == "json":
+                output_mode = getattr(config, 'JSON_OUTPUT_MODE', 'json-array')
+                print(f"  JSON Output Mode: {output_mode}")
+
         print()        # MODEL CONFIGURATION Section
         print("MODEL CONFIGURATION")
         print(f"  Model: {config.MODEL_NAME}")
@@ -733,26 +752,41 @@ class LLMProcessingCoordinator:
                 print("No results generated.")
                 return False
 
-            # Create and save XML update mapping
-            xml_update_map = self.create_xml_update_mapping_from_results(results)
-            xml_mapping_file = self.save_xml_update_mapping(
-                xml_update_map,
-                model=model_key,
-                model_name=config.MODEL_NAME,
-                output_base_dir=config.OUTPUT_DIR
-            )
+            # Check output format configuration
+            output_format = getattr(config, 'KEY_EXTRACTION_OUTPUT_FORMAT', 'xml_mapping')
 
-            # Print statistics
-            total_files = len(xml_update_map)
-            total_elements = sum(len(elements) for elements in xml_update_map.values())
-            total_replacements = sum(sum(elem['num_replacements'] for elem in elements) for elements in xml_update_map.values())
+            if output_format == 'json':
+                # Save as JSON output (raw or json-array mode)
+                output_mode = getattr(config, 'JSON_OUTPUT_MODE', 'json-array')
+                print(f"\nSaving key extraction results as JSON ({output_mode} mode)...")
+                stats = self.save_key_extraction_json_output(results, config.OUTPUT_DIR, output_mode)
 
-            print(f"\n{processor_info['name']} processing completed successfully!")
-            print(f"XML update mapping created:")
-            print(f"  Files to update: {total_files}")
-            print(f"  Elements to update: {total_elements}")
-            print(f"  Total replacements: {total_replacements}")
-            print(f"Check {xml_mapping_file} for XML update operations.")
+                print(f"\n{processor_info['name']} processing completed successfully!")
+                if stats['saved'] > 0:
+                    print(f"JSON output saved to: {stats.get('output_dir', config.OUTPUT_DIR)}")
+
+            else:
+                # Save as XML update mapping (original behavior)
+                print(f"\nCreating XML update mapping...")
+                xml_update_map = self.create_xml_update_mapping_from_results(results)
+                xml_mapping_file = self.save_xml_update_mapping(
+                    xml_update_map,
+                    model=model_key,
+                    model_name=config.MODEL_NAME,
+                    output_base_dir=config.OUTPUT_DIR
+                )
+
+                # Print statistics
+                total_files = len(xml_update_map)
+                total_elements = sum(len(elements) for elements in xml_update_map.values())
+                total_replacements = sum(sum(elem['num_replacements'] for elem in elements) for elements in xml_update_map.values())
+
+                print(f"\n{processor_info['name']} processing completed successfully!")
+                print(f"XML update mapping created:")
+                print(f"  Files to update: {total_files}")
+                print(f"  Elements to update: {total_elements}")
+                print(f"  Total replacements: {total_replacements}")
+                print(f"Check {xml_mapping_file} for XML update operations.")
 
             return True
 
@@ -842,14 +876,19 @@ class LLMProcessingCoordinator:
                 print("No results generated.")
                 return
 
-            # Save TEI XML outputs
-            print(f"\nSaving TEI XML files...")
-            stats = self.save_tei_xml_outputs(results)
+            # Save output files based on configured extension
+            output_ext = config.OUTPUT_EXTENSION
+            if output_ext == ".json":
+                print(f"\nSaving JSON output files...")
+            else:
+                print(f"\nSaving TEI XML files...")
+            stats = self.save_text_processing_outputs(results)
 
             # Print final summary
             print(f"\n{processor_info['name']} text processing completed successfully!")
             if stats['saved'] > 0:
-                print(f"Generated TEI XML files saved to: {stats.get('output_dir', config.OUTPUT_DIR)}")
+                output_type = "JSON" if output_ext == ".json" else "TEI XML"
+                print(f"Generated {output_type} files saved to: {stats.get('output_dir', config.OUTPUT_DIR)}")
 
         except Exception as e:
             print(f"Error during text processing: {e}")
@@ -911,22 +950,43 @@ class LLMProcessingCoordinator:
             with open(input_file, 'r', encoding='utf-8') as f:
                 segments = json.load(f)
             segment_count = len(segments)
-            # Try to count extracted items using configured key
-            total_items = 0
-            items_key = config.JSON_ITEMS_KEY
-            for seg in segments:
-                # Use configured key name for items to extract
-                if items_key in seg:
-                    total_items += len(seg.get(items_key, []))
-                else:
-                    # If configured key not found, count the segment itself
-                    total_items += 1
+
+            # Count items based on extraction type
+            extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+            total_items = 0  # Initialize for both workflows
+
+            if extraction_type == 'information_extraction':
+                # Information extraction: count data keys (not individual items)
+                data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+                total_items = len(data_keys) * segment_count  # Total extractions to perform
+                print(f"\nFound {segment_count} JSON objects.")
+                print(f"Configured to extract these data keys: {', '.join(data_keys)}")
+            else:
+                # TEI encoding: count items
+                items_key = config.JSON_ITEMS_KEY
+                for seg in segments:
+                    # Use configured key name for items to extract
+                    if items_key in seg:
+                        total_items += len(seg.get(items_key, []))
+                    else:
+                        # If configured key not found, count the segment itself
+                        total_items += 1
+                print(f"\nFound {segment_count} JSON objects with {total_items} items to extract and analyze.")
         except Exception as e:
             print(f"\nError: Failed to read input file: {e}")
             return
 
-        print(f"\nFound {segment_count} JSON objects with {total_items} items to extract and analyze.")
-        print()
+        # Validate information extraction configuration if needed
+        if extraction_type == 'information_extraction':
+            data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+            data_labels = getattr(config, 'JSON_DATA_LABELS', [])
+            
+            if data_labels and len(data_labels) != len(data_keys):
+                print(f"\nWarning: JSON_DATA_LABELS length ({len(data_labels)}) doesn't match JSON_DATA_KEYS length ({len(data_keys)})")
+                print(f"JSON_DATA_KEYS: {data_keys}")
+                print(f"JSON_DATA_LABELS: {data_labels}")
+                print("Labels must be in the same order and have the same length as keys.")
+                print("Will use key names instead of labels.\n")
 
         # Validate all required prompt files before processing
         if not self.validate_prompt_files():
@@ -1190,25 +1250,80 @@ class LLMProcessingCoordinator:
         The prefix text is prepended before the actual data.
         If template doesn't exist, returns only the formatted items list.
 
+        Uses configurable labels from config.JSON_CONTEXT_LABEL and config.JSON_ITEMS_LABEL
+        to support different use cases (e.g., "Source Text" / "Target Text" instead of
+        "Context" / "Bracketed Sequences").
+
         Args:
             text_content: The context text (from JSON_CONTEXT_KEY)
             items_to_analyze: List of items to analyze (from JSON_ITEMS_KEY)
+                Can be a list with one element if JSON_ITEMS_KEY was a string.
 
         Returns:
             Formatted user message string
         """
-        # Format the items list
-        items_list = "\n".join([f"- {item}" for item in items_to_analyze])
+        # Get configurable labels
+        context_label = getattr(config, 'JSON_CONTEXT_LABEL', 'Context')
+        items_label = getattr(config, 'JSON_ITEMS_LABEL', 'Items')
+
+        # Format the items - handle both single item and multiple items
+        if len(items_to_analyze) == 1:
+            # Single item (likely from two text segments use case)
+            items_formatted = items_to_analyze[0]
+        else:
+            # Multiple items - format as bulleted list
+            items_formatted = "\n".join([f"- {item}" for item in items_to_analyze])
 
         # Try to load prefix text from file
         prefix_text = self.load_prompt_component(config.USER_MESSAGE, optional=True)
 
         if prefix_text and prefix_text.strip():
             # Prepend prefix text before the data
-            return f"{prefix_text.strip()}\n\nContext: \"{text_content}\"\n\nBracketed Sequences:\n{items_list}"
+            return f"{prefix_text.strip()}\n\n{context_label}: \"{text_content}\"\n\n{items_label}:\n{items_formatted}"
 
-        # If no prefix text, return just the items list
-        return items_list
+        # If no prefix text, return formatted data only
+        return f"{context_label}: \"{text_content}\"\n\n{items_label}:\n{items_formatted}"
+
+    def create_user_message_for_information_extraction(self, data_dict: Dict[str, Any]) -> str:
+        """
+        Create a user message prompt for information extraction workflow.
+
+        Loads prefix text from config.USER_MESSAGE if available.
+        Formats the data keys and their values for the LLM to process.
+
+        Args:
+            data_dict: Dictionary mapping data keys to their values (from JSON_DATA_KEYS)
+
+        Returns:
+            Formatted user message string
+        """
+        # Get configured labels (if any)
+        data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+        data_labels = getattr(config, 'JSON_DATA_LABELS', [])
+        
+        # Create a mapping from keys to labels
+        key_to_label = {}
+        if data_labels and len(data_labels) == len(data_keys):
+            # Use provided labels
+            key_to_label = dict(zip(data_keys, data_labels))
+        else:
+            # Fall back to using key names as labels
+            key_to_label = {key: key for key in data_keys}
+        
+        # Format the data as key-value pairs with labels
+        data_lines = []
+        for key, value in data_dict.items():
+            label = key_to_label.get(key, key)  # Fall back to key if not found
+            if value is not None:
+                data_lines.append(f"{label}: {value}")
+            else:
+                data_lines.append(f"{label}: [not provided]")
+        if prefix_text and prefix_text.strip():
+            # Prepend prefix text before the data
+            return f"{prefix_text.strip()}\n\n{data_formatted}"
+
+        # If no prefix text, return formatted data only
+        return data_formatted
 
     def create_user_message_for_text(self, text_content: str) -> str:
         """
@@ -1392,15 +1507,28 @@ class LLMProcessingCoordinator:
         }
 
         for index, text_segment in enumerate(text_segments):
-            # Use configured keys for metadata
-            element_id = text_segment.get('element_id', f'element_{index}')
-            filename = text_segment.get('filename', 'unknown')
-            # Use configured key for items to analyze
-            items_key = config.JSON_ITEMS_KEY
-            items_to_analyze = text_segment.get(items_key, [])
+            # Check extraction type to determine metadata handling
+            extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
 
-            print(f"\nProcessing element {index + 1}/{len(text_segments)}: {element_id}")
-            print(f"Found {len(items_to_analyze)} items to analyze: {items_to_analyze}")
+            if extraction_type == 'information_extraction':
+                # Information extraction: use JSON_METADATA_KEYS_INFO for metadata
+                metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                element_id = text_segment.get(metadata_keys[0] if metadata_keys else 'id', f'element_{index}')
+
+                print(f"\nProcessing element {index + 1}/{len(text_segments)}: {element_id}")
+
+                # Don't print items since info extraction works differently
+                data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+                print(f"Extracting data keys: {data_keys}")
+            else:
+                # TEI encoding: use element_id, filename, and JSON_ITEMS_KEY
+                element_id = text_segment.get('element_id', f'element_{index}')
+                filename = text_segment.get('filename', 'unknown')
+                items_key = config.JSON_ITEMS_KEY
+                items_to_analyze = text_segment.get(items_key, [])
+
+                print(f"\nProcessing element {index + 1}/{len(text_segments)}: {element_id}")
+                print(f"Found {len(items_to_analyze)} items to analyze: {items_to_analyze}")
 
             # Use the model-specific analyzer (pass coordinator instance)
             analyzer_result = model_analyzer(text_segment, coordinator=self)
@@ -1463,22 +1591,62 @@ class LLMProcessingCoordinator:
                 # Fallback for old format (combined prompt)
                 all_user_prompts.append(str(prompt_tuple))
 
-            # Add metadata to the results using configured keys
-            context_key = config.JSON_CONTEXT_KEY
-            items_key = config.JSON_ITEMS_KEY
-            element_result = {
-                "element_id": element_id,
-                "filename": filename,
-                "xpath": text_segment.get('xpath', 'unknown'),
-                context_key: text_segment.get(context_key, ''),
-                items_key: items_to_analyze,
-                "tei_encodings": results
-            }
+            # Add metadata to the results - structure depends on extraction type
+            extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+
+            if extraction_type == 'information_extraction':
+                # Information extraction: simple structure with configured metadata
+                metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                element_result = {}
+
+                # Add configured metadata fields
+                for key in metadata_keys:
+                    element_result[key] = text_segment.get(key, None)
+
+                # Add the analysis results
+                element_result['results'] = results
+
+            else:
+                # TEI encoding: detailed structure with context and items
+                context_key = config.JSON_CONTEXT_KEY
+                items_key = config.JSON_ITEMS_KEY
+                element_result = {
+                    "element_id": element_id,
+                    "filename": filename,
+                    "xpath": text_segment.get('xpath', 'unknown'),
+                    context_key: text_segment.get(context_key, ''),
+                    items_key: items_to_analyze,
+                    "tei_encodings": results
+                }
 
             all_results.append(element_result)
 
-            # Save LLM response with metadata
-            response_with_metadata = f"""
+            # Save LLM response with metadata - format depends on extraction type
+            if extraction_type == 'information_extraction':
+                # Information extraction: show data keys and metadata
+                metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+                metadata_info = "\n".join(f"{key}: {text_segment.get(key, 'N/A')}" for key in metadata_keys)
+                data_info = "\n".join(f"{key}: {text_segment.get(key, 'N/A')}" for key in data_keys)
+
+                response_with_metadata = f"""
+{'='*80}
+ELEMENT {index + 1} - LLM RESPONSE
+{'='*80}
+Metadata:
+{metadata_info}
+
+Data Keys Analyzed:
+{data_info}
+
+RAW LLM RESPONSE:
+{raw_response}
+
+{'='*80}
+"""
+            else:
+                # TEI encoding: show context and items
+                response_with_metadata = f"""
 {'='*80}
 ELEMENT {index + 1} - LLM RESPONSE
 {'='*80}
@@ -1596,13 +1764,33 @@ RAW LLM RESPONSE:
                 f.write("=" * 50 + "\n\n")
 
                 # Write only user messages for each element
-                items_key = config.JSON_ITEMS_KEY
-                for index, (element_result, user_msg) in enumerate(zip(all_results, all_user_prompts)):
-                    element_id = element_result['element_id']
-                    filename = element_result['filename']
-                    items_to_analyze = element_result.get(items_key, [])
+                extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
 
-                    prompt_with_metadata = f"""{'='*80}
+                for index, (element_result, user_msg) in enumerate(zip(all_results, all_user_prompts)):
+                    if extraction_type == 'information_extraction':
+                        # Information extraction: show metadata fields
+                        metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                        metadata_info = "\n".join(f"{key}: {element_result.get(key, 'N/A')}" for key in metadata_keys)
+
+                        prompt_with_metadata = f"""{'='*80}
+ELEMENT {index + 1} - USER PROMPT
+{'='*80}
+Metadata:
+{metadata_info}
+
+USER MESSAGE:
+{user_msg}
+
+{'='*80}
+"""
+                    else:
+                        # TEI encoding: show element_id, filename, items
+                        items_key = config.JSON_ITEMS_KEY
+                        element_id = element_result.get('element_id', f'element_{index}')
+                        filename = element_result.get('filename', 'unknown')
+                        items_to_analyze = element_result.get(items_key, [])
+
+                        prompt_with_metadata = f"""{'='*80}
 ELEMENT {index + 1} - USER PROMPT
 {'='*80}
 ID: {element_id}
@@ -1634,10 +1822,18 @@ USER MESSAGE:
             print(f"Processing metrics saved to {json_file}")
         print(f"Total elements analyzed: {len(all_results)}")
 
-        # Print summary statistics
-        items_key = config.JSON_ITEMS_KEY
-        total_items_processed = sum(len(result.get(items_key, [])) for result in all_results)
-        print(f"Total items processed ({items_key}): {total_items_processed}")
+        # Print summary statistics - depends on extraction type
+        extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+
+        if extraction_type == 'information_extraction':
+            # Information extraction: report on data keys processed
+            data_keys = getattr(config, 'JSON_DATA_KEYS', [])
+            print(f"Data keys analyzed: {', '.join(data_keys)}")
+        else:
+            # TEI encoding: report on items processed
+            items_key = config.JSON_ITEMS_KEY
+            total_items_processed = sum(len(result.get(items_key, [])) for result in all_results)
+            print(f"Total items processed ({items_key}): {total_items_processed}")
 
         # Print parsing statistics
         if parsing_stats["total_responses"] > 0:
@@ -1655,23 +1851,28 @@ USER MESSAGE:
                 print(f"Check the responses file for details: {responses_file}")
             print(f"{'='*60}")
 
-        # Count intervention types
-        intervention_types = []
-        type_field = config.JSON_OUTPUT_TYPE_FIELD
-        for result in all_results:
-            for seq, encoding in result['tei_encodings'].items():
-                # Safety check: ensure encoding is a dictionary before calling .get()
-                if isinstance(encoding, dict):
-                    intervention_types.append(encoding.get(type_field, 'unknown'))
-                else:
-                    # Handle case where encoding is not a dictionary (e.g., list, string, etc.)
-                    print(f"Warning: Unexpected encoding format for sequence '{seq}': {type(encoding).__name__}")
-                    intervention_types.append('unknown')
+        # Count intervention types - only for TEI encoding workflow
+        extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
 
-        type_counts = pd.Series(intervention_types).value_counts()
-        print("\nIntervention type distribution:")
-        for intervention_type, count in type_counts.items():
-            print(f"  {intervention_type}: {count}")
+        if extraction_type == 'tei_encoding':
+            intervention_types = []
+            type_field = config.JSON_OUTPUT_TYPE_FIELD
+            for result in all_results:
+                tei_encodings = result.get('tei_encodings', {})
+                for seq, encoding in tei_encodings.items():
+                    # Safety check: ensure encoding is a dictionary before calling .get()
+                    if isinstance(encoding, dict):
+                        intervention_types.append(encoding.get(type_field, 'unknown'))
+                    else:
+                        # Handle case where encoding is not a dictionary (e.g., list, string, etc.)
+                        print(f"Warning: Unexpected encoding format for sequence '{seq}': {type(encoding).__name__}")
+                        intervention_types.append('unknown')
+
+            if intervention_types:
+                type_counts = pd.Series(intervention_types).value_counts()
+                print("\nIntervention type distribution:")
+                for intervention_type, count in type_counts.items():
+                    print(f"  {intervention_type}: {count}")
 
         return all_results
 
@@ -1763,13 +1964,31 @@ USER MESSAGE:
                 # Fallback for old format (combined prompt)
                 all_user_prompts.append(str(prompt_tuple))
 
-            # Add metadata to the results
-            text_result = {
-                "filename": filename,
-                "input_text": file_data['content'],
-                "tei_xml": results.get('tei_xml', ''),
-                "success": results.get('success', False)
-            }
+            # Determine output format based on config
+            output_ext = config.OUTPUT_EXTENSION
+
+            if output_ext == ".json":
+                # Extract JSON from response
+                from utils.utils import extract_json_from_response
+                output_content = extract_json_from_response(raw_response)
+                success = bool(output_content and output_content.strip())
+
+                # Add metadata to the results
+                text_result = {
+                    "filename": filename,
+                    "input_text": file_data['content'],
+                    "output_content": output_content,
+                    "success": success
+                }
+            else:
+                # Default to XML extraction (backward compatible)
+                # Add metadata to the results
+                text_result = {
+                    "filename": filename,
+                    "input_text": file_data['content'],
+                    "tei_xml": results.get('tei_xml', ''),
+                    "success": results.get('success', False)
+                }
 
             all_results.append(text_result)
 
@@ -2222,7 +2441,7 @@ USER MESSAGE:
 
                 # Extract content after <think> tags or </think> tags
                 extracted = self.extract_json_after_think(output_content)
-                
+
                 if extracted:
                     combined_content.append(f"// Object: {object_id}")
                     combined_content.append(extracted)
@@ -2339,7 +2558,7 @@ USER MESSAGE:
         # Find the first { and the last }
         first_brace = content.find('{')
         last_brace = content.rfind('}')
-        
+
         if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
             return content[first_brace:last_brace + 1].strip()
 
@@ -2376,6 +2595,155 @@ USER MESSAGE:
                 content = content[start:end].strip()
 
         return content
+
+    def save_text_processing_outputs(
+        self,
+        results: List[Dict[str, Any]],
+        output_dir: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Save text processing outputs based on configured OUTPUT_EXTENSION.
+        Routes to appropriate saver (XML or JSON) based on configuration.
+
+        Args:
+            results: List of result dictionaries from process_text_files_framework
+            output_dir: Base directory to save output files (defaults to config.OUTPUT_DIR)
+
+        Returns:
+            Dictionary with statistics about saved files
+        """
+        output_ext = config.OUTPUT_EXTENSION
+
+        if output_ext == ".json":
+            # Use JSON output mode
+            output_mode = config.JSON_OUTPUT_MODE
+            return self.save_json_text_outputs(results, output_dir, output_mode)
+        else:
+            # Default to XML (backward compatible)
+            return self.save_tei_xml_outputs(results, output_dir)
+
+    def save_json_text_outputs(
+        self,
+        results: List[Dict[str, Any]],
+        output_dir: Optional[str] = None,
+        output_mode: str = 'json-array'
+    ) -> Dict[str, Any]:
+        """
+        Save JSON outputs from text processing workflow.
+
+        Args:
+            results: List of result dictionaries from process_text_files_framework
+            output_dir: Base directory to save output files (defaults to config.OUTPUT_DIR)
+            output_mode: 'raw' to extract content, 'json-array' for structured JSON array
+
+        Returns:
+            Dictionary with statistics about saved files
+        """
+        output_base_dir = output_dir or config.OUTPUT_DIR
+
+        # Create model-specific subdirectory
+        model_name = config.MODEL_NAME
+
+        # Create timestamped processing directory
+        timestamp = self.get_processing_timestamp()
+        output_dir = os.path.join(output_base_dir, model_name, f"processing_{timestamp}")
+
+        # Ensure output directory exists
+        os.makedirs(output_dir, exist_ok=True)
+
+        stats = {
+            'total': len(results),
+            'saved': 0,
+            'failed': 0,
+            'skipped': 0,
+            'files': [],
+            'output_dir': output_dir
+        }
+
+        if output_mode == 'raw':
+            # Raw extraction mode: Save each file's JSON separately
+            for result in results:
+                filename = result['filename']
+                output_content = result.get('output_content', '')
+                success = result.get('success', False)
+
+                # Generate output filename (replace .txt with .json)
+                base_name = os.path.splitext(filename)[0]
+                output_filename = f"{base_name}.json"
+                output_path = os.path.join(output_dir, output_filename)
+
+                if not success or not output_content or not output_content.strip():
+                    print(f"  Skipping {filename}: No valid JSON generated")
+                    stats['skipped'] += 1
+                    continue
+
+                try:
+                    # Save the raw JSON content
+                    with open(output_path, 'w', encoding='utf-8') as f:
+                        f.write(output_content)
+
+                    print(f"  Saved: {model_name}/processing_{timestamp}/{output_filename}")
+                    stats['saved'] += 1
+                    stats['files'].append(output_filename)
+
+                except Exception as e:
+                    print(f"  Error saving {output_filename}: {e}")
+                    stats['failed'] += 1
+
+        else:
+            # json-array mode: Create properly structured JSON array
+            combined_data = []
+
+            for result in results:
+                filename = result['filename']
+                output_content = result.get('output_content', '')
+                success = result.get('success', False)
+
+                if not success or not output_content or not output_content.strip():
+                    print(f"  Skipping {filename}: No valid JSON generated")
+                    stats['skipped'] += 1
+                    continue
+
+                # Try to parse as JSON, otherwise store as string
+                try:
+                    parsed_output = json.loads(output_content)
+                except (json.JSONDecodeError, ValueError):
+                    parsed_output = output_content.strip()
+
+                combined_data.append({
+                    'filename': filename,
+                    'output': parsed_output
+                })
+                stats['saved'] += 1
+
+            # Save combined JSON file
+            combined_filename = "output.json"
+            combined_path = os.path.join(output_dir, combined_filename)
+
+            try:
+                with open(combined_path, 'w', encoding='utf-8') as f:
+                    json.dump(combined_data, f, indent=2, ensure_ascii=False)
+
+                print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
+                stats['files'].append(combined_filename)
+
+            except Exception as e:
+                print(f"  Error saving combined output: {e}")
+                stats['failed'] = 1
+
+        # Print summary
+        print(f"\n{'='*50}")
+        print(f"JSON Output Summary ({output_mode} mode):")
+        print(f"{'='*50}")
+        print(f"Total files processed: {stats['total']}")
+        print(f"Successfully saved: {stats['saved']}")
+        if stats['skipped'] > 0:
+            print(f"Skipped (no valid JSON): {stats['skipped']}")
+        if stats['failed'] > 0:
+            print(f"Failed to save: {stats['failed']}")
+        print(f"Output directory: {output_dir}")
+
+        return stats
 
     def save_tei_xml_outputs(
         self,
@@ -2575,6 +2943,146 @@ USER MESSAGE:
 
         print(f"XML update mapping saved to: {xml_mapping_file}")
         return xml_mapping_file
+
+    def save_key_extraction_json_output(
+        self,
+        results: List[Dict[str, Any]],
+        output_dir: Optional[str] = None,
+        output_mode: str = 'json-array'
+    ) -> Dict[str, Any]:
+        """
+        Save key extraction results as JSON output.
+        Alternative to XML update mapping for key extraction workflow.
+
+        Args:
+            results: List of result dictionaries from process_text_segments_framework
+            output_dir: Base directory to save output files (defaults to config.OUTPUT_DIR)
+            output_mode: 'raw' for individual files, 'json-array' for combined array
+
+        Returns:
+            Dictionary with statistics about saved files
+        """
+        output_base_dir = output_dir or config.OUTPUT_DIR
+
+        # Create model-specific subdirectory
+        model_name = config.MODEL_NAME
+
+        # Create timestamped processing directory
+        timestamp = self.get_processing_timestamp()
+        output_dir = os.path.join(output_base_dir, model_name, f"processing_{timestamp}")
+
+        # Ensure output directory exists
+        os.makedirs(output_dir, exist_ok=True)
+
+        stats = {
+            'total': len(results),
+            'saved': 0,
+            'failed': 0,
+            'skipped': 0,
+            'files': [],
+            'output_dir': output_dir
+        }
+
+        # Determine extraction type to check for appropriate results field
+        extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+        results_field = 'results' if extraction_type == 'information_extraction' else 'tei_encodings'
+
+        if output_mode == 'raw':
+            # Raw mode: Save each element's analysis separately
+            for result in results:
+                # Try to get an identifier for the element
+                if extraction_type == 'information_extraction':
+                    # For info extraction, use first metadata key as identifier
+                    metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                    element_id = result.get(metadata_keys[0] if metadata_keys else 'id', f"element_{stats['total']}")
+                else:
+                    # For TEI encoding, use element_id
+                    element_id = result.get(config.XML_MAPPING_ELEMENT_ID_KEY) or result.get('id') or f"element_{stats['total']}"
+
+                output_filename = f"{element_id}.json"
+                output_path = os.path.join(output_dir, output_filename)
+
+                # Check if we have results
+                analysis_data = result.get(results_field, {})
+                if not analysis_data:
+                    print(f"  Skipping {element_id}: No {results_field} generated")
+                    stats['skipped'] += 1
+                    continue
+
+                try:
+                    # Save the result as JSON
+                    with open(output_path, 'w', encoding='utf-8') as f:
+                        json.dump(result, f, indent=2, ensure_ascii=False)
+
+                    print(f"  Saved: {model_name}/processing_{timestamp}/{output_filename}")
+                    stats['saved'] += 1
+                    stats['files'].append(output_filename)
+
+                except Exception as e:
+                    print(f"  Error saving {output_filename}: {e}")
+                    stats['failed'] += 1
+
+        else:
+            # json-array mode: Combine all results into one file
+            combined_data = []
+
+            for result in results:
+                # Try to get identifier based on extraction type
+                if extraction_type == 'information_extraction':
+                    metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+                    element_id = result.get(metadata_keys[0] if metadata_keys else 'id', f"element_{len(combined_data)}")
+                else:
+                    element_id = result.get(config.XML_MAPPING_ELEMENT_ID_KEY) or result.get('id') or f"element_{len(combined_data)}"
+
+                # Check if we have results
+                analysis_data = result.get(results_field, {})
+                if not analysis_data:
+                    print(f"  Skipping {element_id}: No {results_field} generated")
+                    stats['skipped'] += 1
+                    continue
+
+                # Add to combined data - for info extraction, use result directly; for TEI encoding, wrap it
+                if extraction_type == 'information_extraction':
+                    combined_data.append(result)
+                else:
+                    combined_data.append({
+                        'element_id': element_id,
+                        'data': result
+                    })
+                stats['saved'] += 1
+
+            # Save combined JSON file
+            combined_filename = "output.json"
+            combined_path = os.path.join(output_dir, combined_filename)
+
+            try:
+                with open(combined_path, 'w', encoding='utf-8') as f:
+                    json.dump(combined_data, f, indent=2, ensure_ascii=False)
+
+                print(f"  Saved: {model_name}/processing_{timestamp}/{combined_filename}")
+                stats['files'].append(combined_filename)
+
+            except Exception as e:
+                print(f"  Error saving combined output: {e}")
+                stats['failed'] = 1
+
+        # Print summary
+        extraction_type = getattr(config, 'JSON_EXTRACTION_TYPE', 'tei_encoding')
+        workflow_name = "Information Extraction" if extraction_type == 'information_extraction' else "TEI Encoding"
+
+        print(f"\n{'='*50}")
+        print(f"{workflow_name} JSON Output Summary ({output_mode} mode):")
+        print(f"{'='*50}")
+        print(f"Total elements processed: {stats['total']}")
+        print(f"Successfully saved: {stats['saved']}")
+        if stats['skipped'] > 0:
+            results_field = 'results' if extraction_type == 'information_extraction' else 'tei_encodings'
+            print(f"Skipped (no {results_field}): {stats['skipped']}")
+        if stats['failed'] > 0:
+            print(f"Failed to save: {stats['failed']}")
+        print(f"Output directory: {output_dir}")
+
+        return stats
 
 
 def parse_arguments() -> argparse.Namespace:

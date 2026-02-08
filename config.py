@@ -58,7 +58,7 @@ MODEL_PATH_QWEN3 = 'models/Qwen_Qwen3-14B-IQ2_XS.gguf'
 
 # Model Parameters
 TEMPERATURE = 0.6
-MAX_TOKENS = 5000
+MAX_TOKENS = 7000
 
 # Hardware Acceleration
 USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU)
@@ -92,7 +92,7 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = "data/input/json/editorial-interventions/editorial_segments_dummy.json"
+INPUT_PATH = "data/input/json/editorial-interventions/dummy.json"
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
@@ -100,28 +100,73 @@ INPUT_PATH = "data/input/json/editorial-interventions/editorial_segments_dummy.j
 JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = "data/output/json/test"
+OUTPUT_DIR = "data/output/json/editorial-interventions/test"
 
-# Output file extension
-OUTPUT_EXTENSION = ".xml"
+# Output file extension (for text processing workflows)
+# Options: ".xml" for TEI XML files, ".json" for JSON output
+OUTPUT_EXTENSION = ".json"
+
+# JSON output mode (only used when OUTPUT_EXTENSION = ".json" for text processing)
+#   - "raw": Extract content after <think> tags (anything between { and })
+#   - "json-array": Create properly structured JSON array with validated objects
+JSON_OUTPUT_MODE = "json-array"  # Options: "raw" or "json-array"
+
+# Key extraction output format (only used when JSON_PROCESSING_MODE = "key_extraction")
+#   - "xml_mapping": Create XML update mapping files for TEI encoding workflows
+#   - "json": Output as JSON (uses JSON_OUTPUT_MODE for raw/json-array)
+KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 
 # =============================================================================
-# JSON KEY MAPPING (for key_extraction mode)
+# JSON KEY EXTRACTION CONFIGURATION
 # =============================================================================
-# Configure which keys from your JSON structure to use for processing.
-# This allows the same code to work with different JSON formats.
+# Configure the type of key extraction workflow to use
 
-# Key containing the context/text to analyze
+# JSON Extraction Type:
+#   - "tei_encoding": TEI encoding workflow (context + text segments to encode)
+#   - "information_extraction": Extract specific key-value pairs from JSON
+JSON_EXTRACTION_TYPE = "tei_encoding"  # Options: "tei_encoding" or "information_extraction"
+
+# =============================================================================
+# TEI ENCODING WORKFLOW CONFIGURATION
+# (Only used when JSON_EXTRACTION_TYPE = "tei_encoding")
+# =============================================================================
+# For workflows that encode text segments with TEI markup
+
+# Key containing the context text
 JSON_CONTEXT_KEY = "full_element_text"
 
-# Key containing the items to extract and process (expects a list)
+# Key containing the text segments to encode
+# Can be either a list of strings or a single string
 JSON_ITEMS_KEY = "bracketed_sequences"
 
-# Keys to preserve as metadata in the output (list of key names)
+# Keys to preserve as metadata in the output
 JSON_METADATA_KEYS = ["element_id", "filename", "xpath", "index"]
 
+# Labels used in user prompts
+JSON_CONTEXT_LABEL = "Context"
+JSON_ITEMS_LABEL = "Bracketed Sequences"
+
 # =============================================================================
-# XML UPDATE MAPPING KEYS (for key_extraction mode)
+# INFORMATION EXTRACTION WORKFLOW CONFIGURATION
+# (Only used when JSON_EXTRACTION_TYPE = "information_extraction")
+# =============================================================================
+# For workflows that extract specific metadata fields from JSON objects
+
+# Keys to extract from each JSON object (array of key names)
+# Example: ["dateline", "signature", "salutation"]
+JSON_DATA_KEYS = ["dateline", "signature"]
+
+# Labels for data keys used in user prompts (must match order and length of JSON_DATA_KEYS)
+# If not provided or empty, will use the key names directly
+# Example: ["Dateline", "Signature", "Salutation"]
+JSON_DATA_LABELS = ["Dateline", "Signature"]
+
+# Keys from the input JSONto preserve as metadata in the output
+# These will be included in the output JSON but not processed by the LLM
+JSON_METADATA_KEYS_INFO = ["letter"]
+
+# =============================================================================
+# XML UPDATE MAPPING KEYS (for TEI encoding workflow with xml_mapping output)
 # =============================================================================
 # Configure which JSON keys identify elements for XML update operations.
 # These map to your input JSON structure.
@@ -148,7 +193,7 @@ JSON_OUTPUT_TEI_FIELD = "tei_encoding"  # e.g., "tei" or "tei_encoding"
 JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_type"
 
 # Field name for the explanation in LLM output (optional)
-JSON_OUTPUT_EXPLANATION_FIELD = "explanation"  # Set to None if not used
+JSON_OUTPUT_EXPLANATION_FIELD = None  # Set to None if not used
 
 
 # =============================================================================

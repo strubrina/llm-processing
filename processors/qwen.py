@@ -29,8 +29,8 @@ from utils.utils import (
     get_gpu_usage,
     get_system_usage,
     parse_json_response,
-    validate_text_data,
-    validate_text_segment
+    prepare_prompts_for_segment,
+    validate_text_data
 )
 
 # Initialize availability flags
@@ -450,17 +450,8 @@ def encode_text_segment_qwen(
             - parsing_metadata: Dictionary with parse_success and parse_method fields.
     """
     try:
-        # Validate and extract required fields
-        context_value, items_to_analyze = validate_text_segment(text_segment)
-
-        # Create the prompts using centralized functions first
-        if coordinator:
-            system_message = coordinator.create_system_message()
-            user_message = coordinator.create_user_message(context_value, items_to_analyze)
-        else:
-            # Fallback for backward compatibility
-            system_message = "System message placeholder"
-            user_message = f"Analyze: {context_value}"
+        # Prepare prompts using centralized routing logic
+        system_message, user_message, items_to_analyze = prepare_prompts_for_segment(text_segment, coordinator)
 
         # Handle test mode
         if not config.ENABLE_API_CALLS:

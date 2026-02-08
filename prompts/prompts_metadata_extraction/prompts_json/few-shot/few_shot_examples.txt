@@ -1,0 +1,144 @@
+# Examples
+
+## INPUT:
+
+Dateline: Weimar d[en] 1ten July 1796
+Signature: C. A. Böttiger Oberconsistorialrat
+
+
+## OUTPUT:
+{
+    "place": {
+        "value": "Weimar",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-07-01",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Böttiger, Karl August | Oberkonsistorialrat",
+        "conf": 1.0
+    },
+    "language": {
+        "value": "de",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Dateline: Vienne, 15 Oct. 96
+Signature:
+
+
+## OUTPUT:
+{
+    "place": {
+        "value": "Wien",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-10-15",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "unk",
+        "conf": 1.0
+    },
+        "language": {
+        "value": "fr",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Dateline: Vienne ce 19 Juin [1]804
+Signature: Chabert
+
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "Wien",
+        "conf": 0.8
+    },
+    "date": {
+        "value": "1804-06-16",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Chabert von Ostland, Thomas",
+        "conf": 0.7
+    },
+        "language": {
+        "value": "fr",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Dateline: Wien, Leopoldstadt, Hotel zum weißen Roß, Sept. 27. 1848
+Signature:
+
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "Wien",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1848-09-27",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Bialloblotzky | Dr.",
+        "conf": 1.0
+    },
+        "language": {
+        "value": "de",
+        "conf": 1.0
+    }
+}
+
+
+## INPUT:
+
+Dateline: London Feby 802
+Signature: W.S.S.
+
+
+## OUTPUT:
+
+{
+    "place": {
+        "value": "London",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1802-02",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Smith, Sidney William",
+        "conf": 0.7
+    },
+        "language": {
+        "value": "en",
+        "conf": 1.0
+    }
+}
+
+
+
+
+
+

@@ -2214,8 +2214,20 @@ USER MESSAGE:
         system_message = None  # Store system message once
 
         for index, json_object in enumerate(json_objects):
-            # Try to extract an ID from common id field names
-            object_id = json_object.get('id') or json_object.get('entry_id') or json_object.get('element_id') or f"object_{index + 1}"
+            # Try to extract an ID from JSON_METADATA_KEYS_INFO, then fall back to common id field names
+            metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
+            object_id = None
+            
+            # First try to get ID from JSON_METADATA_KEYS_INFO
+            if metadata_keys:
+                for key in metadata_keys:
+                    if key in json_object:
+                        object_id = json_object[key]
+                        break
+            
+            # Fall back to common id field names if not found
+            if object_id is None:
+                object_id = json_object.get('id') or json_object.get('entry_id') or json_object.get('element_id') or f"object_{index + 1}"
 
             print(f"\nProcessing object {index + 1}/{len(json_objects)}: {object_id}")
 
@@ -2251,11 +2263,19 @@ USER MESSAGE:
                 all_user_prompts.append(str(prompt_tuple))
 
             # Add metadata to the results
+            # Extract metadata keys from input JSON
+            metadata_dict = {}
+            if metadata_keys:
+                for key in metadata_keys:
+                    if key in json_object:
+                        metadata_dict[key] = json_object[key]
+            
             object_result = {
                 "object_id": object_id,
                 "object_index": index + 1,
                 "input_filename": input_base_name,
                 "total_objects": len(json_objects),
+                "metadata": metadata_dict,  # Include metadata from JSON_METADATA_KEYS_INFO
                 "input_json": json_object,
                 "output_content": results.get('output_content', ''),
                 "success": results.get('success', False)
@@ -2580,6 +2600,7 @@ USER MESSAGE:
                     object_id = result['object_id']
                     output_content = result.get('output_content', '')
                     success = result.get('success', False)
+                    metadata = result.get('metadata', {})
 
                     if not success or not output_content or not output_content.strip():
                         print(f"  Skipping {object_id}: No valid output generated")
@@ -2600,10 +2621,16 @@ USER MESSAGE:
                         else:
                             parsed_output = output_content.strip()
 
-                    combined_data.append({
-                        'object_id': object_id,
-                        'output': parsed_output
-                    })
+                    # Build output entry with metadata if available
+                    output_entry = {}
+                    
+                    # Include metadata keys at the top level (similar to how plaintext uses 'filename')
+                    output_entry.update(metadata)
+                    
+                    # Add the output
+                    output_entry['output'] = parsed_output
+                    
+                    combined_data.append(output_entry)
                     stats['saved'] += 1
 
                 # Save combined JSON file

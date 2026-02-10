@@ -1321,6 +1321,13 @@ class LLMProcessingCoordinator:
                 data_lines.append(f"{label}: {value}")
             else:
                 data_lines.append(f"{label}: [not provided]")
+        
+        # Join the data lines into a formatted string
+        data_formatted = "\n".join(data_lines)
+        
+        # Try to load prefix text from file
+        prefix_text = self.load_prompt_component(config.USER_MESSAGE, optional=True)
+        
         if prefix_text and prefix_text.strip():
             # Prepend prefix text before the data
             return f"{prefix_text.strip()}\n\n{data_formatted}"

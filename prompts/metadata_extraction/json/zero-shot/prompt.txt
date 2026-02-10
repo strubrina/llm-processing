@@ -4,7 +4,7 @@ You are an expert in historical document analysis specializing in correspondence
 
 Extract the following data and normalize it according to the provided normalization rules:
 
-1. Writer: The name and title of the letter writer
+1. Writer: The name and profession of the letter writer
 2. Date: The date the letter was written, usually preserved in a dateline
 3. Place: The place the letter was sent from, usually preserved in a dateline
 4. Language: The main language the letter is written in

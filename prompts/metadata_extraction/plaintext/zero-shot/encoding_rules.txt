@@ -1,0 +1,52 @@
+# General Guidelines
+
+- Prioritize accuracy over completeness
+- Only resolve abbreviations when highly confident
+- Include a confidence score from 0.0 (uncertain) to 1.0 (certain)
+- Use "unk" (unknown) when information is unavailable or unclear
+
+# Normalization Rules
+
+## Date Format:
+- Use W3C format: YYYY-MM-DD
+- If unknown: unk
+
+## Place Format:
+- Normalize to contemporary German spelling (e.g., "Wien" not "Vienna", "Konstantinopel" not "Istanbul")
+- For ambiguous places, append ISO 3166-1 Alpha-2 two-letter country code: "Wien | AT", "Dresden | DE"
+- If unknown: unk
+
+## Name Format:
+- Structure: Surname, Forename | Profession (if known)
+- For nobility particles (von, de, etc.): place after forename: "Hammer-Purgstall, Joseph von"
+- Profession: optional, only include if known/certain; use broad category for GND search (e.g., "Orientalist", "Dichter", "Jurist")
+- Titles/ranks: append in parenthesis after Forename or nobility particles: "Hammer-Purgstall, Joseph von (Freiherr)"
+- For organizations: append [ORG]: "Akademie der Wissenschaft [ORG]"
+- If entire name unknown: unk
+
+## Language Format:
+- Specify the primary language using ISO 639-1 two-letter code (e.g., "de", "fr", "en")
+- If unknown: unk
+
+
+
+# Output format
+
+{
+    "place": {
+        "value": "Weimar | DE",
+        "conf": 1.0
+    },
+    "date": {
+        "value": "1796-07-01",
+        "conf": 1.0
+    },
+    "writer": {
+        "value": "Hammer-Purgstall, Joseph von | Orientalist",
+        "conf": 0.9
+    },
+    "language": {
+        "value": "de",
+        "conf": 1.0
+    }
+}

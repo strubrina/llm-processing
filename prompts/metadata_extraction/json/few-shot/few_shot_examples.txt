@@ -9,7 +9,7 @@ Signature: C. A. Böttiger Oberconsistorialrat
 ## OUTPUT:
 {
     "place": {
-        "value": "Weimar",
+        "value": "Weimar | DE",
         "conf": 1.0
     },
     "date": {
@@ -17,7 +17,7 @@ Signature: C. A. Böttiger Oberconsistorialrat
         "conf": 1.0
     },
     "writer": {
-        "value": "Böttiger, Karl August | Oberkonsistorialrat",
+        "value": "Böttiger, Karl August (Oberkonsistorialrat) | Philologe",
         "conf": 1.0
     },
     "language": {
@@ -36,7 +36,7 @@ Signature:
 ## OUTPUT:
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 1.0
     },
     "date": {
@@ -47,7 +47,7 @@ Signature:
         "value": "unk",
         "conf": 1.0
     },
-        "language": {
+    "language": {
         "value": "fr",
         "conf": 1.0
     }
@@ -64,18 +64,18 @@ Signature: Chabert
 
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 0.8
     },
     "date": {
-        "value": "1804-06-16",
+        "value": "1804-06-19",
         "conf": 1.0
     },
     "writer": {
-        "value": "Chabert von Ostland, Thomas",
+        "value": "Chabert, Thomas von Ostland | unk",
         "conf": 0.7
     },
-        "language": {
+    "language": {
         "value": "fr",
         "conf": 1.0
     }
@@ -92,7 +92,7 @@ Signature:
 
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 1.0
     },
     "date": {
@@ -100,10 +100,10 @@ Signature:
         "conf": 1.0
     },
     "writer": {
-        "value": "Bialloblotzky | Dr.",
+        "value": "unk",
         "conf": 1.0
     },
-        "language": {
+    "language": {
         "value": "de",
         "conf": 1.0
     }
@@ -120,7 +120,7 @@ Signature: W.S.S.
 
 {
     "place": {
-        "value": "London",
+        "value": "London | GB",
         "conf": 1.0
     },
     "date": {
@@ -128,10 +128,10 @@ Signature: W.S.S.
         "conf": 1.0
     },
     "writer": {
-        "value": "Smith, Sidney William",
+        "value": "Smith, Sidney William | Marineoffizier",
         "conf": 0.7
     },
-        "language": {
+    "language": {
         "value": "en",
         "conf": 1.0
     }

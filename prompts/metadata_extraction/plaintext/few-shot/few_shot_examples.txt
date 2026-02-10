@@ -17,7 +17,7 @@ Oberconsistorialrat
 ## OUTPUT:
 {
     "place": {
-        "value": "Weimar",
+        "value": "Weimar | DE",
         "conf": 1.0
     },
     "date": {
@@ -25,7 +25,7 @@ Oberconsistorialrat
         "conf": 1.0
     },
     "writer": {
-        "value": "Böttiger, Karl August | Oberkonsistorialrat",
+        "value": "Böttiger, Karl August (Oberkonsistorialrat) | Philologe",
         "conf": 1.0
     },
     "language": {
@@ -47,7 +47,7 @@ Ce soir je compte d’achever l’extrait de la bibliothèque de Photius, qui m�
 ## OUTPUT:
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 1.0
     },
     "date": {
@@ -58,7 +58,7 @@ Ce soir je compte d’achever l’extrait de la bibliothèque de Photius, qui m�
         "value": "unk",
         "conf": 1.0
     },
-        "language": {
+    "language": {
         "value": "fr",
         "conf": 1.0
     }
@@ -82,18 +82,18 @@ Chabert
 
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 0.8
     },
     "date": {
-        "value": "1804-06-16",
+        "value": "1804-06-19",
         "conf": 1.0
     },
     "writer": {
-        "value": "Chabert von Ostland, Thomas",
+        "value": "Chabert, Thomas von Ostland | unk",
         "conf": 0.7
     },
-        "language": {
+    "language": {
         "value": "fr",
         "conf": 1.0
     }
@@ -112,7 +112,7 @@ Dr. Bialloblotzky presents his compliments to the Baron of Hammer-Purgstall and 
 
 {
     "place": {
-        "value": "Wien",
+        "value": "Wien | AT",
         "conf": 1.0
     },
     "date": {
@@ -120,10 +120,10 @@ Dr. Bialloblotzky presents his compliments to the Baron of Hammer-Purgstall and 
         "conf": 1.0
     },
     "writer": {
-        "value": "Bialloblotzky | Dr.",
+        "value": "Bialloblotzky (Dr.) | unk",
         "conf": 1.0
     },
-        "language": {
+    "language": {
         "value": "en",
         "conf": 1.0
     }
@@ -146,7 +146,7 @@ I have given Edward directions to forward your things as you require – I beg o
 
 {
     "place": {
-        "value": "London",
+        "value": "London | GB",
         "conf": 1.0
     },
     "date": {
@@ -154,10 +154,10 @@ I have given Edward directions to forward your things as you require – I beg o
         "conf": 1.0
     },
     "writer": {
-        "value": "Smith, Sidney William",
+        "value": "Smith, Sidney William | Marineoffizier",
         "conf": 0.7
     },
-        "language": {
+    "language": {
         "value": "en",
         "conf": 1.0
     }

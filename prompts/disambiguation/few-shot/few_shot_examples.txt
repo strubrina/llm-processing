@@ -1,0 +1,229 @@
+# Examples
+
+## Example 1: Person Disambiguation
+
+### INPUT:
+
+{
+  "id": 294,
+  "writer": "Hammer-Purgstall, J.",
+  "gndCandidates": [
+    {
+      "gnd": "130174270",
+      "preferredName": "Hammer-Purgstall, Karoline von",
+      "birthYear": 1797,
+      "deathYear": 1844,
+      "bio": "Tochter des Bankiers J. von Henikstein, 1816 Ehefrau des Orientalisten J. von Hammer (später Hammer-Purgstall)"
+    },
+    {
+      "gnd": "118545426",
+      "preferredName": "Hammer-Purgstall, Joseph von",
+      "birthYear": 1774,
+      "deathYear": 1856,
+      "bio": "Österr. Orientalist, Diplomat, Historiker, Literaturhistoriker, Dolmetscher; Sohn des Gubernialrates Joseph (Edler von) Hammer (1791 geadelt), 11.5.1836 Erhebung in den Freiherrenstand",
+      "professions": [
+        "Orientalist",
+        "Politiker",
+        "Schriftsteller",
+        "Diplomat",
+        "Historiker",
+        "Philologe"
+      ]
+    }
+  ],
+  "letterText": "Rapport de Hammer à M. l'Internonce sur deux entretiens avec le Capitan-Pacha dans la soirée du 10 et 17 Janvier 1803. Je commençais par le remercier au nom de M. l'Internonce de l'expédition du Boujourildi dans l'affaire des Mainottes, et lui, après avoir fait éloigner son monde ouvrit le sujet du discours sur l'Ambassadeur français..."
+}
+
+### OUTPUT:
+
+[
+  {
+    "id": 294,
+    "writer": "Hammer-Purgstall, J.",
+    "gnd": "118545426",
+    "conf": "1.0"
+  }
+]
+
+### REASONING:
+The letter text clearly shows diplomatic activity ("Rapport à M. l'Internonce", discussions with Ottoman officials), written in French as typical for diplomatic correspondence. The content and professional context match Joseph von Hammer-Purgstall's role as a diplomat and orientalist (1774-1856), not his wife Karoline.
+
+---
+
+## Example 2: Place Disambiguation
+
+### INPUT:
+
+{
+  "id": 355,
+  "place": "Paris | FR",
+  "geonamesCandidates": [
+    {
+      "geonamesId": "2988507",
+      "name": "Paris",
+      "countryCode": "FR",
+      "lat": "48.85341",
+      "lng": "2.3488",
+      "featureClass": "P",
+      "featureCode": "PPLC",
+      "population": 2138551,
+      "adminName1": "Île-de-France"
+    },
+    {
+      "geonamesId": "3000074",
+      "name": "Les Paris",
+      "countryCode": "FR",
+      "lat": "45.63972",
+      "lng": "5.73742",
+      "featureClass": "P",
+      "featureCode": "PPL",
+      "population": 0,
+      "adminName1": "Auvergne-Rhône-Alpes"
+    }
+  ],
+  "date": "1803-07-03",
+  "letterText": "Paris 3 Messidor xi\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia... Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
+}
+
+### OUTPUT:
+
+[
+  {
+    "id": 355,
+    "place": "Paris | FR",
+    "geonamesId": "2988507",
+    "conf": "1.0"
+  }
+]
+
+### REASONING:
+The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusses scholarly matters with references to "le ministre de France" and intellectual work. The context strongly indicates the capital Paris (PPLC), not the small village "Les Paris" with zero population. The scholarly discourse and diplomatic references fit the capital's role as a major intellectual and political center.
+
+---
+
+## Example 3: Combined Disambiguation (Both Writer and Place)
+
+### INPUT:
+
+{
+  "id": 1125,
+  "writer": "Müller, Johann | [unk]",
+  "gndCandidates": [
+    {
+      "gnd": "118584944",
+      "preferredName": "Müller, Johannes von",
+      "birthYear": 1752,
+      "deathYear": 1809,
+      "bio": "Schweizer Historiker und Staatsmann",
+      "professions": ["Historiker", "Politiker"]
+    },
+    {
+      "gnd": "119217058",
+      "preferredName": "Müller, Johann Gottwerth",
+      "birthYear": 1743,
+      "deathYear": 1828,
+      "bio": "Deutscher Schriftsteller und Pädagoge",
+      "professions": ["Schriftsteller", "Pädagoge"]
+    }
+  ],
+  "place": "Wien | AT",
+  "geonamesCandidates": [
+    {
+      "geonamesId": "2761369",
+      "name": "Wien",
+      "countryCode": "AT",
+      "lat": "48.20849",
+      "lng": "16.37208",
+      "featureClass": "P",
+      "featureCode": "PPLC",
+      "population": 1691468,
+      "adminName1": "Wien"
+    },
+    {
+      "geonamesId": "2761367",
+      "name": "Gemeinde Wien",
+      "countryCode": "AT",
+      "lat": "48.11667",
+      "lng": "15.61667",
+      "featureClass": "A",
+      "featureCode": "ADM3",
+      "population": 0,
+      "adminName1": "Niederösterreich"
+    }
+  ],
+  "date": "1805-03-15",
+  "letterText": "Wien, 15. März 1805\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historiker schätze ich Ihre Kenntnisse der orientalischen Quellen sehr... Die Arbeit an meinem Werk zur Schweizergeschichte nimmt all meine Zeit in Anspruch..."
+}
+
+### OUTPUT:
+
+[
+  {
+    "id": 1125,
+    "writer": "Müller, Johann | [unk]",
+    "gnd": "118584944",
+    "conf": "0.95"
+  },
+  {
+    "id": 1125,
+    "place": "Wien | AT",
+    "geonamesId": "2761369",
+    "conf": "1.0"
+  }
+]
+
+### REASONING:
+**Writer**: The letter discusses historiography and Swiss history ("Schweizergeschichte"), strongly suggesting Johannes von Müller (1752-1809), the Swiss historian known for his historical works. The reference to "türkische Historiographie" aligns with Hammer-Purgstall's expertise. Johann Gottwerth Müller was a writer/pedagogue without this historical specialization. Confidence slightly reduced (0.95) because the first name is abbreviated.
+
+**Place**: The date format and content clearly indicate Vienna (the capital, PPLC), not the small administrative district "Gemeinde Wien" in Lower Austria with 0 population. Vienna was a major center for Hammer-Purgstall's work. Perfect confidence (1.0).
+
+---
+
+## Example 4: Low Confidence Case (Insufficient Context)
+
+### INPUT:
+
+{
+  "id": 2445,
+  "writer": "Schmidt, J. | [unk]",
+  "gndCandidates": [
+    {
+      "gnd": "118759302",
+      "preferredName": "Schmidt, Johann",
+      "birthYear": 1766,
+      "deathYear": 1849,
+      "professions": ["Maler"]
+    },
+    {
+      "gnd": "117471224",
+      "preferredName": "Schmidt, Johann Friedrich",
+      "birthYear": 1770,
+      "deathYear": 1835,
+      "professions": ["Theologe", "Pfarrer"]
+    },
+    {
+      "gnd": "117472476",
+      "preferredName": "Schmidt, Julius",
+      "birthYear": 1825,
+      "deathYear": 1884,
+      "professions": ["Astronom"]
+    }
+  ],
+  "date": "1820-05-10",
+  "letterText": "[…] Ihr wertes Schreiben vom letzten Monat habe ich erhalten. […]"
+}
+
+### OUTPUT:
+
+[
+  {
+    "id": 2445,
+    "writer": "Schmidt, J. | [unk]",
+    "gnd": "117471224",
+    "conf": "0.45"
+  }
+]
+
+### REASONING:
+Letter text provides minimal context. Date (1820) eliminates Julius Schmidt (born 1825, too young). Between the painter Johann Schmidt and theologian Johann Friedrich Schmidt, both are plausible for the time period. The minimal text offers no profession-specific clues. Chose Johann Friedrich Schmidt with very low confidence (0.45) based on time period compatibility only - this case requires human review.
+

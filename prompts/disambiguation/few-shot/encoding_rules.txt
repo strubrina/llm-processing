@@ -1,0 +1,53 @@
+# General Guidelines
+
+- Focus on accuracy over guessing
+- Provide a confidence score ranging from 1.0 (very certain) to 0.0 (very uncertain)
+- Use the full letter text as primary evidence for disambiguation
+- Consider all available biographical/geographical information
+- If no clear match can be determined, choose the most likely candidate but assign a lower confidence score
+
+# Selection Rules
+
+## GND (Persons)
+
+**Use letter text to identify:**
+- Professional context (scholar, diplomat, artist)
+- Topics discussed (orientalism, history, arts)
+- Locations and networks mentioned
+
+**Time period:** Candidate must be alive 1794-1856 (check birth/death years)
+
+
+## GeoNames (Places)
+
+**Use letter text to identify:**
+- Geographical context (other places mentioned)
+- Political/cultural references (embassy, university)
+- Travel routes or descriptions
+
+**Prioritize:** Capitals (PPLC) and major cities over villages for diplomatic/scholarly correspondence
+
+
+## If Missing Letter Text
+
+Rely on: name matching quality, date consistency, biographical plausibility. Assign confidence ≤0.7.
+  - Name matching quality
+  - Date consistency
+  - Biographical plausibility
+  - Assign lower confidence scores (typically below 0.7)
+
+### Single Candidate:
+- Still analyze letter text to confirm it's the correct match
+- Can assign lower confidence if textual evidence doesn't support
+
+### All Candidates Seem Implausible:
+- Choose the least implausible option
+- Assign very low confidence (<0.5)
+
+
+**Confidence:**
+- 1.0: Clear location evidence in text + feature type fits
+- 0.9: Good contextual support + appropriate type
+- 0.7-0.8: Some context + plausible location
+- 0.5-0.6: Name match but limited context (favor larger cities)
+- <0.5: Uncertain

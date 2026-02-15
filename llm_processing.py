@@ -227,6 +227,22 @@ class LLMProcessingCoordinator:
             'date_processed': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
+        # If processing disambiguation, check for source extraction metadata
+        if 'disambiguation' in config.PROMPT_VERSION.lower():
+            input_path = Path(config.INPUT_PATH)
+            input_metadata_path = input_path.parent / "processing_metadata.json"
+            if input_metadata_path.exists():
+                try:
+                    with open(input_metadata_path, 'r', encoding='utf-8') as f:
+                        input_metadata = json.load(f)
+                    # Copy source extraction tracking from input metadata
+                    if 'source_extraction_timestamp' in input_metadata:
+                        metrics_entry['source_extraction_timestamp'] = input_metadata['source_extraction_timestamp']
+                    if 'source_extraction_run' in input_metadata:
+                        metrics_entry['source_extraction_run'] = input_metadata['source_extraction_run']
+                except Exception as e:
+                    print(f"Note: Could not read source extraction metadata from {input_metadata_path}: {e}")
+
         # Add estimated cost for Claude and GPT models
         model_name_lower = model_name.lower()
         if "claude" in model_name_lower:
@@ -1321,13 +1337,13 @@ class LLMProcessingCoordinator:
                 data_lines.append(f"{label}: {value}")
             else:
                 data_lines.append(f"{label}: [not provided]")
-        
+
         # Join the data lines into a formatted string
         data_formatted = "\n".join(data_lines)
-        
+
         # Try to load prefix text from file
         prefix_text = self.load_prompt_component(config.USER_MESSAGE, optional=True)
-        
+
         if prefix_text and prefix_text.strip():
             # Prepend prefix text before the data
             return f"{prefix_text.strip()}\n\n{data_formatted}"
@@ -2211,7 +2227,7 @@ USER MESSAGE:
             return []
 
         print(f"Found {len(json_objects)} JSON objects to process.")
-        
+
         # Extract base filename for output naming
         input_base_name = os.path.splitext(os.path.basename(input_file))[0]
 
@@ -2224,14 +2240,14 @@ USER MESSAGE:
             # Try to extract an ID from JSON_METADATA_KEYS_INFO, then fall back to common id field names
             metadata_keys = getattr(config, 'JSON_METADATA_KEYS_INFO', [])
             object_id = None
-            
+
             # First try to get ID from JSON_METADATA_KEYS_INFO
             if metadata_keys:
                 for key in metadata_keys:
                     if key in json_object:
                         object_id = json_object[key]
                         break
-            
+
             # Fall back to common id field names if not found
             if object_id is None:
                 object_id = json_object.get('id') or json_object.get('entry_id') or json_object.get('element_id') or f"object_{index + 1}"
@@ -2276,7 +2292,7 @@ USER MESSAGE:
                 for key in metadata_keys:
                     if key in json_object:
                         metadata_dict[key] = json_object[key]
-            
+
             object_result = {
                 "object_id": object_id,
                 "object_index": index + 1,
@@ -2630,13 +2646,13 @@ USER MESSAGE:
 
                     # Build output entry with metadata if available
                     output_entry = {}
-                    
+
                     # Include metadata keys at the top level (similar to how plaintext uses 'filename')
                     output_entry.update(metadata)
-                    
+
                     # Add the output
                     output_entry['output'] = parsed_output
-                    
+
                     combined_data.append(output_entry)
                     stats['saved'] += 1
 

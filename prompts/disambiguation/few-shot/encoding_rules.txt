@@ -10,12 +10,17 @@
 
 ## GND (Persons)
 
-**Use letter text to identify:**
-- Professional context (scholar, diplomat, artist)
-- Topics discussed (orientalism, history, arts)
-- Locations and networks mentioned
+**Name quality indicators:**
+- Full names with particles are more reliable than abbreviated names
+- Abbreviated names (e.g., "J.") may require more textual evidence
 
-**Time period:** Candidate must be alive 1794-1856 (check birth/death years)
+**Use letter text to identify:**
+- Professional context (scholar, diplomat, artist, merchant)
+- Topics discussed (orientalism, history, arts, trade)
+- Locations and networks mentioned
+- Relationships (colleague of X, student of Y)
+
+**Time period:** Candidate must be alive during letter date (check birth/death years)
 
 
 ## GeoNames (Places)
@@ -45,7 +50,14 @@ Rely on: name matching quality, date consistency, biographical plausibility. Ass
 - Assign very low confidence (<0.5)
 
 
-**Confidence:**
+**Confidence (Persons):**
+- 1.0: Full name + strong textual evidence + date match
+- 0.9: Full name + good textual evidence
+- 0.7-0.8: Full name + some context OR abbreviated name + strong evidence
+- 0.5-0.6: Abbreviated name + moderate evidence
+- <0.5: Weak evidence or implausible match
+
+**Confidence (Places):**
 - 1.0: Clear location evidence in text + feature type fits
 - 0.9: Good contextual support + appropriate type
 - 0.7-0.8: Some context + plausible location

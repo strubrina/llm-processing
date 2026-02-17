@@ -162,10 +162,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
     "id": 1125,
     "writer": "Müller, Johann | [unk]",
     "gnd": "118584944",
-    "conf": "0.95"
-  },
-  {
-    "id": 1125,
+    "conf": "0.95",
     "place": "Wien | AT",
     "geonamesId": "2761369",
     "conf": "1.0"

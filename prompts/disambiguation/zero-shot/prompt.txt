@@ -28,6 +28,6 @@ JSON array with disambiguation results:
 
 **For both writer AND place:**
 ```json
-[{"id": <letter_id>, "writer": "<name>", "place": "<name>", "gnd": "<id>", "geonamesId": "<id>", "conf": <0.0-1.0>}]
+[{"id": <letter_id>, "writer": "<name>", "gnd": "<id>", "conf": <0.0-1.0>, "place": "<name>",  "geonamesId": "<id>", "conf": <0.0-1.0>}]
 ```
 

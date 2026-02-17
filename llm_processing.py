@@ -2645,6 +2645,35 @@ USER MESSAGE:
                         else:
                             parsed_output = output_content.strip()
 
+                    # Handle array responses: if LLM returns an array of objects with the same ID,
+                    # merge them into a single object (common in disambiguation with both writer and place)
+                    if isinstance(parsed_output, list) and len(parsed_output) > 0:
+                        # Check if all items have the same ID
+                        ids = [item.get('id') for item in parsed_output if isinstance(item, dict) and 'id' in item]
+                        if ids and len(set(ids)) == 1:
+                            # All items have the same ID - merge them
+                            # Special handling for 'conf' field: rename to field-specific confidence
+                            merged = {}
+                            for item in parsed_output:
+                                if isinstance(item, dict):
+                                    # If this item has a 'conf' field, rename it based on what field it's for
+                                    item_copy = item.copy()
+                                    if 'conf' in item_copy:
+                                        conf_value = item_copy.pop('conf')
+                                        # Determine which field this confidence is for
+                                        if 'writer' in item_copy or 'gnd' in item_copy:
+                                            item_copy['writer_conf'] = conf_value
+                                        elif 'place' in item_copy or 'geonamesId' in item_copy:
+                                            item_copy['place_conf'] = conf_value
+                                        else:
+                                            # Generic conf - keep as is
+                                            item_copy['conf'] = conf_value
+                                    merged.update(item_copy)
+                            parsed_output = merged
+                        else:
+                            # Different IDs or no IDs - keep as array (will be wrapped in output key)
+                            pass
+
                     # Build output entry with metadata if available
                     output_entry = {}
 

@@ -18,10 +18,11 @@
 
 ## Name Format:
 - Structure: Surname, Forename | Profession (if known)
-- For nobility particles (von, de, etc.): place after forename: "Hammer-Purgstall, Joseph von"
-- Profession: optional, only include if known/certain; use broad category for GND search (e.g., "Orientalist", "Dichter", "Jurist")
-- Titles/ranks: append in parenthesis after Forename or nobility particles: "Hammer-Purgstall, Joseph von (Freiherr)"
-- For organizations: append [ORG]: "Akademie der Wissenschaft [ORG]"
+- Nobility particles: Always include them (von, de, etc.) after forename: "Hammer-Purgstall, Joseph von"
+- Abbreviations: Only expand if HIGHLY CONFIDENT from context; if uncertain, keep abbreviated
+- Profession: optional, use broad GND categories (e.g., "Orientalist", "Dichter", "Jurist"); omit if uncertain
+- Titles/ranks: exclude from name
+- Organizations: append [ORG]: "Akademie der Wissenschaft [ORG]"
 - If entire name unknown: unk
 
 ## Language Format:

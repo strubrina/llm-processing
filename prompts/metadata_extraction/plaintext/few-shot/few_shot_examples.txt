@@ -31,10 +31,6 @@ Oberconsistorialrat
         "lastname": {
             "value": "Böttiger",
             "conf": 1.0
-        },
-        "profession": {
-            "value": "unk",
-            "conf": 1.0
         }
     },
     "language": {

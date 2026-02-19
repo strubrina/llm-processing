@@ -9,21 +9,32 @@
 
 ## Date Format:
 - Use W3C format: YYYY-MM-DD
+- If Julian and Gregorian dates are present in the letter, use the Gregorian date
 - If unknown: unk
 
 ## Place Format:
-- Normalize to contemporary German spelling (e.g., "Wien" not "Vienna", "Konstantinopel" not "Istanbul")
-- For ambiguous places, append ISO 3166-1 Alpha-2 two-letter country code: "Wien | AT", "Dresden | DE"
+- Normalize to contemporary English spelling (e.g., "Vienna" not "Wien", "Constantinopel" not "Istanbul")
+- For ambiguous places, append ISO 3166-1 Alpha-2 two-letter country code: "Vienna | AT"
 - If unknown: unk
 
-## Name Format:
-- Structure: Surname, Forename | Profession (if known)
-- Nobility particles: Always include them (von, de, etc.) after forename: "Hammer-Purgstall, Joseph von"
-- Abbreviations: Only expand if HIGHLY CONFIDENT from context; if uncertain, keep abbreviated
-- Profession: optional, use broad GND categories (e.g., "Orientalist", "Dichter", "Jurist"); omit if uncertain
-- Titles/ranks: exclude from name
-- Organizations: append [ORG]: "Akademie der Wissenschaft [ORG]"
-- If entire name unknown: unk
+## Name Format (Structured):
+- Extract name components separately: forename, lastname, particles, profession
+- **Forename**: First/given name (e.g., "Joseph", "Karl August")
+  - Normalize to modern spelling (e.g., "Karl" not "Carl")
+  - Abbreviations: Only expand if HIGHLY CONFIDENT; if uncertain, keep abbreviated (e.g., "J.")
+  - If unknown: unk
+- **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
+  - Include compound surnames with hyphens
+  - Organizations: append [ORG]: "Akademie der Wissenschaften [ORG]"
+  - If unknown: unk
+- **Particles**: Nobility particles (e.g., "von", "de", "van")
+  - Only extract if present
+  - Omit if none or unknown
+- **Profession**: Occupation or profession if found in letter or known
+  - Use broad GND categories (e.g., "Orientalist", "Dichter", "Jurist", "Marineoffizier")
+  - Only include if found in letter text or confidently known
+  - Omit if uncertain
+- **Titles/ranks**: Exclude from all fields (e.g., omit "Freiherr", "Hofrat", "General")
 
 ## Language Format:
 - Specify the primary language using ISO 639-1 two-letter code (e.g., "de", "fr", "en")

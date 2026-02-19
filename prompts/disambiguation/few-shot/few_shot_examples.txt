@@ -107,7 +107,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 
 {
   "id": 1125,
-  "writer": "Müller, Johann | [unk]",
+  "writer": "Müller, Johann",
   "gndCandidates": [
     {
       "gnd": "118584944",
@@ -160,7 +160,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 [
   {
     "id": 1125,
-    "writer": "Müller, Johann | [unk]",
+    "writer": "Müller, Johann",
     "gnd": "118584944",
     "conf": "0.95",
     "place": "Wien | AT",
@@ -182,7 +182,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 
 {
   "id": 2445,
-  "writer": "Schmidt, J. | [unk]",
+  "writer": "Schmidt, J.",
   "gndCandidates": [
     {
       "gnd": "118759302",
@@ -215,7 +215,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 [
   {
     "id": 2445,
-    "writer": "Schmidt, J. | [unk]",
+    "writer": "Schmidt, J.",
     "gnd": "117471224",
     "conf": "0.45"
   }

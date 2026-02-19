@@ -1,8 +1,6 @@
 # Examples
 
-## Example 1: Person Disambiguation
-
-### INPUT:
+## INPUT:
 
 {
   "id": 294,
@@ -34,7 +32,7 @@
   "letterText": "Rapport de Hammer à M. l'Internonce sur deux entretiens avec le Capitan-Pacha dans la soirée du 10 et 17 Janvier 1803. Je commençais par le remercier au nom de M. l'Internonce de l'expédition du Boujourildi dans l'affaire des Mainottes, et lui, après avoir fait éloigner son monde ouvrit le sujet du discours sur l'Ambassadeur français..."
 }
 
-### OUTPUT:
+## OUTPUT:
 
 [
   {
@@ -45,14 +43,12 @@
   }
 ]
 
-### REASONING:
+## REASONING:
 The letter text clearly shows diplomatic activity ("Rapport à M. l'Internonce", discussions with Ottoman officials), written in French as typical for diplomatic correspondence. The content and professional context match Joseph von Hammer-Purgstall's role as a diplomat and orientalist (1774-1856), not his wife Karoline.
 
 ---
 
-## Example 2: Place Disambiguation
-
-### INPUT:
+## INPUT:
 
 {
   "id": 355,
@@ -85,7 +81,7 @@ The letter text clearly shows diplomatic activity ("Rapport à M. l'Internonce",
   "letterText": "Paris 3 Messidor xi\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia... Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
 }
 
-### OUTPUT:
+## OUTPUT:
 
 [
   {
@@ -96,14 +92,12 @@ The letter text clearly shows diplomatic activity ("Rapport à M. l'Internonce",
   }
 ]
 
-### REASONING:
+## REASONING:
 The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusses scholarly matters with references to "le ministre de France" and intellectual work. The context strongly indicates the capital Paris (PPLC), not the small village "Les Paris" with zero population. The scholarly discourse and diplomatic references fit the capital's role as a major intellectual and political center.
 
 ---
 
-## Example 3: Combined Disambiguation (Both Writer and Place)
-
-### INPUT:
+## INPUT:
 
 {
   "id": 1125,
@@ -155,7 +149,7 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
   "letterText": "Wien, 15. März 1805\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historiker schätze ich Ihre Kenntnisse der orientalischen Quellen sehr... Die Arbeit an meinem Werk zur Schweizergeschichte nimmt all meine Zeit in Anspruch..."
 }
 
-### OUTPUT:
+## OUTPUT:
 
 [
   {
@@ -176,33 +170,24 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 
 ---
 
-## Example 4: Low Confidence Case (Insufficient Context)
-
-### INPUT:
+## INPUT:
 
 {
   "id": 2445,
-  "writer": "Schmidt, J.",
+  "writer": "Bartolowski,
   "gndCandidates": [
     {
       "gnd": "118759302",
-      "preferredName": "Schmidt, Johann",
+      "preferredName": "Bartolowski, Andrej",
       "birthYear": 1766,
       "deathYear": 1849,
       "professions": ["Maler"]
     },
     {
-      "gnd": "117471224",
-      "preferredName": "Schmidt, Johann Friedrich",
-      "birthYear": 1770,
-      "deathYear": 1835,
-      "professions": ["Theologe", "Pfarrer"]
-    },
-    {
       "gnd": "117472476",
-      "preferredName": "Schmidt, Julius",
-      "birthYear": 1825,
-      "deathYear": 1884,
+      "preferredName": "Bartolowski, Gregor",
+      "birthYear": 1800,
+      "deathYear": 1874,
       "professions": ["Astronom"]
     }
   ],
@@ -210,17 +195,16 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
   "letterText": "[…] Ihr wertes Schreiben vom letzten Monat habe ich erhalten. […]"
 }
 
-### OUTPUT:
+## OUTPUT:
 
 [
   {
     "id": 2445,
-    "writer": "Schmidt, J.",
-    "gnd": "117471224",
+    "writer": "Bartolowski",
+    "gnd": "unk",
     "conf": "0.45"
   }
 ]
 
 ### REASONING:
-Letter text provides minimal context. Date (1820) eliminates Julius Schmidt (born 1825, too young). Between the painter Johann Schmidt and theologian Johann Friedrich Schmidt, both are plausible for the time period. The minimal text offers no profession-specific clues. Chose Johann Friedrich Schmidt with very low confidence (0.45) based on time period compatibility only - this case requires human review.
-
+Letter text provides minimal context and no actual signature. This case requires human review.

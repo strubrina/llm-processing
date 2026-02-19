@@ -24,7 +24,6 @@
   - Abbreviations: Only expand if HIGHLY CONFIDENT; if uncertain, keep abbreviated (e.g., "J.")
   - If unknown: unk
 - **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
-  - Include compound surnames with hyphens
   - Organizations: append [ORG]: "Akademie der Wissenschaften [ORG]"
   - If unknown: unk
 - **Particles**: Nobility particles (e.g., "von", "de", "van")

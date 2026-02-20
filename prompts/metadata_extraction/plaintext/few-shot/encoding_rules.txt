@@ -1,9 +1,9 @@
 # General Guidelines
 
 - Focus on accuracy over guessing
-- Only resolve abbreviations when highly confident
-- Include a confidence score from 0.0 (uncertain) to 1.0 (certain)
 - Use "unk" (unknown) when information is unavailable or unclear
+- Include a confidence score from 0.0 (uncertain) to 1.0 (certain)
+
 
 # Normalization Rules
 
@@ -13,7 +13,7 @@
 - If not extractable from letter: unk
 
 ## Place Format:
-- Normalize to contemporary English spelling (e.g., "Vienna" not "Wien", "Constantinopel" not "Istanbul")
+- Normalize to contemporary English spelling (e.g., "Vienna" not "Wien", "Istanbul" not "Constantinople")
 - Always append ISO 3166-1 Alpha-2 two-letter country code: "Vienna | AT"
 - If not extractable from letter: unk
 
@@ -21,9 +21,9 @@
 - Extract name components separately: forename, lastname, particles, profession
 - **Forename**: First/given name (e.g., "Joseph", "Karl August")
   - Normalize to modern spelling (e.g., "Karl" not "Carl")
-  - Resolve abbreviations (e.g., "J. H." to "Joseph") only when confident (conf ≥ 0.7); otherwise use "unk".
+  - Resolve abbreviations (e.g., "J. H." to "Joseph") only when confident (conf ≥ 0.7); otherwise use "unk"
 - **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
-  - Resolve abbreviations (e.g., "J. H." to "Hammer-Purgstall") only when confident (conf ≥ 0.7); otherwise use "unk".
+  - Resolve abbreviations (e.g., "J. H." to "Hammer-Purgstall") only when confident (conf ≥ 0.7); otherwise use "unk"
   - If unknown: unk
 - **Particles**: Nobility particles (e.g., "von", "de", "van")
   - Omit if none or unknown
@@ -40,12 +40,12 @@
 # Confidence Scores
 
 - 1.0: Explicitly named in dateline or signature + independently verifiable
-- 0.9: Full name/location + strong contextual evidence
-- 0.7-0.8: Full name/location + moderate evidence, OR abbreviation + strong evidence
-- 0.5-0.6: Abbreviation or missing name component + moderate evidence
+- 0.9: Person/location named + strong contextual evidence
+- 0.7-0.8: Person/location + moderate evidence, OR abbreviation/name components + strong evidence
+- 0.5-0.6: Abbreviation or name component + moderate evidence
 - <0.5: Weak evidence, but contextually plausible - flagged for human review
 
 ## Evidence levels:
 
 Strong: Named explicitly in letter body, or externally verifiable
-Moderate: Implied by context (address, signature style, known correspondents)
+Moderate: Implied by context (address, salutation style, known correspondents)

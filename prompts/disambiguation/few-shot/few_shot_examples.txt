@@ -24,7 +24,7 @@
       }
     ],
     "date": "1848-08-31",
-    "letterText": "Euer Hochwohlgeboren \n Wie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen. \n So viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener \n Böttiger"
+    "letterText": "Euer Hochwohlgeboren\n\nWie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen.\n\nSo viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener\n\nBöttiger"
   }
 
 ## OUTPUT
@@ -64,7 +64,7 @@
       }
     ],
     "date": "1809-02",
-    "letterText": "Ognes, fev.809\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia... Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
+    "letterText": "Ognes, près Compiègne, fev. 809\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia. Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
     }
 
 ## OUTPUT:
@@ -74,7 +74,7 @@
     "id": 1035,
     "place": "Ognes | FR",
     "geonamesId": "2989701",
-    "conf": "1.0"
+    "conf": "0.9"
   }
 ]
 
@@ -125,7 +125,7 @@
     }
   ],
   "date": "1835-03-15",
-  "letterText": "15. März 1835\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historikerin schätze ich Ihre Kenntnisse der orientalischen Quellen sehr. Wann darf ich Sie in Wien begrüßen? In Verbundenheit, Ihre Elise."
+  "letterText": "15. März 1835\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historikerin schätze ich Ihre Kenntnisse der orientalischen Quellen sehr. Wann darf ich Sie in Wien begrüßen? In Verbundenheit, Elise."
 }
 
 ## OUTPUT:

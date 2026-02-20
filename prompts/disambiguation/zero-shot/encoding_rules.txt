@@ -3,9 +3,10 @@
 - Focus on accuracy over guessing
 - Use the full letter text as primary evidence for disambiguation
 - Consider biographical/geographical information
-- Use the preferredName for the value of the writer key in the output JSON object
 - If all candidates seem implausible, set "gnd" or "geonamesID" value to "unclear"
+- Use the preferredName for the value of the writer key in the output JSON object; when gnd is "unclear", use the best inferable writer form from the input
 - Provide a confidence score ranging from 1.0 (very certain) to 0.0 (not verifiable)
+
 
 # Selection Rules
 
@@ -20,7 +21,6 @@
 - Topics discussed (orientalism, history, arts, trade)
 - Locations and networks mentioned
 - Relationships (colleague of X, student of Y)
-
 
 ## GeoNames (Places)
 
@@ -47,20 +47,20 @@
 - 0.9: Name identified as writer's location in letter text + contextual support
 - 0.7-0.8: Abbreviated place name + strong evidence
 - 0.5-0.6: Abbreviated place name + moderate evidence
-- <0.5: Weak evidence - flagged for human review (always use when "Geonames ID "unclear")
+- <0.5: Weak evidence - flagged for human review (always use when geonamesID "unclear")
 
 
 ## Evidence levels:
 
 Strong: Named explicitly in letter body, or externally verifiable
-Moderate: Implied by context (address, signature style, known correspondents)
+Moderate: Implied by context (address, salutation style, known correspondents)
 
 # Output
 
 JSON array with disambiguation results:
 
 **For writer only:**
-[{"id": <letter_id>, "writer": "<name>", "gnd": "<id>", "conf": <0.0-1.0>}]
+[{"id": <letter_id>, "writer": "<name>", "conf": "<id>", "conf": <0.0-1.0>}]
 
 
 **For place only:**
@@ -68,4 +68,4 @@ JSON array with disambiguation results:
 
 
 **For both writer AND place:**
-[{"id": <letter_id>, "writer": "<name>", "gnd": "<id>", "conf": <0.0-1.0>, "place": "<name>",  "geonamesId": "<id>", "conf": <0.0-1.0>}]
+[{"id": <letter_id>, "writer": "<name>", "gnd_conf": "<id>", "conf": <0.0-1.0>, "place": "<name>",  "geonamesId": "<id>", "geo_conf": <0.0-1.0>}]

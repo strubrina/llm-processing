@@ -13,5 +13,3 @@ Given candidates from GND (persons) or GeoNames (places), select the most approp
 Joseph von Hammer-Purgstall (1774-1856): Austrian orientalist, diplomat, historian.
 Correspondence network: scholars, diplomats, intellectuals, nobility.
 Main locations: Vienna, Paris, Constantinople, other European/Middle Eastern centers.
-
-

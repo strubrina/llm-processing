@@ -24,22 +24,32 @@
   - Abbreviations: Only expand if HIGHLY CONFIDENT; if uncertain, keep abbreviated (e.g., "J.")
   - If unknown: unk
 - **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
-  - Include compound surnames with hyphens
-  - Organizations: append [ORG]: "Akademie der Wissenschaften [ORG]"
   - If unknown: unk
 - **Particles**: Nobility particles (e.g., "von", "de", "van")
-  - Only extract if present
   - Omit if none or unknown
 - **Profession**: Occupation or profession if found in letter or known
   - Use broad GND categories (e.g., "Orientalist", "Dichter", "Jurist", "Marineoffizier")
-  - Only include if found in letter text or confidently known
-  - Omit if uncertain
+  - Omit if uncertain or not found in letter
 - **Titles/ranks**: Exclude from all fields (e.g., omit "Freiherr", "Hofrat", "General")
 
 ## Language Format:
 - Specify the primary language using ISO 639-1 two-letter code (e.g., "de", "fr", "en")
 - If unknown: unk
 
+
+# Confidence Scores
+
+- 1.0: Explicitly named + independently verifiable
+- 0.9: Full name/location + strong contextual evidence
+- 0.7-0.8: Full name/location + moderate evidence, OR abbreviation + strong evidence
+- 0.5-0.6: Abbreviation + moderate evidence
+- 0.3-0.4: Single weak clue
+- <0.3: Guess
+
+## Evidence levels:
+
+Strong: Named explicitly in letter body, or externally verifiable
+Moderate: Implied by context (address, signature style, known correspondents)
 
 
 # Output format

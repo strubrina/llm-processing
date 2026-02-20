@@ -10,24 +10,8 @@ Given candidates from GND (persons) or GeoNames (places), select the most approp
 
 # Collection Context
 
-Joseph von Hammer-Purgstall (1774-1856): Austrian orientalist, diplomat, historian. Correspondence network: scholars, diplomats, intellectuals, nobility. Main locations: Vienna, Paris, Constantinople, other European/Middle Eastern centers.
+Joseph von Hammer-Purgstall (1774-1856): Austrian orientalist, diplomat, historian.
+Correspondence network: scholars, diplomats, intellectuals, nobility.
+Main locations: Vienna, Paris, Constantinople, other European/Middle Eastern centers.
 
-# Output
-
-JSON array with disambiguation results:
-
-**For writer only:**
-```json
-[{"id": <letter_id>, "writer": "<name>", "gnd": "<id>", "conf": <0.0-1.0>}]
-```
-
-**For place only:**
-```json
-[{"id": <letter_id>, "place": "<name>", "geonamesId": "<id>", "conf": <0.0-1.0>}]
-```
-
-**For both writer AND place:**
-```json
-[{"id": <letter_id>, "writer": "<name>", "gnd": "<id>", "conf": <0.0-1.0>, "place": "<name>",  "geonamesId": "<id>", "conf": <0.0-1.0>}]
-```
 

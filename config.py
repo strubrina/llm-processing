@@ -72,7 +72,7 @@ USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU
 # Available versions should be in prompts/{version}/ directories
 # Each version must contain prompt.txt (required)
 # Optional files: encoding_rules.txt, few_shot_examples.txt
-PROMPT_VERSION = "prompts_disambiguation"
+PROMPT_VERSION = "disambiguation/zero-shot"
 
 # Derived path to prompt directory (do not modify)
 PROMPT_DIR = os.path.join("prompts", PROMPT_VERSION)
@@ -93,7 +93,7 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = os.path.join("data", "input", "json", "disambiguation", "disambiguation_review.json")
+INPUT_PATH = os.path.join(".." , "data", "input", "metadata-disambiguation", "qwen3-14B-Q6", "processing_20260215_121543","disambiguation_review.json")
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
@@ -101,7 +101,7 @@ INPUT_PATH = os.path.join("data", "input", "json", "disambiguation", "disambigua
 JSON_PROCESSING_MODE = "object_processing"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = os.path.join("data", "output", "json", "disambiguation", "test")
+OUTPUT_DIR = os.path.join("..", "data", "output", "disambiguation", "test")
 
 # Output file extension
 # Options: ".xml" for XML files, ".json" for JSON output

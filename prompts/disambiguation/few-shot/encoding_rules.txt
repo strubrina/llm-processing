@@ -1,11 +1,11 @@
 # General Guidelines
 
 - Focus on accuracy over guessing
-- Provide a confidence score ranging from 1.0 (very certain) to 0.0 (very uncertain)
 - Use the full letter text as primary evidence for disambiguation
-- Consider all available biographical/geographical information
-- If no clear match can be determined, choose the most likely candidate but assign a lower confidence score
-- If all candidates seem implausible, set "gnd" or "geonamesID" value to "unk"
+- Consider biographical/geographical information
+- If all candidates seem implausible, set "gnd" or "geonamesID" value to "unclear"
+- Use the preferredName for the value of the writer key in the output JSON object; when gnd is "unclear", use the best inferable writer form from the input
+- Provide a confidence score ranging from 1.0 (very certain) to 0.0 (not verifiable)
 
 # Selection Rules
 
@@ -21,12 +21,11 @@
 - Locations and networks mentioned
 - Relationships (colleague of X, student of Y)
 
-**Time period:** Candidate must be alive during letter date (check birth/death years)
-
 
 ## GeoNames (Places)
 
 **Use letter text to identify:**
+- Name of location in dateline or text
 - Geographical context (other places mentioned)
 - Political/cultural references (embassy, university)
 - Travel routes or descriptions
@@ -37,15 +36,21 @@
 ## Confidence Scores
 
 **Persons:**
-- 1.0: Full name + strong textual evidence + date match
-- 0.9: Full name + good textual evidence
-- 0.7-0.8: Full name + some context OR abbreviated name + strong evidence
+- 1.0: Full name + strong contextual evidence (profession, network, topics)
+- 0.9: Full name + moderate contextual evidence
+- 0.7-0.8: Name components (surname or forename) OR abbreviated name + strong evidence
 - 0.5-0.6: Abbreviated name + moderate evidence
-- <0.5: Weak evidence or implausible match
+- <0.5: Weak evidence - flagged for human review (always use when GND "unclear")
 
 **Places:**
-- 1.0: Clear location evidence in text + feature type fits
-- 0.9: Good contextual support + appropriate type
-- 0.7-0.8: Some context + plausible location
-- 0.5-0.6: Name match but limited context (favor larger cities)
-- <0.5: Uncertain
+- 1.0: Explicitly named in dateline + supported by geographical context
+- 0.9: Name identified as writer's location in letter text + contextual support
+- 0.7-0.8: Abbreviated place name + strong evidence
+- 0.5-0.6: Abbreviated place name + moderate evidence
+- <0.5: Weak evidence - flagged for human review (always use when geonamesID "unclear")
+
+
+## Evidence levels:
+
+Strong: Named explicitly in letter body, or externally verifiable
+Moderate: Implied by context (address, signature style, known correspondents)

@@ -1,99 +1,82 @@
 # Examples
 
-## INPUT:
-
+## INPUT
 {
-  "id": 294,
-  "writer": "Hammer-Purgstall, J.",
-  "gndCandidates": [
-    {
-      "gnd": "130174270",
-      "preferredName": "Hammer-Purgstall, Karoline von",
-      "birthYear": 1797,
-      "deathYear": 1844,
-      "bio": "Tochter des Bankiers J. von Henikstein, 1816 Ehefrau des Orientalisten J. von Hammer (später Hammer-Purgstall)"
-    },
-    {
-      "gnd": "118545426",
-      "preferredName": "Hammer-Purgstall, Joseph von",
-      "birthYear": 1774,
-      "deathYear": 1856,
-      "bio": "Österr. Orientalist, Diplomat, Historiker, Literaturhistoriker, Dolmetscher; Sohn des Gubernialrates Joseph (Edler von) Hammer (1791 geadelt), 11.5.1836 Erhebung in den Freiherrenstand",
-      "professions": [
-        "Orientalist",
-        "Politiker",
-        "Schriftsteller",
-        "Diplomat",
-        "Historiker",
-        "Philologe"
-      ]
-    }
-  ],
-  "letterText": "Rapport de Hammer à M. l'Internonce sur deux entretiens avec le Capitan-Pacha dans la soirée du 10 et 17 Janvier 1803. Je commençais par le remercier au nom de M. l'Internonce de l'expédition du Boujourildi dans l'affaire des Mainottes, et lui, après avoir fait éloigner son monde ouvrit le sujet du discours sur l'Ambassadeur français..."
-}
+    "id": 7488,
+    "writer": "Böttiger",
+    "gndCandidates": [
+      {
+        "gnd": "118824775",
+        "preferredName": "Böttiger, Carl August",
+        "birthYear": 1760,
+        "deathYear": 1835,
+        "bio": "Dt. Pädagoge, Museumsbegründer, Hrsg. d. Teutschen Merkur",
+        "professions": ["Archäologe", "Klassischer Philologe", "Pädagoge", "Journalist", "Schriftsteller", "Kunsthistoriker", "Theologe"]
+      },
+      {
+        "gnd": "117027301",
+        "preferredName": "Böttiger, Helmut",
+        "birthYear": 1789,
+        "deathYear": 1869,
+        "bio": "Übernahm 1816 zusammen mit seinem Bruder Philipp Friedrich die väterliche Buchdruckerei",
+        "professions": [ "Buchdrucker", "Drucker", "Buchhändler", "Verleger"
+        ]
+      }
+    ],
+    "date": "1848-08-31",
+    "letterText": "Euer Hochwohlgeboren \n Wie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen. \n So viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener \n Böttiger"
+  }
 
-## OUTPUT:
-
+## OUTPUT
 [
   {
-    "id": 294,
-    "writer": "Hammer-Purgstall, J.",
-    "gnd": "118545426",
-    "conf": "1.0"
+    "id": 7488,
+    "writer": "Böttiger, Carl August",
+    "gnd": "118824775",
+    "conf": "0.8"
   }
 ]
-
-## REASONING:
-The letter text clearly shows diplomatic activity ("Rapport à M. l'Internonce", discussions with Ottoman officials), written in French as typical for diplomatic correspondence. The content and professional context match Joseph von Hammer-Purgstall's role as a diplomat and orientalist (1774-1856), not his wife Karoline.
 
 ---
 
 ## INPUT:
-
-{
-  "id": 355,
-  "place": "Paris | FR",
-  "geonamesCandidates": [
-    {
-      "geonamesId": "2988507",
-      "name": "Paris",
-      "countryCode": "FR",
-      "lat": "48.85341",
-      "lng": "2.3488",
-      "featureClass": "P",
-      "featureCode": "PPLC",
-      "population": 2138551,
-      "adminName1": "Île-de-France"
-    },
-    {
-      "geonamesId": "3000074",
-      "name": "Les Paris",
-      "countryCode": "FR",
-      "lat": "45.63972",
-      "lng": "5.73742",
-      "featureClass": "P",
-      "featureCode": "PPL",
-      "population": 0,
-      "adminName1": "Auvergne-Rhône-Alpes"
+  {
+    "id": 1035,
+    "place": "Ognes | FR",
+    "geonamesCandidates": [
+      {
+        "geonamesId": "2989701",
+        "name": "Ognes",
+        "countryCode": "FR",
+        "featureClass": "P",
+        "featureCode": "PPL",
+        "population": 1110,
+        "adminName1": "Hauts-de-France"
+      },
+      {
+        "geonamesId": "2989703",
+        "name": "Ognes",
+        "countryCode": "FR",
+        "featureClass": "P",
+        "featureCode": "PPL",
+        "population": 73,
+        "adminName1": "Grand Est"
+      }
+    ],
+    "date": "1809-02",
+    "letterText": "Ognes, fev.809\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia... Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
     }
-  ],
-  "date": "1803-07-03",
-  "letterText": "Paris 3 Messidor xi\n\nMonsieur,\n\nJ'ai enfin reçu vos deux lettres des 14 et 25 fevrier de cette année mais la première ne me seroit peut-être jamais parvenue, si averti par la réception de la seconde, je ne l'avois fait reclamer à Vienne par le ministre de France. Je trouve bien que d'Herbelot parle d'Ebn Wahschia aux mots Nabathi et Vahaschia... Puisque vous prenez intérêt, Monsieur, à mes travaux, je ne craindrai point de vous occuper de moi un moment..."
-}
 
 ## OUTPUT:
 
 [
   {
-    "id": 355,
-    "place": "Paris | FR",
-    "geonamesId": "2988507",
+    "id": 1035,
+    "place": "Ognes | FR",
+    "geonamesId": "2989701",
     "conf": "1.0"
   }
 ]
-
-## REASONING:
-The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusses scholarly matters with references to "le ministre de France" and intellectual work. The context strongly indicates the capital Paris (PPLC), not the small village "Les Paris" with zero population. The scholarly discourse and diplomatic references fit the capital's role as a major intellectual and political center.
 
 ---
 
@@ -101,33 +84,31 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
 
 {
   "id": 1125,
-  "writer": "Müller, Johann",
+  "writer": "unk, Elise",
   "gndCandidates": [
     {
-      "gnd": "118584944",
-      "preferredName": "Müller, Johannes von",
-      "birthYear": 1752,
-      "deathYear": 1809,
-      "bio": "Schweizer Historiker und Staatsmann",
-      "professions": ["Historiker", "Politiker"]
+      "gnd": "1247150313",
+      "preferredName": "Zöllner, Elise",
+      "birthYear": 1810,
+      "deathYear": 1862,
+      "bio": "österr. Sängerin u. Schauspielerin",
+      "professions": ["Schauspielerin", "Sängerin"]
     },
     {
-      "gnd": "119217058",
-      "preferredName": "Müller, Johann Gottwerth",
-      "birthYear": 1743,
-      "deathYear": 1828,
-      "bio": "Deutscher Schriftsteller und Pädagoge",
-      "professions": ["Schriftsteller", "Pädagoge"]
+      "gnd": "117327433",
+      "preferredName": "Schick, Elise",
+      "birthYear": 1790,
+      "deathYear": 1855,
+      "bio": "",
+      "professions": ["Schriftstellerin", "Komponistin"]
     }
   ],
-  "place": "Wien | AT",
+  "place": "Vienna | AT",
   "geonamesCandidates": [
     {
       "geonamesId": "2761369",
       "name": "Wien",
       "countryCode": "AT",
-      "lat": "48.20849",
-      "lng": "16.37208",
       "featureClass": "P",
       "featureCode": "PPLC",
       "population": 1691468,
@@ -137,74 +118,25 @@ The letter is dated "3 Messidor xi" (Revolutionary calendar = 1803) and discusse
       "geonamesId": "2761367",
       "name": "Gemeinde Wien",
       "countryCode": "AT",
-      "lat": "48.11667",
-      "lng": "15.61667",
       "featureClass": "A",
       "featureCode": "ADM3",
       "population": 0,
       "adminName1": "Niederösterreich"
     }
   ],
-  "date": "1805-03-15",
-  "letterText": "Wien, 15. März 1805\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historiker schätze ich Ihre Kenntnisse der orientalischen Quellen sehr... Die Arbeit an meinem Werk zur Schweizergeschichte nimmt all meine Zeit in Anspruch..."
+  "date": "1835-03-15",
+  "letterText": "15. März 1835\n\nMein verehrter Herr von Hammer!\n\nIhre Nachricht über die türkische Historiographie hat mich außerordentlich interessiert. Als Historikerin schätze ich Ihre Kenntnisse der orientalischen Quellen sehr. Wann darf ich Sie in Wien begrüßen? In Verbundenheit, Ihre Elise."
 }
 
 ## OUTPUT:
-
 [
   {
     "id": 1125,
-    "writer": "Müller, Johann",
-    "gnd": "118584944",
-    "conf": "0.95",
-    "place": "Wien | AT",
+    "writer": "Elise",
+    "gnd": "unclear",
+    "gnd_conf": "0.2",
+    "place": "Vienna | AT",
     "geonamesId": "2761369",
-    "conf": "1.0"
+    "geo_conf": "1.0"
   }
 ]
-
-### REASONING:
-**Writer**: The letter discusses historiography and Swiss history ("Schweizergeschichte"), strongly suggesting Johannes von Müller (1752-1809), the Swiss historian known for his historical works. The reference to "türkische Historiographie" aligns with Hammer-Purgstall's expertise. Johann Gottwerth Müller was a writer/pedagogue without this historical specialization. Confidence slightly reduced (0.95) because the first name is abbreviated.
-
-**Place**: The date format and content clearly indicate Vienna (the capital, PPLC), not the small administrative district "Gemeinde Wien" in Lower Austria with 0 population. Vienna was a major center for Hammer-Purgstall's work. Perfect confidence (1.0).
-
----
-
-## INPUT:
-
-{
-  "id": 2445,
-  "writer": "Bartolowski,
-  "gndCandidates": [
-    {
-      "gnd": "118759302",
-      "preferredName": "Bartolowski, Andrej",
-      "birthYear": 1766,
-      "deathYear": 1849,
-      "professions": ["Maler"]
-    },
-    {
-      "gnd": "117472476",
-      "preferredName": "Bartolowski, Gregor",
-      "birthYear": 1800,
-      "deathYear": 1874,
-      "professions": ["Astronom"]
-    }
-  ],
-  "date": "1820-05-10",
-  "letterText": "[…] Ihr wertes Schreiben vom letzten Monat habe ich erhalten. […]"
-}
-
-## OUTPUT:
-
-[
-  {
-    "id": 2445,
-    "writer": "Bartolowski",
-    "gnd": "unk",
-    "conf": "0.45"
-  }
-]
-
-### REASONING:
-Letter text provides minimal context and no actual signature. This case requires human review.

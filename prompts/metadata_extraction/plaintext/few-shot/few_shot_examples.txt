@@ -9,8 +9,7 @@ Wie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur 
 
 So viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener
 
-C. A. Böttiger
-Oberconsistorialrat
+U. J. Seetzen
 
 
 ## OUTPUT:
@@ -25,11 +24,11 @@ Oberconsistorialrat
     },
     "writer": {
         "forename": {
-            "value": "Karl August",
+            "value": "Ulrich Jasper",
             "conf": 0.8
         },
         "lastname": {
-            "value": "Böttiger",
+            "value": "Seetzen",
             "conf": 1.0
         }
     },

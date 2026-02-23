@@ -24,7 +24,7 @@
       }
     ],
     "date": "1848-08-31",
-    "letterText": "Euer Hochwohlgeboren\n\nWie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen.\n\nSo viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener\n\nBöttiger"
+    "letterText": "Euer Hochwohlgeboren\n\nWie sehr freue ich mich, daß mir, der ich unterdessen die Besorgung des Merkur übernommen habe, dadurch das Vergnügen zu teil wird, Ihnen in aller Namen, die hier Ihre treffliche Probe schon gelesen haben, für diese neuen Aussichten auf den reichsten Blumengarten des Orients danken und besonders in Herders Namen die Bitte dringend wiederholen zu können, daß Sie den Merkur doch mit mehreren Beiträgen aus Ihrem Frucht- und Füllhorn zieren mögen. Sie sollen sogleich die Ehrenstelle darinnen erhalten, die sie verdienen.\n\nSo viel nur vorläufig. Kann Ihnen an einer weiteren Korrespondenz etwas gelegen sein, so beehren Sie in Abwesenheit meines Freundes Wieland damit Ihren gehorsamsten Diener\n\nC. A. Böttiger"
   }
 
 ## OUTPUT

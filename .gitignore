@@ -7,4 +7,4 @@ data/input/plaintext/letters/
 data/input/json/editorial-interventions/
 data/input/json/max/
 models/
-data/output/json
+data/output/json/

@@ -292,6 +292,7 @@ class LLMProcessingCoordinator:
         """
         # Current Anthropic pricing (as of 2025) - per million tokens
         pricing_rates = {
+            "claude-opus-4.6": {"input": 5.0, "output": 25.0},
             "claude-sonnet-4": {"input": 3.0, "output": 15.0}
         }
 

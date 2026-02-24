@@ -26,6 +26,7 @@ from utils.utils import (
     validate_text_data
 )
 
+
 def get_openai_client() -> OpenAI:
     """
     Get OpenAI client with lazy-loaded API key.
@@ -82,21 +83,21 @@ def encode_text_segment_gpt(
                 ]
             }
 
-            # Models that have parameter restrictions
-            is_newer_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
-                'o1-', 'o3-', 'gpt-5'
+            # Reasoning models (o1, o3) use max_completion_tokens
+            is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
+                'o1-', 'o3-'
             ])
+            
+            # GPT-5 models don't support token limit parameters in Chat Completions API
+            is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
 
-            if is_newer_model:
-                # Newer models (o1, o3, gpt-5) requirements:
-                # - Use max_completion_tokens instead of max_tokens
-                # - Only support temperature=1 (default), so don't set temperature
+            if is_reasoning_model:
                 api_params['max_completion_tokens'] = config.MAX_TOKENS
-                # Note: temperature parameter omitted - newer models only support default (1)
-            else:
-                # Older models (gpt-4, gpt-4.1, etc.) support both parameters normally
+            elif not is_gpt5:
+                # Standard models use max_tokens
                 api_params['max_tokens'] = config.MAX_TOKENS
                 api_params['temperature'] = config.TEMPERATURE
+            # For GPT-5, don't set any token limit parameter
 
             client = get_openai_client()
             response = client.chat.completions.create(**api_params)
@@ -200,16 +201,21 @@ def encode_text_gpt(
                 ]
             }
 
-            # Models that have parameter restrictions
-            is_newer_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
-                'o1-', 'o3-', 'gpt-5'
+            # Reasoning models (o1, o3) use max_completion_tokens
+            is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
+                'o1-', 'o3-'
             ])
+            
+            # GPT-5 models don't support token limit parameters in Chat Completions API
+            is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
 
-            if is_newer_model:
+            if is_reasoning_model:
                 api_params['max_completion_tokens'] = config.MAX_TOKENS
-            else:
+            elif not is_gpt5:
+                # Standard models use max_tokens
                 api_params['max_tokens'] = config.MAX_TOKENS
                 api_params['temperature'] = config.TEMPERATURE
+            # For GPT-5, don't set any token limit parameter
 
             client = get_openai_client()
             response = client.chat.completions.create(**api_params)

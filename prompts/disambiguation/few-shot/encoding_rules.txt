@@ -4,8 +4,8 @@
 - Use the full letter text as primary evidence for disambiguation
 - Consider biographical/geographical information
 - If all candidates seem implausible, set "gnd" or "geonamesID" value to "unclear"
-- Use the preferredName for the value of the writer key in the output JSON object; when gnd is "unclear", use the best inferable writer form from the input
-- Provide a confidence score ranging from 1.0 (very certain) to 0.0 (not verifiable)
+- Use the preferredName for the value of the writer key in the output JSON object; when gnd is "unclear", use the best inferable writer from the input
+- Provide a certainty level
 
 
 # Selection Rules
@@ -33,24 +33,16 @@
 **Prioritize:** Capitals (PPLC) and major cities over villages for diplomatic/scholarly correspondence
 
 
-## Confidence Scores
+## Certainty
 
 **Persons:**
-- 1.0: Full name + strong contextual evidence (profession, network, topics)
-- 0.9: Full name + moderate contextual evidence
-- 0.7-0.8: Name components (surname or forename) OR abbreviated name + strong evidence
-- 0.5-0.6: Abbreviated name + moderate evidence
-- <0.5: Weak evidence - flagged for human review (always use when GND "unclear")
+- "high": Strong contextual evidence (profession, network, topics)
+- "med": Name components (surname or forename) or abbreviated names and moderate evidence
+- "low": flagged for human review (always use when GND "unclear")
 
 **Places:**
-- 1.0: Explicitly named in dateline + supported by geographical context
-- 0.9: Name identified as writer's location in letter text + contextual support
-- 0.7-0.8: Abbreviated place name + strong evidence
-- 0.5-0.6: Abbreviated place name + moderate evidence
-- <0.5: Weak evidence - flagged for human review (always use when geonamesID "unclear")
+- "high": Named in dateline or letter text as location of writer and/or supported by geographical context
+- "med":  Abbreviated place name  and moderate evidence
+- "low": weak evidence, but contextually plausible - flagged for human review (always use when geonamesID "unclear")
 
-
-## Evidence levels:
-
-Strong: Named explicitly in letter body, or externally verifiable
-Moderate: Implied by context (address, salutation style, known correspondents)
+Use `"cert"` when only one type is resolved; use `"gnd_cert"` and `"geo_cert"` when both are resolved in the same record.

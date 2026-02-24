@@ -2,13 +2,13 @@
 
 - Focus on accuracy over guessing
 - Use "unk" (unknown) when information is unavailable or unclear
-- Include a confidence score from 0.0 (uncertain) to 1.0 (certain)
+- Provide a certainty level
 
 
 # Normalization Rules
 
 ## Date Format:
-- Use W3C format: YYYY-MM-DD when day is known; YYYY-MM when only month is known; YYYY when only year is known
+- Use W3C format: YYYY-MM-DD when exact date is known; YYYY-MM when year and month is known; YYYY when only year is known
 - If Julian and Gregorian dates are present in the letter, use the Gregorian date
 - If not extractable from letter: unk
 
@@ -20,12 +20,11 @@
 ## Name Format (Structured):
 - Extract name components separately: forename, lastname, particles, profession
 - **Forename**: First/given name (e.g., "Joseph", "Karl August")
-  - Normalize to modern spelling (e.g., "Karl" not "Carl")
-  - Resolve abbreviations (e.g., "J. H." to "Joseph") only when confident (conf ≥ 0.7); otherwise use "unk"
+  - Resolve abbreviations (e.g., "J." to "Joseph") only when confident; otherwise use "unk"
 - **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
-  - Resolve abbreviations (e.g., "J. H." to "Hammer-Purgstall") only when confident (conf ≥ 0.7); otherwise use "unk"
+  - Resolve abbreviations (e.g., "H." to "Hammer-Purgstall") only when confident; otherwise use "unk"
   - If unknown: unk
-- **Particles**: Nobility particles (e.g., "von", "de", "van")
+- **Particles**: Nobility particles (e.g., "von", "de", "Du" "van")
   - Omit if none or unknown
 - **Profession**: Occupation or profession if found in letter or known
   - Use broad GND categories in German (e.g., "Orientalist", "Schriftsteller", "Marineoffizier")
@@ -37,15 +36,8 @@
 - If unknown: unk
 
 
-# Confidence Scores
+# Certainty
 
-- 1.0: Explicitly named in dateline or signature + independently verifiable
-- 0.9: Person/location named + strong contextual evidence
-- 0.7-0.8: Person/location + moderate evidence, OR abbreviation/name components + strong evidence
-- 0.5-0.6: Abbreviation or name component + moderate evidence
-- <0.5: Weak evidence, but contextually plausible - flagged for human review
-
-## Evidence levels:
-
-Strong: Named explicitly in letter body, or externally verifiable
-Moderate: Implied by context (address, salutation style, known correspondents)
+- "high": Explicitly named in dateline or signature and/or strong evidence (externally verifiable)
+- "med": abbreviation/name components and/or moderate evidence (implied by context)
+- "low": weak evidence, but contextually plausible - flagged for human review

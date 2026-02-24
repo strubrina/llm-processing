@@ -16,25 +16,25 @@ U. J. Seetzen
 {
     "place": {
         "value": "unk",
-        "conf": 1.0
+        "cert":  "high"
     },
     "date": {
         "value": "unk",
-        "conf": 1.0
+        "cert":  "high"
     },
     "writer": {
         "forename": {
             "value": "Ulrich Jasper",
-            "conf": 0.8
+            "cert":  "high"
         },
         "lastname": {
             "value": "Seetzen",
-            "conf": 1.0
+            "cert":  "high"
         }
     },
     "language": {
         "value": "de",
-        "conf": 1.0
+        "cert":  "high"
     }
 }
 
@@ -52,25 +52,25 @@ Ce soir je compte d’achever l’extrait de la bibliothèque de Photius, qui m�
 {
     "place": {
         "value": "Vienna | AT",
-        "conf": 1.0
+        "cert": "high"
     },
     "date": {
         "value": "1796-10-15",
-        "conf": 1.0
+        "cert": "high"
     },
     "writer": {
         "forename": {
             "value": "unk",
-            "conf": 1.0
+            "cert": "high"
         },
         "lastname": {
             "value": "unk",
-            "conf": 1.0
+            "cert": "high"
         }
     },
     "language": {
         "value": "fr",
-        "conf": 1.0
+        "cert": "high"
     }
 }
 
@@ -90,29 +90,29 @@ Das Vte Bändchen des Gemäldesaals ist hoffe ich in Ihren Händen.
 {
     "place": {
         "value": "Vienna | AT",
-        "conf": 0.9
+        "cert": "high"
     },
     "date": {
         "value": "unk",
-        "conf": 0.8
+        "cert": "high"
     },
     "writer": {
         "forename": {
             "value": "Joseph",
-            "conf": 0.6
+            "cert": "med"
         },
         "lastname": {
             "value": "Hammer-Purgstall",
-            "conf": 1.0
+            "cert": "high"
         },
         "particles": {
             "value": "von",
-            "conf": 0.7
+            "cert": "med"
         }
     },
     "language": {
         "value": "de",
-        "conf": 1.0
+        "cert": "high"
     }
 }
 
@@ -134,28 +134,28 @@ I have given Edward directions to forward your things as you require – I beg o
 {
     "place": {
         "value": "London | GB",
-        "conf": 1.0
+        "cert": "high"
     },
     "date": {
         "value": "1802-02",
-        "conf": 0.8
+        "cert": "high"
     },
     "writer": {
         "forename": {
             "value": "William Sidney",
-            "conf": 0.8
+            "cert": "med"
         },
         "lastname": {
             "value": "Smith",
-            "conf": 0.8
+            "cert": "med"
         },
         "profession": {
             "value": "Marineoffizier",
-            "conf": 0.7
+            "cert": "med"
         }
     },
     "language": {
         "value": "en",
-        "conf": 1.0
+        "cert": "high"
     }
 }

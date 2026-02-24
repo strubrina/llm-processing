@@ -24,7 +24,7 @@
 - **Lastname**: Family name (e.g., "Hammer-Purgstall", "Böttiger")
   - Resolve abbreviations (e.g., "H." to "Hammer-Purgstall") only when confident; otherwise use "unk"
   - If unknown: unk
-- **Particles**: Nobility particles (e.g., "von", "de", "Du" "van")
+- **Particles**: Nobility particles (e.g., "von", "de", "Du", "van")
   - Omit if none or unknown
 - **Profession**: Occupation or profession if found in letter or known
   - Use broad GND categories in German (e.g., "Orientalist", "Schriftsteller", "Marineoffizier")

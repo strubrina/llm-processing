@@ -28,17 +28,17 @@ except (ImportError, AttributeError):
 # =============================================================================
 
 # Set to True to enable API calls, False for test mode (prompts only)
-ENABLE_API_CALLS = False
+ENABLE_API_CALLS = True
 
 # =============================================================================
 # MODEL CONFIGURATION
 # =============================================================================
 
 # Model Selection - Uncomment ONE model to use
-#MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
+MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
 # MODEL_NAME = "claude-sonnet-4-5-20250929"    # Anthropic Claude Sonnet 4.5
 # MODEL_NAME = "qwen3-14B-Q6"                # Alibaba Qwen3 (local)
-MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
+# MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
 # MODEL_NAME = "olmo2-32B-instruct-Q4"         # AI2 OLMo2 32B (local)
 # MODEL_NAME = "gpt-4o-mini"    # DeepSeek R1 (local)
 
@@ -53,12 +53,12 @@ QWEN_USE_THINKING = False
 # MODEL_PATH_OLMO2 = os.path.join('..', '..', '..', 'models', 'OLMo-2-0325-32B-Instruct-Q4_K_S.gguf')
 
 # CPU paths (requires ~8-9 GB RAM):
-MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
+# MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
 
 
 
 # Model Parameters
-TEMPERATURE = 0.6
+TEMPERATURE = 0.3
 MAX_TOKENS = 7000
 
 # Hardware Acceleration

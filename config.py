@@ -28,7 +28,7 @@ except (ImportError, AttributeError):
 # =============================================================================
 
 # Set to True to enable API calls, False for test mode (prompts only)
-ENABLE_API_CALLS = False
+ENABLE_API_CALLS = True
 
 # =============================================================================
 # MODEL CONFIGURATION

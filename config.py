@@ -180,7 +180,7 @@ XML_MAPPING_XPATH_KEY = "xpath"
 JSON_OUTPUT_TEI_FIELD = "tei"  # e.g., "tei" or "tei_encoding"
 
 # Field name for the intervention type in LLM output
-JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_type"
+JSON_OUTPUT_TYPE_FIELD = "type"  # e.g., "type" or "intervention_type"
 
 # Field name for the explanation in LLM output (optional)
 JSON_OUTPUT_EXPLANATION_FIELD = None  # Set to None if not used

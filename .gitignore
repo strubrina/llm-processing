@@ -7,4 +7,5 @@ _project/
 data/input/plaintext/letters/
 data/input/json/editorial-interventions/
 data/input/json/max/
+data/output/json/test
 models/

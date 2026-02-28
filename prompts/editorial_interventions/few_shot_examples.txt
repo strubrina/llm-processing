@@ -25,7 +25,7 @@ Bracketed Sequences:
   },
   "[…]": {
     "type": "Omission",
-    "tei_encoding": "<gap/>"
+    "tei": "<gap/>"
   }
 }
 
@@ -41,7 +41,7 @@ Bracketed Sequences:
 {
   "[„]sie": {
     "type": "Supplement",
-    "tei": "<supplied>„</supplied>"
+    "tei": "<supplied>„</supplied>sie"
   },
   "[ein]": {
     "type": "Supplement",

@@ -5,6 +5,10 @@
 - Do not use attributes in TEI tags
 - For multiple intervention types in one sequence, separate with semicolon
 
+### IMPORTANT:
+Notation form is not prescriptive: Square brackets or [sic] markers indicate that an editorial intervention exists, but do not necessarily determine the TEI encoding — always derive the correct tag from the nature of the intervention, not its surface notation.
+
+
 ## 1. Abbreviation
 - Use for intentional abbreviations by the original writer
 - Examples: abbreviated words with periods (d. M. = dieses Monats), month names (Jany = January), titles/forms of address (Mr = Monsieur), acronyms (FO = Foreign Office), shortened words by dropping letters from the end (orient = orientalisch) or from the middle (Jhdte = Jahrhunderte)

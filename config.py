@@ -72,7 +72,7 @@ USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU
 # Available versions should be in prompts/{version}/ directories
 # Each version must contain prompt.txt (required)
 # Optional files: encoding_rules.txt, few_shot_examples.txt
-PROMPT_VERSION = "disambiguation/zero-shot"
+PROMPT_VERSION = "editorial_interventions"
 
 # Derived path to prompt directory (do not modify)
 PROMPT_DIR = os.path.join("prompts", PROMPT_VERSION)
@@ -93,15 +93,15 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = os.path.join(".." , "data", "input", "metadata-disambiguation", "qwen3-14B-Q6", "processing_20260215_121543","disambiguation_review.json")
+INPUT_PATH = os.path.join("..", "data", "input", "dummy.json")
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
 #   - "object_processing": Processes complete JSON objects as units
-JSON_PROCESSING_MODE = "object_processing"  # Options: "key_extraction" or "object_processing"
+JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = os.path.join("..", "data", "output", "disambiguation", "test")
+OUTPUT_DIR = os.path.join("..", "data", "output", "test")
 
 # Output file extension
 # Options: ".xml" for XML files, ".json" for JSON output
@@ -141,7 +141,7 @@ KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 # For workflows that encode text segments with TEI markup
 
 # Key containing the context text
-JSON_CONTEXT_KEY = "full_element_text"
+JSON_CONTEXT_KEY = "context"
 
 # Key containing the text segments to encode
 # Can be either a list of strings or a single string
@@ -177,7 +177,7 @@ XML_MAPPING_XPATH_KEY = "xpath"
 # Update these if your prompt generates different field names.
 
 # Field name for the TEI encoding in LLM output
-JSON_OUTPUT_TEI_FIELD = "tei_encoding"  # e.g., "tei" or "tei_encoding"
+JSON_OUTPUT_TEI_FIELD = "tei"  # e.g., "tei" or "tei_encoding"
 
 # Field name for the intervention type in LLM output
 JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_type"

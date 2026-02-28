@@ -2,11 +2,9 @@
 __pycache__/
 *.pyc
 keys.py
+config.py
 _project/
 data/input/plaintext/letters/
 data/input/json/editorial-interventions/
 data/input/json/max/
 models/
-data/output/json/
-data/output/text/test/
-config.py

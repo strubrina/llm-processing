@@ -1,0 +1,37 @@
+[
+  {
+    "doc_id": "Leipzig_Universitätsbibliothek_1681",
+    "lb_ID": "#IMAGE.1_line_1683529111782_716",
+    "xml": "wy 5 <choice><expan>pfund</expan><abbr>h</abbr></choice>",
+    "text": "wy 5 pfund",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "wy",
+        "text_start": 0,
+        "text_end": 2,
+        "xml_start": 0,
+        "xml_end": 2,
+        "xml_fragment": "wy"
+      },
+      {
+        "id": "t2",
+        "form": "5",
+        "text_start": 3,
+        "text_end": 4,
+        "xml_start": 3,
+        "xml_end": 4,
+        "xml_fragment": "5"
+      },
+      {
+        "id": "t3",
+        "form": "pfund",
+        "text_start": 5,
+        "text_end": 10,
+        "xml_start": 5,
+        "xml_end": 56,
+        "xml_fragment": "<choice><expan>pfund</expan><abbr>h</abbr></choice>"
+      }
+    ]
+  }
+]

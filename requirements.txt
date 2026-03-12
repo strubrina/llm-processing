@@ -22,15 +22,17 @@ pandas>=2.3.0           # Data analysis and statistics
 lxml>=6.0.0             # TEI XML parsing and manipulation
 
 # =============================================================================
-# Optional Dependencies - Only needed for local models (Qwen, OLMo)
+# Optional Dependencies - Only needed for local models (OLMo)
 # =============================================================================
-# Uncomment these if using local models with llama.cpp
-# For GPU support, install llama-cpp-python with CUDA wheel (see README)
+# Qwen uses llama-server (a standalone binary) — no Python packages needed.
+# Download llama-server from: https://github.com/ggml-org/llama.cpp/releases
+#
+# OLMo still uses the llama-cpp-python bindings. Uncomment if using OLMo:
+# llama-cpp-python>=0.3.16    # Local model inference (OLMo only)
+# torch>=2.8.0                # GPU support for OLMo
 
-llama-cpp-python>=0.3.16    # Local model inference
-torch>=2.8.0                # GPU support and diagnostics
-gputil                      # GPU monitoring
-psutil                      # System resource monitoring
+gputil                      # GPU monitoring (Qwen + OLMo)
+psutil                      # System resource monitoring (Qwen + OLMo)
 
 # =============================================================================
 # Installation Notes

@@ -35,10 +35,10 @@ ENABLE_API_CALLS = True
 # =============================================================================
 
 # Model Selection - Uncomment ONE model to use
-MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
-# MODEL_NAME = "claude-sonnet-4-5-20250929"    # Anthropic Claude Sonnet 4.5
+# MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
+# MODEL_NAME = "claude-sonnet-4-6"    # Anthropic Claude Sonnet 4.5
 # MODEL_NAME = "qwen3-14B-Q6"                # Alibaba Qwen3 (local)
-# MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
+MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
 # MODEL_NAME = "olmo2-32B-instruct-Q4"         # AI2 OLMo2 32B (local)
 # MODEL_NAME = "gpt-4o-mini"    # DeepSeek R1 (local)
 
@@ -53,7 +53,7 @@ QWEN_USE_THINKING = False
 # MODEL_PATH_OLMO2 = os.path.join('..', '..', '..', 'models', 'OLMo-2-0325-32B-Instruct-Q4_K_S.gguf')
 
 # CPU paths (requires ~8-9 GB RAM):
-# MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
+MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
 
 
 
@@ -65,6 +65,23 @@ MAX_TOKENS = 7000
 USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU)
 
 # =============================================================================
+# LLAMA SERVER SETTINGS (only used for local models: Qwen)
+# =============================================================================
+# Path to the llama-server binary.
+# Use "llama-server" if it is on your PATH, or provide the full path.
+# Download pre-built binaries from: https://github.com/ggml-org/llama.cpp/releases
+# Pick the build that matches your OS and GPU (CPU-only, CUDA 12.x, Vulkan, …).
+LLAMA_SERVER_PATH = r"C:\Users\strutzs\.llama-cpp\llama-server.exe"
+
+# Port the llama-server HTTP API will listen on (default: 8080).
+# Change this if another application is already using port 8080.
+LLAMA_SERVER_PORT = 8080
+
+# Seconds to wait for the server to finish loading the model on startup.
+# Increase this for very large models or slow machines.
+LLAMA_SERVER_STARTUP_TIMEOUT = 120
+
+# =============================================================================
 # PROMPT CONFIGURATION
 # =============================================================================
 
@@ -72,7 +89,7 @@ USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU
 # Available versions should be in prompts/{version}/ directories
 # Each version must contain prompt.txt (required)
 # Optional files: encoding_rules.txt, few_shot_examples.txt
-PROMPT_VERSION = "editorial_interventions"
+PROMPT_VERSION = "ner"
 
 # Derived path to prompt directory (do not modify)
 PROMPT_DIR = os.path.join("prompts", PROMPT_VERSION)
@@ -93,15 +110,15 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = os.path.join("..", "data", "input", "dummy.json")
+INPUT_PATH = os.path.join("data", "input", "json", "ner", "Leipzig_1681_dummy.json")
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
 #   - "object_processing": Processes complete JSON objects as units
-JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_processing"
+JSON_PROCESSING_MODE = "object_processing"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = os.path.join("..", "data", "output", "test")
+OUTPUT_DIR = os.path.join("data", "output", "new-test", "ner")
 
 # Output file extension
 # Options: ".xml" for XML files, ".json" for JSON output

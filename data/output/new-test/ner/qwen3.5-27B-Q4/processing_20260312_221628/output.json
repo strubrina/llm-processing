@@ -1,0 +1,883 @@
+[
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_54",
+      "entities": [],
+      "xml_tagged": "alſo ſol es auch ſein"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_53",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 5,
+            "end": 6
+          },
+          "text_char_span": {
+            "start": 19,
+            "end": 22
+          },
+          "xml_char_span": {
+            "start": 19,
+            "end": 22
+          },
+          "surface": "lot"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 12,
+            "end": 13
+          },
+          "text_char_span": {
+            "start": 43,
+            "end": 48
+          },
+          "xml_char_span": {
+            "start": 97,
+            "end": 102
+          },
+          "surface": "marck"
+        },
+        {
+          "id": "e3",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 16,
+            "end": 17
+          },
+          "text_char_span": {
+            "start": 59,
+            "end": 62
+          },
+          "xml_char_span": {
+            "start": 113,
+            "end": 116
+          },
+          "surface": "lot"
+        }
+      ],
+      "xml_tagged": "wilt vnd daß iſt 7 <unit type=\"weight\">lot</unit> ſo pleibt <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">7</hi> einer <unit type=\"weight\">marck</unit> daß iſt 4 <unit type=\"weight\">lot</unit> <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> eins"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_line_1704967566658_510",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "measurement"
+            }
+          },
+          "token_span": {
+            "start": 2,
+            "end": 3
+          },
+          "text_char_span": {
+            "start": 9,
+            "end": 13
+          },
+          "xml_char_span": {
+            "start": 105,
+            "end": 109
+          },
+          "surface": "rock"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "measurement"
+            }
+          },
+          "token_span": {
+            "start": 8,
+            "end": 9
+          },
+          "text_char_span": {
+            "start": 29,
+            "end": 32
+          },
+          "xml_char_span": {
+            "start": 179,
+            "end": 182
+          },
+          "surface": "tag"
+        },
+        {
+          "id": "e3",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "measurement"
+            }
+          },
+          "token_span": {
+            "start": 12,
+            "end": 13
+          },
+          "text_char_span": {
+            "start": 45,
+            "end": 49
+          },
+          "xml_char_span": {
+            "start": 195,
+            "end": 199
+          },
+          "surface": "rock"
+        },
+        {
+          "id": "e4",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "measurement"
+            }
+          },
+          "token_span": {
+            "start": 15,
+            "end": 16
+          },
+          "text_char_span": {
+            "start": 59,
+            "end": 62
+          },
+          "xml_char_span": {
+            "start": 285,
+            "end": 288
+          },
+          "surface": "tag"
+        }
+      ],
+      "xml_tagged": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> 4 <unit type=\"measurement\">rock</unit> <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">3</hi> gebe̅n̅ 14 <unit type=\"measurement\">tag</unit> waß geben 8 <unit type=\"measurement\">rock</unit> <choice><expan>facit</expan><abbr>fa<hi rend=\"superscript\">t</hi></abbr></choice> 14 <unit type=\"measurement\">tag</unit>"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_52",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "CUR",
+          "name": "currency",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "currency"
+            }
+          },
+          "token_span": {
+            "start": 5,
+            "end": 6
+          },
+          "text_char_span": {
+            "start": 24,
+            "end": 29
+          },
+          "xml_char_span": {
+            "start": 24,
+            "end": 159
+          },
+          "surface": "müncʒ"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 12,
+            "end": 13
+          },
+          "text_char_span": {
+            "start": 51,
+            "end": 54
+          },
+          "xml_char_span": {
+            "start": 181,
+            "end": 184
+          },
+          "surface": "lot"
+        }
+      ],
+      "xml_tagged": "Oder machs alſo tail dy <rs type=\"currency\"><choice><expan>müncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>ü<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice></rs> dy du haſt daß iſt 9 <unit type=\"weight\">lot</unit> mit <choice><expan>der</expan><abbr>d<am><g ref=\"#er\"/></am></abbr></choice> dy du <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice>"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_51",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 0,
+            "end": 1
+          },
+          "text_char_span": {
+            "start": 0,
+            "end": 10
+          },
+          "xml_char_span": {
+            "start": 0,
+            "end": 10
+          },
+          "surface": "feinſilber"
+        }
+      ],
+      "xml_tagged": "<rs type=\"goods\">feinſilber</rs> <choice><expan>halten</expan><abbr>haltn<am><g ref=\"#combover\"/></am></abbr></choice> vnd iſt gemacht"
+    }
+  },
+  {
+    "output": "{\n  \"doc_id\": \"München_Staatsbibliothek_14111\",\n  \"lb_ID\": \"#IMAGE.5_region_1684301320066_157_tl_50\",\n  \"entities\": [\n    {\n      \"id\": \"e1\",\n      \"label\": \"UNIT\",\n      \"name\": \"unit\",\n      \"tei\": {\n        \"tag\": \"unit\",\n        \"attrs\": {\n          \"type\": \"weight\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 1,\n        \"end\": 2\n      },\n      \"text_char_span\": {\n        \"start\": 2,\n        \"end\": 5\n      },\n      \"xml_char_span\": {\n        \"start\": 2,\n        \"end\": 5\n      },\n      \"surface\": \"lot\"\n    },\n    {\n      \"id\": \"e2\",\n      \"label\": \"GOOD\",\n      \"name\": \"goods\",\n      \"tei\": {\n        \"tag\": \"rs\",\n        \"attrs\": {\n          \"type\": \"goods\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 5,\n        \"end\": 6\n      },\n      \"text_char_span\": {\n        \"start\": 10,\n        \"end\": 17\n      },\n      \"xml_char_span\": {\n        \"start\": 64,\n        \"end\": 71\n      },\n      \"surface\": \"kupfers\"\n    },\n    {\n      \"id\": \"e3\",\n      \"label\": \"GOOD\",\n      \"name\": \"goods\",\n      \"tei\": {\n        \"tag\": \"rs\",\n        \"attrs\": {\n          \"type\": \"goods\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 8,\n        \"end\": 9\n      },\n      \"text_char_span\":"
+  },
+  {
+    "output": "{\n  \"doc_id\": \"München_Staatsbibliothek_14111\",\n  \"lb_ID\": \"#IMAGE.5_region_1684301320066_157_tl_49\",\n  \"entities\": [\n    {\n      \"id\": \"e1\",\n      \"label\": \"UNIT\",\n      \"name\": \"unit\",\n      \"tei\": {\n        \"tag\": \"unit\",\n        \"attrs\": {\n          \"type\": \"weight\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 0,\n        \"end\": 1\n      },\n      \"text_char_span\": {\n        \"start\": 0,\n        \"end\": 3\n      },\n      \"xml_char_span\": {\n        \"start\": 0,\n        \"end\": 3\n      },\n      \"surface\": \"lot\"\n    },\n    {\n      \"id\": \"e2\",\n      \"label\": \"GOOD\",\n      \"name\": \"goods\",\n      \"tei\": {\n        \"tag\": \"rs\",\n        \"attrs\": {\n          \"type\": \"goods\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 1,\n        \"end\": 2\n      },\n      \"text_char_span\": {\n        \"start\": 4,\n        \"end\": 15\n      },\n      \"xml_char_span\": {\n        \"start\": 4,\n        \"end\": 15\n      },\n      \"surface\": \"feinſilbers\"\n    },\n    {\n      \"id\": \"e3\",\n      \"label\": \"UNIT\",\n      \"name\": \"unit\",\n      \"tei\": {\n        \"tag\": \"unit\",\n        \"attrs\": {\n          \"type\": \"weight\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 4,\n        \"end\": 5\n      },\n      \"text_char_span\": {\n        \"start\": 23,\n        \"end\": 26\n      },\n      \"xml_char_span\": {\n        \"start\": 23,\n        \"end\": 26\n      },\n      \"surface\": \"lot\"\n    },\n    {\n      \"id\": \"e4\",\n      \"label\": \"GOOD\",\n      \"name\": \"goods\",\n      \"tei\": {\n        \"tag\": \"rs\",\n        \"attrs\": {\n          \"type\": \"goods\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 5,\n        \"end\": 6\n      },\n      \"text_char_span\": {\n        \"start\": 27,\n        \"end\": 34\n      },\n      \"xml_char_span\": {\n        \"start\": 27,\n        \"end\": 34\n      },\n      \"surface\": \"kupfers\"\n    },\n    {\n      \"id\": \"e5\",\n      \"label\": \"GOOD\",\n      \"name\": \"goods\",\n      \"tei\": {\n        \"tag\": \"rs\",\n        \"attrs\": {\n          \"type\": \"goods\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 7,\n        \"end\": 8\n      },\n      \"text_char_span\": {\n        \"start\": 38,\n        \"end\": 43\n      },\n      \"xml_char_span\": {\n        \"start\": 38,\n        \"end\": 43\n      },\n      \"surface\": \"ʒeuch\"\n    },\n    {\n      \"id\": \"e6\",\n      \"label\": \"UNIT\",\n      \"name\": \"unit\",\n      \"tei\": {\n        \"tag\": \"unit\",\n        \"attrs\": {\n          \"type\": \"weight\"\n        }\n      },\n      \"token_span\": {\n        \"start\": 13,\n        \"end\": 14\n      },\n      \"text_char_span\": {\n        \"start\": 55,"
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_48",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 6,
+            "end": 7
+          },
+          "text_char_span": {
+            "start": 31,
+            "end": 35
+          },
+          "xml_char_span": {
+            "start": 31,
+            "end": 35
+          },
+          "surface": "lott"
+        },
+        {
+          "id": "e2",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 10,
+            "end": 11
+          },
+          "text_char_span": {
+            "start": 40,
+            "end": 46
+          },
+          "xml_char_span": {
+            "start": 94,
+            "end": 100
+          },
+          "surface": "kupfer"
+        },
+        {
+          "id": "e3",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 16,
+            "end": 17
+          },
+          "text_char_span": {
+            "start": 67,
+            "end": 72
+          },
+          "xml_char_span": {
+            "start": 121,
+            "end": 126
+          },
+          "surface": "marck"
+        }
+      ],
+      "xml_tagged": "Machs nach der̅ Regel ſacit 11 <unit type=\"weight\">lott</unit> <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> <rs type=\"goods\">kupfer</rs> Nu ſind vor In der̅ <unit type=\"weight\">marck</unit> 9"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_line_1684747322772_1222",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 0,
+            "end": 1
+          },
+          "text_char_span": {
+            "start": 0,
+            "end": 10
+          },
+          "xml_char_span": {
+            "start": 0,
+            "end": 10
+          },
+          "surface": "feinſilber"
+        },
+        {
+          "id": "e2",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 2,
+            "end": 3
+          },
+          "text_char_span": {
+            "start": 13,
+            "end": 19
+          },
+          "xml_char_span": {
+            "start": 38,
+            "end": 44
+          },
+          "surface": "kupfer"
+        },
+        {
+          "id": "e3",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 4,
+            "end": 5
+          },
+          "text_char_span": {
+            "start": 22,
+            "end": 30
+          },
+          "xml_char_span": {
+            "start": 72,
+            "end": 80
+          },
+          "surface": "feinsilb"
+        }
+      ],
+      "xml_tagged": "<rs type=\"goods\">feinſilber</rs> <add place=\"below\">7</add> <rs type=\"goods\">kupfer</rs> <add place=\"below\">9</add> <rs type=\"goods\">feinsilb</rs> <add place=\"below\">9</add>"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_line_1684747292469_1205",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 2,
+            "end": 3
+          },
+          "text_char_span": {
+            "start": 8,
+            "end": 15
+          },
+          "xml_char_span": {
+            "start": 8,
+            "end": 15
+          },
+          "surface": "kupfers"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 10,
+            "end": 11
+          },
+          "text_char_span": {
+            "start": 42,
+            "end": 47
+          },
+          "xml_char_span": {
+            "start": 42,
+            "end": 125
+          },
+          "surface": "loten"
+        }
+      ],
+      "xml_tagged": "ſol ich <rs type=\"goods\">kupfers</rs> dar ein thűn daß es ʒu 7 <unit type=\"weight\"><choice><expan>loten</expan><abbr>lotn<am><g ref=\"#combover\"/></am></abbr></choice></unit> werd ſecʒ alſo"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_46",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "CUR",
+          "name": "currency",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "currency"
+            }
+          },
+          "token_span": {
+            "start": 6,
+            "end": 7
+          },
+          "text_char_span": {
+            "start": 30,
+            "end": 35
+          },
+          "xml_char_span": {
+            "start": 109,
+            "end": 215
+          },
+          "surface": "muncʒ"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 9,
+            "end": 10
+          },
+          "text_char_span": {
+            "start": 41,
+            "end": 44
+          },
+          "xml_char_span": {
+            "start": 221,
+            "end": 224
+          },
+          "surface": "lot"
+        },
+        {
+          "id": "e3",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 10,
+            "end": 11
+          },
+          "text_char_span": {
+            "start": 45,
+            "end": 56
+          },
+          "xml_char_span": {
+            "start": 225,
+            "end": 236
+          },
+          "surface": "feinſilbers"
+        }
+      ],
+      "xml_tagged": "der̅ wil ich <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice> ein ander <rs type=\"currency\"><choice><expan>muncʒ</expan><abbr>mu<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice></rs> dy 7 <unit type=\"weight\">lot</unit> <rs type=\"goods\">feinſilbers</rs> helt wieuil"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_44",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 2,
+            "end": 3
+          },
+          "text_char_span": {
+            "start": 9,
+            "end": 16
+          },
+          "xml_char_span": {
+            "start": 9,
+            "end": 16
+          },
+          "surface": "küpfer̅"
+        },
+        {
+          "id": "e2",
+          "label": "CUR",
+          "name": "currency",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "currency"
+            }
+          },
+          "token_span": {
+            "start": 7,
+            "end": 8
+          },
+          "text_char_span": {
+            "start": 39,
+            "end": 44
+          },
+          "xml_char_span": {
+            "start": 110,
+            "end": 115
+          },
+          "surface": "Müncʒ"
+        },
+        {
+          "id": "e3",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 10,
+            "end": 11
+          },
+          "text_char_span": {
+            "start": 53,
+            "end": 57
+          },
+          "xml_char_span": {
+            "start": 124,
+            "end": 233
+          },
+          "surface": "mark"
+        },
+        {
+          "id": "e4",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 12,
+            "end": 13
+          },
+          "text_char_span": {
+            "start": 60,
+            "end": 63
+          },
+          "xml_char_span": {
+            "start": 236,
+            "end": 239
+          },
+          "surface": "lot"
+        },
+        {
+          "id": "e5",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 13,
+            "end": 14
+          },
+          "text_char_span": {
+            "start": 64,
+            "end": 74
+          },
+          "xml_char_span": {
+            "start": 240,
+            "end": 250
+          },
+          "surface": "feinſilber"
+        }
+      ],
+      "xml_tagged": "lott iſt <rs type=\"goods\">küpfer̅</rs> <choice><expan>Sprich</expan><abbr>Spr<am><g ref=\"#is\"/></am></abbr></choice> alſo einer hat <rs type=\"currency\">Müncʒ</rs> helt dy <unit type=\"weight\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></unit> 9 <unit type=\"weight\">lot</unit> <rs type=\"goods\">feinſilber</rs> von"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_43",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 5,
+            "end": 6
+          },
+          "text_char_span": {
+            "start": 23,
+            "end": 26
+          },
+          "xml_char_span": {
+            "start": 42,
+            "end": 45
+          },
+          "surface": "lot"
+        },
+        {
+          "id": "e2",
+          "label": "GOOD",
+          "name": "goods",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "goods"
+            }
+          },
+          "token_span": {
+            "start": 6,
+            "end": 7
+          },
+          "text_char_span": {
+            "start": 27,
+            "end": 37
+          },
+          "xml_char_span": {
+            "start": 46,
+            "end": 56
+          },
+          "surface": "feinſilber"
+        }
+      ],
+      "xml_tagged": "ſo <unclear>rdnim</unclear> daß dy ſelben <unit type=\"weight\">lot</unit> <rs type=\"goods\">feinſilber</rs> ſein vnd daß vbrig piß auff 16"
+    }
+  },
+  {
+    "output": {
+      "doc_id": "München_Staatsbibliothek_14111",
+      "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_42",
+      "entities": [
+        {
+          "id": "e1",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 2,
+            "end": 3
+          },
+          "text_char_span": {
+            "start": 8,
+            "end": 11
+          },
+          "xml_char_span": {
+            "start": 85,
+            "end": 88
+          },
+          "surface": "lot"
+        },
+        {
+          "id": "e2",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 5,
+            "end": 6
+          },
+          "text_char_span": {
+            "start": 18,
+            "end": 22
+          },
+          "xml_char_span": {
+            "start": 95,
+            "end": 204
+          },
+          "surface": "mark"
+        },
+        {
+          "id": "e3",
+          "label": "CUR",
+          "name": "currency",
+          "tei": {
+            "tag": "rs",
+            "attrs": {
+              "type": "currency"
+            }
+          },
+          "token_span": {
+            "start": 11,
+            "end": 12
+          },
+          "text_char_span": {
+            "start": 46,
+            "end": 51
+          },
+          "xml_char_span": {
+            "start": 324,
+            "end": 459
+          },
+          "surface": "muncʒ"
+        },
+        {
+          "id": "e4",
+          "label": "UNIT",
+          "name": "unit",
+          "tei": {
+            "tag": "unit",
+            "attrs": {
+              "type": "weight"
+            }
+          },
+          "token_span": {
+            "start": 17,
+            "end": 18
+          },
+          "text_char_span": {
+            "start": 73,
+            "end": 76
+          },
+          "xml_char_span": {
+            "start": 481,
+            "end": 484
+          },
+          "surface": "lot"
+        }
+      ],
+      "xml_tagged": "<choice><expan>Item</expan><abbr>Itm<am><g ref=\"#combover\"/></am></abbr></choice> 16 <unit type=\"weight\">lot</unit> iſt 1 <unit type=\"weight\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></unit> vnd wen <choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> ich hab <rs type=\"currency\"><choice><expan>muncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>u<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice></rs> dy helt ain ſtrich 7 <unit type=\"weight\">lot</unit>"
+    }
+  }
+]

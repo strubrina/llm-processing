@@ -1,0 +1,215 @@
+EXACT RESPONSES FROM LLM - JSON BATCH PROCESSING
+==================================================
+
+TECHNICAL DETAILS OF LLM PROCESSING
+==================================================
+Model instance name: qwen3.5-27B-Q4
+Date of processing: 2026-03-12 22:14:53
+Time of LLM processing: 0.00 seconds
+Temperature setting: 0.6
+Token count: 0 tokens
+Thinking mode: Disabled
+Input tokens: 0 tokens
+Output tokens: 0 tokens
+
+This file contains the EXACT responses received from the LLM.
+
+==================================================
+RESPONSES:
+==================================================
+
+
+================================================================================
+OBJECT 1 - LLM RESPONSE
+================================================================================
+Object ID: object_1
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 2 - LLM RESPONSE
+================================================================================
+Object ID: object_2
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 3 - LLM RESPONSE
+================================================================================
+Object ID: object_3
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 4 - LLM RESPONSE
+================================================================================
+Object ID: object_4
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 5 - LLM RESPONSE
+================================================================================
+Object ID: object_5
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 6 - LLM RESPONSE
+================================================================================
+Object ID: object_6
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 7 - LLM RESPONSE
+================================================================================
+Object ID: object_7
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 8 - LLM RESPONSE
+================================================================================
+Object ID: object_8
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 9 - LLM RESPONSE
+================================================================================
+Object ID: object_9
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 10 - LLM RESPONSE
+================================================================================
+Object ID: object_10
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 11 - LLM RESPONSE
+================================================================================
+Object ID: object_11
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 12 - LLM RESPONSE
+================================================================================
+Object ID: object_12
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 13 - LLM RESPONSE
+================================================================================
+Object ID: object_13
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 14 - LLM RESPONSE
+================================================================================
+Object ID: object_14
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================
+
+================================================================================
+OBJECT 15 - LLM RESPONSE
+================================================================================
+Object ID: object_15
+
+RAW LLM RESPONSE:
+ERROR: 
+[ERROR] Model file not found: '../,,/../models/Qwen_Qwen3.5-27B-Q4_0.gguf'
+  Check the MODEL_PATH_QWEN3 setting in config.py.
+
+
+================================================================================

@@ -1,0 +1,1 @@
+Given the following context, identify the named entities and provide the appropriate TEI encoding as defined.

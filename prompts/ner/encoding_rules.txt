@@ -1,0 +1,38 @@
+# Encoding Rules for customized Named Entity Recognition of early high german TEI-XML files
+
+## General Remarks:
+- Maintain original historical spelling and orthography 
+- Do not change the existing TEI-Annotation and only supplement new tagging for recognized entities
+- Only create entity-tags for the entities provided in the encoding rules
+- Only return the json with the supplemented tagging without further explanations
+- Preserve special characters and foreign words as they appear in the text
+- Preserve the original structure and order
+  	  
+## 1. Named Entity Labels
+- Use for recognizing the entities relevant for this task
+- Entities: 
+(1)	CUR, “currency“, xml: <rs type=”currency”></rs>
+(2)	GOO, “goods”, xml: <rs type=”goods”></rs>
+(3)	OCC, “occupation”, xml: <occupation></occupation>
+(4)	PER, “person”, xml : <person ref=”#p_”><persName></persName></person>
+(5)	LOC, “location”, xml: <placeName ref=”#o_”></placeName>
+(6)	ROL, “role”, xml: <roleName></roleName>
+(7)	MES, “measurement”, xml: <unit type= “measurement”></unit>
+(8)	WEI, “weight”, xml: <unit type= “weight”></unit>
+(9)	VOL, “volume”, xml: <unit type= “volume”></unit>
+(10)	LEN, “length”, xml: <unit type= “length”></unit>
+(11)	HEI, “height”, xml: <unit type= “height”></unit>
+(12)	DIS, “distance”, xml: <unit type= “distance”></unit>
+(13)	UNI, “unit” xml: <unit type= “”></unit>
+(14)	ARE, ”area”, xml: <unit type= “area”></unit>
+
+## 2. Ambiguous terms
+- Use for handling ambiguous terms that rely heavily on context
+- Examples: the term "pfund" used either as a currency (near other currencies) or as a weight (near other weights)
+- check the word-tokens in the json and take them as context für tagging
+
+## 3. Context
+- Use for regarding the context of a term to determine whether it is an entity and if so which label
+- Examples: see few-shot-examples
+- Use the surrounding words of the input-data to determine the label type
+

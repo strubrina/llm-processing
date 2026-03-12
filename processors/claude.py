@@ -272,5 +272,111 @@ def encode_text_claude(
         return results, ("", ""), error_response, 0, 0, 0
 
 
+def process_json_object_claude(
+    json_object: Dict[str, Any],
+    coordinator: Optional[Any] = None
+) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int]:
+    """
+    Claude-specific implementation for processing a complete JSON object.
+
+    Processes the entire JSON object as a unit (object processing mode).
+
+    Args:
+        json_object: A single JSON object from the input array (any structure).
+        coordinator: LLMProcessingCoordinator instance for accessing shared methods.
+            If None, uses fallback placeholder messages.
+
+    Returns:
+        Tuple containing:
+            - results: Dictionary with 'output_content' (str) and 'success' (bool) keys.
+            - (system_message, user_message): Tuple of system and user prompts used.
+            - raw_response: Raw response text from Claude API.
+            - total_tokens: Total token count (input + output).
+            - input_tokens: Input token count.
+            - output_tokens: Output token count.
+    """
+    try:
+        # Create the prompt using the coordinator's methods
+        if coordinator:
+            system_message = coordinator.create_system_message()
+            user_message = coordinator.create_user_message_for_json_object(json_object)
+        else:
+            # Fallback for backward compatibility
+            system_message = "System message placeholder"
+            user_message = f"Process this JSON object: {json.dumps(json_object, indent=2)}"
+
+        # Handle test mode
+        if not config.ENABLE_API_CALLS:
+            object_id = json_object.get('id') or json_object.get('object_id') or 'unknown'
+            raw_response = f"""<!-- CLAUDE TEST MODE OUTPUT for object: {object_id} -->
+<rdf:RDF>
+  <rdf:Description>
+    <content>{json_object.get('content', 'N/A')}</content>
+  </rdf:Description>
+</rdf:RDF>"""
+
+            # For test mode, estimate token count
+            input_tokens = count_tokens_claude(user_message, system_message=system_message)
+            output_tokens = count_tokens_claude(raw_response)
+            total_tokens = input_tokens + output_tokens
+
+            results = {
+                'output_content': raw_response,
+                'success': True
+            }
+
+            return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+
+        # API calls enabled - call the Anthropic API
+        input_tokens = count_tokens_claude(user_message, system_message=system_message)
+
+        api_params = {
+            "model": config.MODEL_NAME,
+            "system": system_message,
+            "messages": [{"role": "user", "content": user_message}],
+            "max_tokens": config.MAX_TOKENS,
+            "temperature": config.TEMPERATURE
+        }
+
+        client = get_anthropic_client()
+        response = client.messages.create(**api_params)
+
+        raw_response = response.content[0].text.strip()
+
+        # Get exact token usage from API response if available
+        if hasattr(response, 'usage') and response.usage:
+            input_tokens = response.usage.input_tokens
+            output_tokens = response.usage.output_tokens
+            total_tokens = input_tokens + output_tokens
+        else:
+            output_tokens = count_tokens_claude(raw_response)
+            total_tokens = input_tokens + output_tokens
+
+        # Strip markdown code blocks if present
+        output_content = raw_response
+        if output_content.startswith('```'):
+            lines = output_content.split('\n')
+            lines = lines[1:]
+            if lines and lines[-1].strip() == '```':
+                lines = lines[:-1]
+            output_content = '\n'.join(lines).strip()
+
+        results = {
+            'output_content': output_content,
+            'success': bool(output_content and output_content.strip())
+        }
+
+        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+
+    except Exception as e:
+        results = {
+            'output_content': '',
+            'success': False,
+            'error': str(e)
+        }
+        error_response = f"ERROR: {str(e)}"
+        return results, ("", ""), error_response, 0, 0, 0
+
+
 if __name__ == "__main__":
     print("Please run: python llm_processing.py")

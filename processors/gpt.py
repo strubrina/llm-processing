@@ -259,5 +259,125 @@ def encode_text_gpt(
         return results, (system_message, user_message), error_response, 0, 0, 0
 
 
+def process_json_object_gpt(
+    json_object: Dict[str, Any],
+    coordinator: Optional[Any] = None
+) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int]:
+    """
+    GPT-specific implementation for processing a complete JSON object.
+
+    Processes the entire JSON object as a unit (object processing mode).
+
+    Args:
+        json_object: A single JSON object from the input array (any structure).
+        coordinator: LLMProcessingCoordinator instance for accessing shared methods.
+            If None, uses fallback placeholder messages.
+
+    Returns:
+        Tuple containing:
+            - results: Dictionary with 'output_content' (str) and 'success' (bool) keys.
+            - (system_message, user_message): Tuple of system and user prompts used.
+            - raw_response: Raw response text from GPT API.
+            - total_tokens: Total token count (input + output).
+            - input_tokens: Input token count.
+            - output_tokens: Output token count.
+    """
+    try:
+        # Create the prompt using the coordinator's methods
+        if coordinator:
+            system_message = coordinator.create_system_message()
+            user_message = coordinator.create_user_message_for_json_object(json_object)
+        else:
+            # Fallback for backward compatibility
+            system_message = "System message placeholder"
+            user_message = f"Process this JSON object: {json.dumps(json_object, indent=2)}"
+
+        # Handle test mode
+        if not config.ENABLE_API_CALLS:
+            object_id = json_object.get('id') or json_object.get('object_id') or 'unknown'
+            raw_response = f"""<!-- GPT TEST MODE OUTPUT for object: {object_id} -->
+<rdf:RDF>
+  <rdf:Description>
+    <content>{json_object.get('content', 'N/A')}</content>
+  </rdf:Description>
+</rdf:RDF>"""
+
+            # For test mode, estimate token count
+            input_tokens = int(len((system_message + user_message).split()) * 1.3)
+            output_tokens = int(len(raw_response.split()) * 1.3)
+            total_tokens = input_tokens + output_tokens
+
+            results = {
+                'output_content': raw_response,
+                'success': True
+            }
+
+            return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+
+        # API calls enabled - call the OpenAI API
+        api_params = {
+            "model": config.MODEL_NAME,
+            "messages": [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message}
+            ]
+        }
+
+        # Reasoning models (o1, o3) use max_completion_tokens
+        is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
+            'o1-', 'o3-'
+        ])
+
+        # GPT-5 models don't support token limit parameters in Chat Completions API
+        is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
+
+        if is_reasoning_model:
+            api_params['max_completion_tokens'] = config.MAX_TOKENS
+        elif not is_gpt5:
+            api_params['max_tokens'] = config.MAX_TOKENS
+            api_params['temperature'] = config.TEMPERATURE
+        # For GPT-5, don't set any token limit parameter
+
+        client = get_openai_client()
+        response = client.chat.completions.create(**api_params)
+
+        raw_response = response.choices[0].message.content.strip()
+
+        # Get exact token usage from API response
+        if hasattr(response, 'usage') and response.usage:
+            input_tokens = response.usage.prompt_tokens
+            output_tokens = response.usage.completion_tokens
+            total_tokens = response.usage.total_tokens
+        else:
+            input_tokens = int(len((system_message + user_message).split()) * 1.3)
+            output_tokens = int(len(raw_response.split()) * 1.3)
+            total_tokens = input_tokens + output_tokens
+
+        # Strip markdown code blocks if present
+        output_content = raw_response
+        if output_content.startswith('```'):
+            lines = output_content.split('\n')
+            lines = lines[1:]
+            if lines and lines[-1].strip() == '```':
+                lines = lines[:-1]
+            output_content = '\n'.join(lines).strip()
+
+        results = {
+            'output_content': output_content,
+            'success': bool(output_content and output_content.strip())
+        }
+
+        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+
+    except Exception as e:
+        results = {
+            'output_content': '',
+            'success': False,
+            'error': str(e)
+        }
+        error_response = f"ERROR: {str(e)}"
+        return results, ("", ""), error_response, 0, 0, 0
+
+
 if __name__ == "__main__":
     print("Please run: python llm_processing.py")

@@ -1,0 +1,62 @@
+EXACT RESPONSES FROM LLM - JSON BATCH PROCESSING
+==================================================
+
+TECHNICAL DETAILS OF LLM PROCESSING
+==================================================
+Model instance name: qwen3-14B-Q6
+Date of processing: 2026-03-12 21:51:42
+Time of LLM processing: 24.10 seconds
+Temperature setting: 0.6
+Token count: 8,006 tokens
+Thinking mode: Disabled
+Input tokens: 7,766 tokens
+Output tokens: 240 tokens
+
+This file contains the EXACT responses received from the LLM.
+
+==================================================
+RESPONSES:
+==================================================
+
+
+================================================================================
+OBJECT 1 - LLM RESPONSE
+================================================================================
+Object ID: object_1
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "Leipzig_Universitätsbibliothek_1681",
+    "lb_ID": "#IMAGE.1_line_1683529111782_716",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "WEI",
+        "name": "weight",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 2,
+          "end": 3
+        },
+        "text_char_span": {
+          "start": 5,
+          "end": 10
+        },
+        "xml_char_span": {
+          "start": 5,
+          "end": 56
+        },
+        "surface": "pfund"
+      }
+    ],
+    "xml_tagged": "wy 5 <unit type=\"weight\"><choice><expan>pfund</expan><abbr>h</abbr></choice></unit>"
+  }
+]
+
+================================================================================

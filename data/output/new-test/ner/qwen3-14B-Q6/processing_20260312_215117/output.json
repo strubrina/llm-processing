@@ -1,0 +1,37 @@
+[
+  {
+    "output": [
+      {
+        "doc_id": "Leipzig_Universitätsbibliothek_1681",
+        "lb_ID": "#IMAGE.1_line_1683529111782_716",
+        "entities": [
+          {
+            "id": "e1",
+            "label": "WEI",
+            "name": "weight",
+            "tei": {
+              "tag": "unit",
+              "attrs": {
+                "type": "weight"
+              }
+            },
+            "token_span": {
+              "start": 2,
+              "end": 3
+            },
+            "text_char_span": {
+              "start": 5,
+              "end": 10
+            },
+            "xml_char_span": {
+              "start": 5,
+              "end": 56
+            },
+            "surface": "pfund"
+          }
+        ],
+        "xml_tagged": "wy 5 <unit type=\"weight\"><choice><expan>pfund</expan><abbr>h</abbr></choice></unit>"
+      }
+    ]
+  }
+]

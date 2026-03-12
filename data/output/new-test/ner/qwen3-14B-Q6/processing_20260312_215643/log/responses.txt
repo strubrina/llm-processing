@@ -1,0 +1,1153 @@
+EXACT RESPONSES FROM LLM - JSON BATCH PROCESSING
+==================================================
+
+TECHNICAL DETAILS OF LLM PROCESSING
+==================================================
+Model instance name: qwen3-14B-Q6
+Date of processing: 2026-03-12 22:01:47
+Time of LLM processing: 303.80 seconds
+Temperature setting: 0.6
+Token count: 137,862 tokens
+Thinking mode: Disabled
+Input tokens: 130,142 tokens
+Output tokens: 7,720 tokens
+
+This file contains the EXACT responses received from the LLM.
+
+==================================================
+RESPONSES:
+==================================================
+
+
+================================================================================
+OBJECT 1 - LLM RESPONSE
+================================================================================
+Object ID: object_1
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_55",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 12,
+          "end": 13
+        },
+        "text_char_span": {
+          "start": 43,
+          "end": 46
+        },
+        "xml_char_span": {
+          "start": 193,
+          "end": 196
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e2",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 13,
+          "end": 14
+        },
+        "text_char_span": {
+          "start": 47,
+          "end": 54
+        },
+        "xml_char_span": {
+          "start": 197,
+          "end": 302
+        },
+        "surface": "ſilbers"
+      },
+      {
+        "id": "e3",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 15,
+          "end": 16
+        },
+        "text_char_span": {
+          "start": 59,
+          "end": 66
+        },
+        "xml_char_span": {
+          "start": 307,
+          "end": 314
+        },
+        "surface": "kupfers"
+      },
+      {
+        "id": "e4",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 18,
+          "end": 19
+        },
+        "text_char_span": {
+          "start": 78,
+          "end": 81
+        },
+        "xml_char_span": {
+          "start": 326,
+          "end": 329
+        },
+        "surface": "lot"
+      }
+    ],
+    "xml_tagged": "Ob es recht ſey <choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> alſo ich hab 20 <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> <unit type=\"weight\">lot</unit> <choice><expan>ſilbers</expan><abbr><am><g ref=\"#longs\"/></am>ilb<am><g ref=\"#er\"/></am>s</abbr></choice> vnd <rs type=\"goods\">kupfers</rs> daß halt 7 <unit type=\"weight\">lot</unit>"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 2 - LLM RESPONSE
+================================================================================
+Object ID: object_2
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_54",
+    "entities": [],
+    "xml_tagged": "alſo ſol es auch ſein"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 3 - LLM RESPONSE
+================================================================================
+Object ID: object_3
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_53",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 4,
+          "end": 5
+        },
+        "text_char_span": {
+          "start": 19,
+          "end": 22
+        },
+        "xml_char_span": {
+          "start": 19,
+          "end": 22
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 15,
+          "end": 16
+        },
+        "text_char_span": {
+          "start": 59,
+          "end": 62
+        },
+        "xml_char_span": {
+          "start": 113,
+          "end": 116
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e3",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 12,
+          "end": 13
+        },
+        "text_char_span": {
+          "start": 43,
+          "end": 48
+        },
+        "xml_char_span": {
+          "start": 97,
+          "end": 102
+        },
+        "surface": "marck"
+      }
+    ],
+    "xml_tagged": "wilt vnd daß iſt 7 <unit type=\"weight\">lot</unit> ſo pleibt <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">7</hi> einer <rs type=\"currency\">marck</rs> daß iſt 4 <unit type=\"weight\">lot</unit> <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> eins"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 4 - LLM RESPONSE
+================================================================================
+Object ID: object_4
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1704967566658_510",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 2,
+          "end": 3
+        },
+        "text_char_span": {
+          "start": 9,
+          "end": 13
+        },
+        "xml_char_span": {
+          "start": 105,
+          "xml_end": 109
+        },
+        "surface": "rock"
+      },
+      {
+        "id": "e2",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 12,
+          "end": 13
+        },
+        "text_char_span": {
+          "start": 45,
+          "end": 49
+        },
+        "xml_char_span": {
+          "start": 195,
+          "end": 199
+        },
+        "surface": "rock"
+      }
+    ],
+    "xml_tagged": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> 4 <rs type=\"goods\">rock</rs> <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">3</hi> gebe̅n̅ 14 tag waß geben 8 <rs type=\"goods\">rock</rs> <choice><expan>facit</expan><abbr>fa<hi rend=\"superscript\">t</hi></abbr></choice> 14 tag"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 5 - LLM RESPONSE
+================================================================================
+Object ID: object_5
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_52",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 5,
+          "end": 6
+        },
+        "text_char_span": {
+          "start": 24,
+          "end": 29
+        },
+        "xml_char_span": {
+          "start": 24,
+          "end": 159
+        },
+        "surface": "müncʒ"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 11,
+          "end": 12
+        },
+        "text_char_span": {
+          "start": 51,
+          "end": 54
+        },
+        "xml_char_span": {
+          "start": 181,
+          "end": 184
+        },
+        "surface": "lot"
+      }
+    ],
+    "xml_tagged": "Oder machs alſo tail dy <placeName ref=\"#o_\"><choice><expan>müncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>ü<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice></placeName> dy du haſt daß iſt 9 <unit type=\"weight\">lot</unit> mit <choice><expan>der</expan><abbr>d<am><g ref=\"#er\"/></am></abbr></choice> dy du <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice>"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 6 - LLM RESPONSE
+================================================================================
+Object ID: object_6
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_51",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 0,
+          "end": 1
+        },
+        "text_char_span": {
+          "start": 0,
+          "end": 10
+        },
+        "xml_char_span": {
+          "start": 0,
+          "end": 10
+        },
+        "surface": "feinſilber"
+      }
+    ],
+    "xml_tagged": "<rs type=\"goods\">feinſilber</rs> <choice><expan>halten</expan><abbr>haltn<am><g ref=\"#combover\"/></am></abbr></choice> vnd iſt gemacht"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 7 - LLM RESPONSE
+================================================================================
+Object ID: object_7
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_50",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 1,
+          "end": 2
+        },
+        "text_char_span": {
+          "start": 2,
+          "end": 5
+        },
+        "xml_char_span": {
+          "start": 2,
+          "end": 5
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 19,
+          "end": 20
+        },
+        "text_char_span": {
+          "start": 76,
+          "end": 79
+        },
+        "xml_char_span": {
+          "start": 340,
+          "end": 343
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e3",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 13,
+          "end": 14
+        },
+        "text_char_span": {
+          "start": 48,
+          "end": 52
+        },
+        "xml_char_span": {
+          "start": 102,
+          "end": 211
+        },
+        "surface": "mark"
+      },
+      {
+        "id": "e4",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 17,
+          "end": 18
+        },
+        "text_char_span": {
+          "start": 69,
+          "end": 73
+        },
+        "xml_char_span": {
+          "start": 228,
+          "end": 337
+        },
+        "surface": "mark"
+      }
+    ],
+    "xml_tagged": "4 <unit type=\"weight\">lot</unit> <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> kupfers ſo vil kupfers ſol man ʒu der <rs type=\"currency\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></rs> thun ſo wirt dy <rs type=\"currency\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></rs> 7 <unit type=\"weight\">lot</unit>"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 8 - LLM RESPONSE
+================================================================================
+Object ID: object_8
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_49",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 0,
+          "end": 1
+        },
+        "text_char_span": {
+          "start": 0,
+          "end": 3
+        },
+        "xml_char_span": {
+          "start": 0,
+          "end": 3
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 4,
+          "end": 5
+        },
+        "text_char_span": {
+          "start": 23,
+          "end": 26
+        },
+        "xml_char_span": {
+          "start": 23,
+          "end": 26
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e3",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 13,
+          "end": 14
+        },
+        "text_char_span": {
+          "start": 55,
+          "end": 58
+        },
+        "xml_char_span": {
+          "start": 109,
+          "end": 112
+        },
+        "surface": "lot"
+      }
+    ],
+    "xml_tagged": "<unit type=\"weight\">lot</unit> feinſilbers helt 7 <unit type=\"weight\">lot</unit> kupfers dy ʒeuch von 11 <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> <unit type=\"weight\">lot</unit> kupfers ſo pleibt"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 9 - LLM RESPONSE
+================================================================================
+Object ID: object_9
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_48",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 6,
+          "end": 7
+        },
+        "text_char_span": {
+          "start": 31,
+          "end": 35
+        },
+        "xml_char_span": {
+          "start": 31,
+          "end": 35
+        },
+        "surface": "lott"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 10,
+          "end": 11
+        },
+        "text_char_span": {
+          "start": 40,
+          "end": 46
+        },
+        "xml_char_span": {
+          "start": 94,
+          "end": 100
+        },
+        "surface": "kupfer"
+      },
+      {
+        "id": "e3",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 15,
+          "end": 16
+        },
+        "text_char_span": {
+          "start": 67,
+          "end": 72
+        },
+        "xml_char_span": {
+          "start": 121,
+          "end": 126
+        },
+        "surface": "marck"
+      }
+    ],
+    "xml_tagged": "Machs nach der̅ Regel ſacit 11 <unit type=\"weight\">lott</unit> <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> <unit type=\"weight\">kupfer</unit> Nu ſind vor In der̅ <placeName ref=\"#o_\">marck</placeName> 9"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 10 - LLM RESPONSE
+================================================================================
+Object ID: object_10
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1684747322772_1222",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 0,
+          "end": 1
+        },
+        "text_char_span": {
+          "start": 0,
+          "end": 10
+        },
+        "xml_char_span": {
+          "start": 0,
+          "end": 10
+        },
+        "surface": "feinſilber"
+      },
+      {
+        "id": "e2",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 2,
+          "end": 3
+        },
+        "text_char_span": {
+          "start": 13,
+          "end": 19
+        },
+        "xml_char_span": {
+          "start": 38,
+          "end": 44
+        },
+        "surface": "kupfer"
+      },
+      {
+        "id": "e3",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 4,
+          "end": 5
+        },
+        "text_char_span": {
+          "start": 22,
+          "end": 30
+        },
+        "xml_char_span": {
+          "start": 72,
+          "end": 80
+        },
+        "surface": "feinsilb"
+      }
+    ],
+    "xml_tagged": "<rs type=\"goods\">feinſilber</rs> <add place=\"below\">7</add> <rs type=\"goods\">kupfer</rs> <add place=\"below\">9</add> <rs type=\"goods\">feinsilb</rs> <add place=\"below\">9</add>"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 11 - LLM RESPONSE
+================================================================================
+Object ID: object_11
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1684747292469_1205",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 10,
+          "end": 11
+        },
+        "text_char_span": {
+          "start": 42,
+          "end": 47
+        },
+        "xml_char_span": {
+          "start": 42,
+          "end": 125
+        },
+        "surface": "loten"
+      }
+    ],
+    "xml_tagged": "ſol ich kupfers dar ein thűn daß es ʒu 7 <unit type=\"weight\"><choice><expan>loten</expan><abbr>lotn<am><g ref=\"#combover\"/></am></abbr></choice></unit> werd ſecʒ alſo"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 12 - LLM RESPONSE
+================================================================================
+Object ID: object_12
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_46",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 9,
+          "end": 10
+        },
+        "text_char_span": {
+          "start": 41,
+          "end": 44
+        },
+        "xml_char_span": {
+          "start": 221,
+          "end": 224
+        },
+        "surface": "lot"
+      }
+    ],
+    "xml_tagged": "der̅ wil ich <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice> ein ander <choice><expan>muncʒ</expan><abbr>mu<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice> dy 7 <unit type=\"weight\">lot</unit> feinſilbers helt wieuil"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 13 - LLM RESPONSE
+================================================================================
+Object ID: object_13
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_44",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 10,
+          "end": 11
+        },
+        "text_char_span": {
+          "start": 53,
+          "end": 57
+        },
+        "xml_char_span": {
+          "start": 124,
+          "end": 233
+        },
+        "surface": "mark"
+      },
+      {
+        "id": "e2",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 8,
+          "end": 9
+        },
+        "text_char_span": {
+          "start": 39,
+          "end": 44
+        },
+        "xml_char_span": {
+          "start": 110,
+          "end": 115
+        },
+        "surface": "Müncʒ"
+      },
+      {
+        "id": "e3",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 12,
+          "end": 13
+        },
+        "text_char_span": {
+          "start": 60,
+          "end": 63
+        },
+        "xml_char_span": {
+          "start": 236,
+          "end": 239
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e4",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 13,
+          "end": 14
+        },
+        "text_char_span": {
+          "start": 64,
+          "end": 74
+        },
+        "xml_char_span": {
+          "start": 240,
+          "end": 250
+        },
+        "surface": "feinſilber"
+      }
+    ],
+    "xml_tagged": "lott iſt küpfer̅ <choice><expan>Sprich</expan><abbr>Spr<am><g ref=\"#is\"/></am></abbr></choice> alſo einer hat <placeName ref=\"#o_\">Müncʒ</placeName> helt dy <rs type=\"currency\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></rs> 9 <unit type=\"weight\">lot</unit> <rs type=\"goods\">feinſilber</rs> von"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 14 - LLM RESPONSE
+================================================================================
+Object ID: object_14
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_43",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 6,
+          "end": 7
+        },
+        "text_char_span": {
+          "start": 27,
+          "end": 37
+        },
+        "xml_char_span": {
+          "start": 46,
+          "end": 56
+        },
+        "surface": "feinſilber"
+      }
+    ],
+    "xml_tagged": "ſo <unclear>rdnim</unclear> daß dy ſelben lot <rs type=\"goods\">feinſilber</rs> ſein vnd daß vbrig piß auff 16"
+  }
+]
+
+================================================================================
+
+================================================================================
+OBJECT 15 - LLM RESPONSE
+================================================================================
+Object ID: object_15
+
+RAW LLM RESPONSE:
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_42",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 2,
+          "end": 3
+        },
+        "text_char_span": {
+          "start": 8,
+          "end": 11
+        },
+        "xml_char_span": {
+          "start": 85,
+          "end": 88
+        },
+        "surface": "lot"
+      },
+      {
+        "id": "e2",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 5,
+          "end": 6
+        },
+        "text_char_span": {
+          "start": 18,
+          "end": 22
+        },
+        "xml_char_span": {
+          "start": 95,
+          "end": 204
+        },
+        "surface": "mark"
+      },
+      {
+        "id": "e3",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 11,
+          "end": 12
+        },
+        "text_char_span": {
+          "start": 46,
+          "end": 51
+        },
+        "xml_char_span": {
+          "start": 324,
+          "end": 459
+        },
+        "surface": "muncʒ"
+      },
+      {
+        "id": "e4",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 17,
+          "end": 18
+        },
+        "text_char_span": {
+          "start": 73,
+          "end": 76
+        },
+        "xml_char_span": {
+          "start": 481,
+          "end": 484
+        },
+        "surface": "lot"
+      }
+    ],
+    "xml_tagged": "<choice><expan>Item</expan><abbr>Itm<am><g ref=\"#combover\"/></am></abbr></choice> 16 <unit type=\"weight\">lot</unit> iſt 1 <rs type=\"currency\"><choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice></rs> vnd wen <choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> ich hab <rs type=\"goods\"><choice><expan>muncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>u<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice></rs> dy helt ain ſtrich 7 <unit type=\"weight\">lot</unit>"
+  }
+]
+
+================================================================================

@@ -1,0 +1,816 @@
+EXACT PROMPTS SENT TO LLM - JSON BATCH PROCESSING
+==================================================
+
+This file contains the EXACT prompts that were sent to the LLM.
+The system message is shown once at the top, followed by user messages for each object.
+
+================================================================================
+SYSTEM MESSAGE (used for all objects)
+================================================================================
+You are an expert in TEI (Text Encoding Initiative) markup and Named Entity Recognition (NER) for historical early-high-german manuscripts. You will analyze json-objects containing phrases from such manuscripts and perform a named entity recognition considering the entities defined in the encoding rules. Then you will give back the found entities and xml-text with the added new entity tags as defined in the few-shot examples.
+
+# Task
+
+- Review the provided encoding rules
+- Analyze each json-object in context
+- For each input json-object, write an output json-object with the found entities and the xml-line with added tags for the entities
+
+# Encoding Rules for customized Named Entity Recognition of early high german TEI-XML files
+
+## General Remarks:
+- Maintain original historical spelling and orthography 
+- Do not change the existing TEI-Annotation and only supplement new tagging for recognized entities
+- Only create entity-tags for the entities provided in the encoding rules
+- Only return the json with the supplemented tagging without further explanations
+- Preserve special characters and foreign words as they appear in the text
+- Preserve the original structure and order
+  	  
+## 1. Named Entity Labels
+- Use for recognizing the entities relevant for this task
+- Entities: 
+(1)	CUR, “currency“, xml: <rs type=”currency”></rs>
+(2)	GOO, “goods”, xml: <rs type=”goods”></rs>
+(3)	OCC, “occupation”, xml: <occupation></occupation>
+(4)	PER, “person”, xml : <person ref=”#p_”><persName></persName></person>
+(5)	LOC, “location”, xml: <placeName ref=”#o_”></placeName>
+(6)	ROL, “role”, xml: <roleName></roleName>
+(7)	MES, “measurement”, xml: <unit type= “measurement”></unit>
+(8)	WEI, “weight”, xml: <unit type= “weight”></unit>
+(9)	VOL, “volume”, xml: <unit type= “volume”></unit>
+(10)	LEN, “length”, xml: <unit type= “length”></unit>
+(11)	HEI, “height”, xml: <unit type= “height”></unit>
+(12)	DIS, “distance”, xml: <unit type= “distance”></unit>
+(13)	UNI, “unit” xml: <unit type= “”></unit>
+(14)	ARE, ”area”, xml: <unit type= “area”></unit>
+
+## 2. Ambiguous terms
+- Use for handling ambiguous terms that rely heavily on context
+- Examples: the term "pfund" used either as a currency (near other currencies) or as a weight (near other weights)
+- check the word-tokens in the json and take them as context für tagging
+
+## 3. Context
+- Use for regarding the context of a term to determine whether it is an entity and if so which label
+- Examples: see few-shot-examples
+- Use the surrounding words of the input-data to determine the label type
+
+
+
+#Few-shot-Examples
+
+###Input:
+
+[
+  {
+    "doc_id": "Leipzig_Universitätsbibliothek_1681",
+    "lb_ID": "#IMAGE.1_line_1683529109250_711",
+    "xml": "<choice><expan>Item</expan><abbr>It<am><g ref=\"#is\"/></am></abbr></choice> 1 <choice><expan>ſtein</expan><abbr><am><g ref=\"#longs\"/></am>t<am><g ref=\"#is\"/></am></abbr></choice> wmb 6 <choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice> <hi rend=\"superscript\">1</hi>/<hi rend=\"subscript\">3</hi>",
+    "text": "Item 1 ſtein wmb 6 gulden 1/3",
+    "text_expanded_legacy": "Item 1 ſtein wmb 6 gulden 1/3",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "Item",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 74,
+        "xml_fragment": "<choice><expan>Item</expan><abbr>It<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t2",
+        "form": "1",
+        "text_start": 5,
+        "text_end": 6,
+        "xml_start": 75,
+        "xml_end": 76,
+        "xml_fragment": "1"
+      },
+      {
+        "id": "t3",
+        "form": "ſtein",
+        "text_start": 7,
+        "text_end": 12,
+        "xml_start": 77,
+        "xml_end": 177,
+        "xml_fragment": "<choice><expan>ſtein</expan><abbr><am><g ref=\"#longs\"/></am>t<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t4",
+        "form": "wmb",
+        "text_start": 13,
+        "text_end": 16,
+        "xml_start": 178,
+        "xml_end": 181,
+        "xml_fragment": "wmb"
+      },
+      {
+        "id": "t5",
+        "form": "6",
+        "text_start": 17,
+        "text_end": 18,
+        "xml_start": 182,
+        "xml_end": 183,
+        "xml_fragment": "6"
+      },
+      {
+        "id": "t6",
+        "form": "gulden",
+        "text_start": 19,
+        "text_end": 25,
+        "xml_start": 184,
+        "xml_end": 259,
+        "xml_fragment": "<choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t7",
+        "form": "1",
+        "text_start": 26,
+        "text_end": 27,
+        "xml_start": 260,
+        "xml_end": 289,
+        "xml_fragment": "<hi rend=\"superscript\">1</hi>"
+      },
+      {
+        "id": "t8",
+        "form": "/",
+        "text_start": 27,
+        "text_end": 28,
+        "xml_start": 289,
+        "xml_end": 290,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t9",
+        "form": "3",
+        "text_start": 28,
+        "text_end": 29,
+        "xml_start": 290,
+        "xml_end": 317,
+        "xml_fragment": "<hi rend=\"subscript\">3</hi>"
+      }
+    ]
+  },
+
+###Output:
+[
+  {
+    "doc_id": "Leipzig_Universitätsbibliothek_1681",
+    "lb_ID": "#IMAGE.1_line_1683529109250_711",
+    "entities": [
+{
+      "id": "e1",
+      "label": "CUR",
+      "name": "currency",
+      "tei": {
+        "tag": "rs",
+        "attrs": {
+          "type": "currency"
+        }
+      },
+      "text_char_span": {
+        "start": 19,
+        "end": 25
+      },
+      "xml_char_span": {
+        "start": 184,
+        "end": 259
+      },
+      "surface": "gulden"
+    }
+         ],
+     "xml_tagged": "<choice><expan>Item</expan><abbr>It<am><g ref=\"#is\"/></am></abbr></choice> 1 <choice><expan>ſtein</expan><abbr><am><g ref=\"#longs\"/></am>t<am><g ref=\"#is\"/></am></abbr></choice> wmb 6 <rs type="currency"><choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice></rs> <hi rend=\"superscript\">1</hi>/<hi rend=\"subscript\">3</hi>"
+  }
+
+---------------------------------------------------------
+###Input:
+ {
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.186_region_1722934480391_86_tl_2",
+    "xml": "<choice><expan>der</expan><abbr>de<am><g ref=\"#er\"/></am></abbr></choice> hat 43 <hi rend=\"superscript\">1</hi>/<hi rend=\"subscript\">2</hi> elen vnnd nimbt",
+    "text": "der hat 43 1/2 elen vnnd nimbt",
+    "text_expanded_legacy": "der hat 43 1/2 elen vnnd nimbt",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "der",
+        "text_start": 0,
+        "text_end": 3,
+        "xml_start": 0,
+        "xml_end": 73,
+        "xml_fragment": "<choice><expan>der</expan><abbr>de<am><g ref=\"#er\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t2",
+        "form": "hat",
+        "text_start": 4,
+        "text_end": 7,
+        "xml_start": 74,
+        "xml_end": 77,
+        "xml_fragment": "hat"
+      },
+      {
+        "id": "t3",
+        "form": "43",
+        "text_start": 8,
+        "text_end": 10,
+        "xml_start": 78,
+        "xml_end": 80,
+        "xml_fragment": "43"
+      },
+      {
+        "id": "t4",
+        "form": "1",
+        "text_start": 11,
+        "text_end": 12,
+        "xml_start": 81,
+        "xml_end": 110,
+        "xml_fragment": "<hi rend=\"superscript\">1</hi>"
+      },
+      {
+        "id": "t5",
+        "form": "/",
+        "text_start": 12,
+        "text_end": 13,
+        "xml_start": 110,
+        "xml_end": 111,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t6",
+        "form": "2",
+        "text_start": 13,
+        "text_end": 14,
+        "xml_start": 111,
+        "xml_end": 138,
+        "xml_fragment": "<hi rend=\"subscript\">2</hi>"
+      },
+      {
+        "id": "t7",
+        "form": "elen",
+        "text_start": 15,
+        "text_end": 19,
+        "xml_start": 139,
+        "xml_end": 143,
+        "xml_fragment": "elen"
+      },
+      {
+        "id": "t8",
+        "form": "vnnd",
+        "text_start": 20,
+        "text_end": 24,
+        "xml_start": 144,
+        "xml_end": 148,
+        "xml_fragment": "vnnd"
+      },
+      {
+        "id": "t9",
+        "form": "nimbt",
+        "text_start": 25,
+        "text_end": 30,
+        "xml_start": 149,
+        "xml_end": 154,
+        "xml_fragment": "nimbt"
+      }
+    ]
+}
+
+###Output:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.186_region_1722934480391_86_tl_2",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "length"
+          }
+        },
+        "token_span": {
+          "start": 6,
+          "end": 7
+        },
+        "text_char_span": {
+          "start": 15,
+          "end": 19
+        },
+        "xml_char_span": {
+          "start": 139,
+          "end": 143
+        },
+        "surface": "elen"
+      }
+    ],
+    "xml_tagged": "<choice><expan>der</expan><abbr>de<am><g ref=\"#er\"/></am></abbr></choice> hat 43 <hi rend=\"superscript\">1</hi>/<hi rend=\"subscript\">2</hi> <unit type=\"length\">elen</unit> vnnd nimbt"
+  }
+
+------------------------------------------
+###Input:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.186_region_1722934480391_86_tl_18",
+    "xml": "vill 380 <choice><expan>centner</expan><abbr>c<am><g ref=\"#is\"/></am></abbr></choice> <choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice> venedig",
+    "text": "vill 380 centner von venedig",
+    "text_expanded_legacy": "vill 380 centner von venedig",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "vill",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "vill"
+      },
+      {
+        "id": "t2",
+        "form": "380",
+        "text_start": 5,
+        "text_end": 8,
+        "xml_start": 5,
+        "xml_end": 8,
+        "xml_fragment": "380"
+      },
+      {
+        "id": "t3",
+        "form": "centner",
+        "text_start": 9,
+        "text_end": 16,
+        "xml_start": 9,
+        "xml_end": 85,
+        "xml_fragment": "<choice><expan>centner</expan><abbr>c<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t4",
+        "form": "von",
+        "text_start": 17,
+        "text_end": 20,
+        "xml_start": 86,
+        "xml_end": 194,
+        "xml_fragment": "<choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t5",
+        "form": "venedig",
+        "text_start": 21,
+        "text_end": 28,
+        "xml_start": 195,
+        "xml_end": 202,
+        "xml_fragment": "venedig"
+      }
+    ]
+}
+
+###Output:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.186_region_1722934480391_86_tl_18",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "weight"
+          }
+        },
+        "token_span": {
+          "start": 2,
+          "end": 3
+        },
+        "text_char_span": {
+          "start": 9,
+          "end": 16
+        },
+        "xml_char_span": {
+          "start": 9,
+          "end": 85
+        },
+        "surface": "centner"
+      },
+      {
+        "id": "e2",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 4,
+          "end": 5
+        },
+        "text_char_span": {
+          "start": 21,
+          "end": 28
+        },
+        "xml_char_span": {
+          "start": 195,
+          "end": 202
+        },
+        "surface": "venedig"
+      }
+    ],
+    "xml_tagged": "vill 380 <unit type=\"weight\"><choice><expan>centner</expan><abbr>c<am><g ref=\"#is\"/></am></abbr></choice></unit> <choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice> <placeName ref=\"#o_\">venedig</placeName>"
+  }
+
+---------------------------------------
+###Input:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.187_region_1722935730711_136_tl_9",
+    "xml": "<choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice> <choice><expan>nürnnperg</expan><abbr>nürn<am><g ref=\"#combover\"/></am>p<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am>g</abbr></choice> <choice><expan>wegen</expan><abbr>weg<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice> ʒu <choice><expan>kolnn</expan><abbr>kol<am><g ref=\"#combover\"/></am>n<am><g ref=\"#combover\"/></am></abbr></choice>",
+    "text": "von nürnnperg wegen ʒu kolnn",
+    "text_expanded_legacy": "von nürnnperg wegen ʒu kolnn",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "von",
+        "text_start": 0,
+        "text_end": 3,
+        "xml_start": 0,
+        "xml_end": 108,
+        "xml_fragment": "<choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t2",
+        "form": "nürnnperg",
+        "text_start": 4,
+        "text_end": 13,
+        "xml_start": 109,
+        "xml_end": 287,
+        "xml_fragment": "<choice><expan>nürnnperg</expan><abbr>nürn<am><g ref=\"#combover\"/></am>p<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am>g</abbr></choice>"
+      },
+      {
+        "id": "t3",
+        "form": "wegen",
+        "text_start": 14,
+        "text_end": 19,
+        "xml_start": 288,
+        "xml_end": 400,
+        "xml_fragment": "<choice><expan>wegen</expan><abbr>weg<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t4",
+        "form": "ʒu",
+        "text_start": 20,
+        "text_end": 22,
+        "xml_start": 401,
+        "xml_end": 403,
+        "xml_fragment": "ʒu"
+      },
+      {
+        "id": "t5",
+        "form": "kolnn",
+        "text_start": 23,
+        "text_end": 28,
+        "xml_start": 404,
+        "xml_end": 516,
+        "xml_fragment": "<choice><expan>kolnn</expan><abbr>kol<am><g ref=\"#combover\"/></am>n<am><g ref=\"#combover\"/></am></abbr></choice>"
+      }
+    ]
+}
+
+###Output:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.187_region_1722935730711_136_tl_9",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 1,
+          "end": 2
+        },
+        "text_char_span": {
+          "start": 4,
+          "end": 13
+        },
+        "xml_char_span": {
+          "start": 109,
+          "end": 287
+        },
+        "surface": "nürnnperg"
+      },
+      {
+        "id": "e2",
+        "label": "LOC",
+        "name": "place",
+        "tei": {
+          "tag": "placeName",
+          "attrs": {
+            "ref": "#o_"
+          }
+        },
+        "token_span": {
+          "start": 4,
+          "end": 5
+        },
+        "text_char_span": {
+          "start": 23,
+          "end": 28
+        },
+        "xml_char_span": {
+          "start": 404,
+          "end": 516
+        },
+        "surface": "kolnn"
+      }
+    ],
+    "xml_tagged": "<choice><expan>von</expan><abbr>v<am><g ref=\"#combover\"/></am>o<am><g ref=\"#combover\"/></am></abbr></choice> <placeName ref=\"#o_\"><choice><expan>nürnnperg</expan><abbr>nürn<am><g ref=\"#combover\"/></am>p<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am>g</abbr></choice></placeName> <choice><expan>wegen</expan><abbr>weg<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice> ʒu <placeName ref=\"#o_\"><choice><expan>kolnn</expan><abbr>kol<am><g ref=\"#combover\"/></am>n<am><g ref=\"#combover\"/></am></abbr></choice></placeName>"
+  }
+
+----------------------------------
+###Input:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.209_region_1723012366911_220_tl_2",
+    "xml": "will thuch <choice><expan>kauffen</expan><abbr>kauff<am><g ref=\"#is\"/></am></abbr></choice> vnnd <choice><expan>wen</expan><abbr>w<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice>",
+    "text": "will thuch kauffen vnnd wen",
+    "text_expanded_legacy": "will thuch kauffen vnnd wen",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "will",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "will"
+      },
+      {
+        "id": "t2",
+        "form": "thuch",
+        "text_start": 5,
+        "text_end": 10,
+        "xml_start": 5,
+        "xml_end": 10,
+        "xml_fragment": "thuch"
+      },
+      {
+        "id": "t3",
+        "form": "kauffen",
+        "text_start": 11,
+        "text_end": 18,
+        "xml_start": 11,
+        "xml_end": 91,
+        "xml_fragment": "<choice><expan>kauffen</expan><abbr>kauff<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t4",
+        "form": "vnnd",
+        "text_start": 19,
+        "text_end": 23,
+        "xml_start": 92,
+        "xml_end": 96,
+        "xml_fragment": "vnnd"
+      },
+      {
+        "id": "t5",
+        "form": "wen",
+        "text_start": 24,
+        "text_end": 27,
+        "xml_start": 97,
+        "xml_end": 205,
+        "xml_fragment": "<choice><expan>wen</expan><abbr>w<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice>"
+      }
+    ]
+}
+
+###Output:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.209_region_1723012366911_220_tl_2",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "GOOD",
+        "name": "goods",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "goods"
+          }
+        },
+        "token_span": {
+          "start": 1,
+          "end": 2
+        },
+        "text_char_span": {
+          "start": 5,
+          "end": 10
+        },
+        "xml_char_span": {
+          "start": 5,
+          "end": 10
+        },
+        "surface": "thuch"
+      }
+    ],
+    "xml_tagged": "will <rs type=\"goods\">thuch</rs> <choice><expan>kauffen</expan><abbr>kauff<am><g ref=\"#is\"/></am></abbr></choice> vnnd <choice><expan>wen</expan><abbr>w<am><g ref=\"#combover\"/></am>e<am><g ref=\"#combover\"/></am></abbr></choice>"
+  }
+
+--------------------------------------------------
+###Input:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.209_region_1723012366911_220_tl_5",
+    "xml": "2 <choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice> gibt pro i elen So <choice><expan>pleiben</expan><abbr>pleibn<am><g ref=\"#combover\"/></am></abbr></choice>",
+    "text": "2 gulden gibt pro i elen So pleiben",
+    "text_expanded_legacy": "2 gulden gibt pro i elen So pleiben",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "2",
+        "text_start": 0,
+        "text_end": 1,
+        "xml_start": 0,
+        "xml_end": 1,
+        "xml_fragment": "2"
+      },
+      {
+        "id": "t2",
+        "form": "gulden",
+        "text_start": 2,
+        "text_end": 8,
+        "xml_start": 2,
+        "xml_end": 77,
+        "xml_fragment": "<choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t3",
+        "form": "gibt",
+        "text_start": 9,
+        "text_end": 13,
+        "xml_start": 78,
+        "xml_end": 82,
+        "xml_fragment": "gibt"
+      },
+      {
+        "id": "t4",
+        "form": "pro",
+        "text_start": 14,
+        "text_end": 17,
+        "xml_start": 83,
+        "xml_end": 86,
+        "xml_fragment": "pro"
+      },
+      {
+        "id": "t5",
+        "form": "i",
+        "text_start": 18,
+        "text_end": 19,
+        "xml_start": 87,
+        "xml_end": 88,
+        "xml_fragment": "i"
+      },
+      {
+        "id": "t6",
+        "form": "elen",
+        "text_start": 20,
+        "text_end": 24,
+        "xml_start": 89,
+        "xml_end": 93,
+        "xml_fragment": "elen"
+      },
+      {
+        "id": "t7",
+        "form": "So",
+        "text_start": 25,
+        "text_end": 27,
+        "xml_start": 94,
+        "xml_end": 96,
+        "xml_fragment": "So"
+      },
+      {
+        "id": "t8",
+        "form": "pleiben",
+        "text_start": 28,
+        "text_end": 35,
+        "xml_start": 97,
+        "xml_end": 184,
+        "xml_fragment": "<choice><expan>pleiben</expan><abbr>pleibn<am><g ref=\"#combover\"/></am></abbr></choice>"
+      }
+    ]
+}
+
+###Output:
+{
+    "doc_id": "Bamberg_Staatsbibliothek_I_44",
+    "lb_ID": "#IMAGE.209_region_1723012366911_220_tl_5",
+    "entities": [
+      {
+        "id": "e1",
+        "label": "CUR",
+        "name": "currency",
+        "tei": {
+          "tag": "rs",
+          "attrs": {
+            "type": "currency"
+          }
+        },
+        "token_span": {
+          "start": 1,
+          "end": 2
+        },
+        "text_char_span": {
+          "start": 2,
+          "end": 8
+        },
+        "xml_char_span": {
+          "start": 2,
+          "end": 77
+        },
+        "surface": "gulden"
+      },
+      {
+        "id": "e2",
+        "label": "UNIT",
+        "name": "unit",
+        "tei": {
+          "tag": "unit",
+          "attrs": {
+            "type": "length"
+          }
+        },
+        "token_span": {
+          "start": 5,
+          "end": 6
+        },
+        "text_char_span": {
+          "start": 20,
+          "end": 24
+        },
+        "xml_char_span": {
+          "start": 89,
+          "end": 93
+        },
+        "surface": "elen"
+      }
+    ],
+    "xml_tagged": "2 <rs type=\"currency\"><choice><expan>gulden</expan><abbr>f<am><g ref=\"#is\"/></am></abbr></choice></rs> gibt pro i <unit type=\"length\">elen</unit> So <choice><expan>pleiben</expan><abbr>pleibn<am><g ref=\"#combover\"/></am></abbr></choice>"
+  }
+
+================================================================================
+
+USER MESSAGES:
+==================================================
+
+================================================================================
+OBJECT 1 - USER PROMPT
+================================================================================
+Object ID: object_1
+
+USER MESSAGE:
+{
+  "doc_id": "Leipzig_Universitätsbibliothek_1681",
+  "lb_ID": "#IMAGE.1_line_1683529111782_716",
+  "xml": "wy 5 <choice><expan>pfund</expan><abbr>h</abbr></choice>",
+  "text": "wy 5 pfund",
+  "tokens": [
+    {
+      "id": "t1",
+      "form": "wy",
+      "text_start": 0,
+      "text_end": 2,
+      "xml_start": 0,
+      "xml_end": 2,
+      "xml_fragment": "wy"
+    },
+    {
+      "id": "t2",
+      "form": "5",
+      "text_start": 3,
+      "text_end": 4,
+      "xml_start": 3,
+      "xml_end": 4,
+      "xml_fragment": "5"
+    },
+    {
+      "id": "t3",
+      "form": "pfund",
+      "text_start": 5,
+      "text_end": 10,
+      "xml_start": 5,
+      "xml_end": 56,
+      "xml_fragment": "<choice><expan>pfund</expan><abbr>h</abbr></choice>"
+    }
+  ]
+}
+
+================================================================================

@@ -1,0 +1,2111 @@
+[
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_55",
+    "xml": "Ob es recht ſey <choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> alſo ich hab 20 <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> lot <choice><expan>ſilbers</expan><abbr><am><g ref=\"#longs\"/></am>ilb<am><g ref=\"#er\"/></am>s</abbr></choice> vnd kupfers daß halt 7 lot",
+    "text": "Ob es recht ſey ſprich alſo ich hab 20 4/7 lot ſilbers vnd kupfers daß halt 7 lot",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "Ob",
+        "text_start": 0,
+        "text_end": 2,
+        "xml_start": 0,
+        "xml_end": 2,
+        "xml_fragment": "Ob"
+      },
+      {
+        "id": "t2",
+        "form": "es",
+        "text_start": 3,
+        "text_end": 5,
+        "xml_start": 3,
+        "xml_end": 5,
+        "xml_fragment": "es"
+      },
+      {
+        "id": "t3",
+        "form": "recht",
+        "text_start": 6,
+        "text_end": 11,
+        "xml_start": 6,
+        "xml_end": 11,
+        "xml_fragment": "recht"
+      },
+      {
+        "id": "t4",
+        "form": "ſey",
+        "text_start": 12,
+        "text_end": 15,
+        "xml_start": 12,
+        "xml_end": 15,
+        "xml_fragment": "ſey"
+      },
+      {
+        "id": "t5",
+        "form": "ſprich",
+        "text_start": 16,
+        "text_end": 22,
+        "xml_start": 16,
+        "xml_end": 118,
+        "xml_fragment": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t6",
+        "form": "alſo",
+        "text_start": 23,
+        "text_end": 27,
+        "xml_start": 119,
+        "xml_end": 123,
+        "xml_fragment": "alſo"
+      },
+      {
+        "id": "t7",
+        "form": "ich",
+        "text_start": 28,
+        "text_end": 31,
+        "xml_start": 124,
+        "xml_end": 127,
+        "xml_fragment": "ich"
+      },
+      {
+        "id": "t8",
+        "form": "hab",
+        "text_start": 32,
+        "text_end": 35,
+        "xml_start": 128,
+        "xml_end": 131,
+        "xml_fragment": "hab"
+      },
+      {
+        "id": "t9",
+        "form": "20",
+        "text_start": 36,
+        "text_end": 38,
+        "xml_start": 132,
+        "xml_end": 134,
+        "xml_fragment": "20"
+      },
+      {
+        "id": "t10",
+        "form": "4",
+        "text_start": 39,
+        "text_end": 40,
+        "xml_start": 135,
+        "xml_end": 164,
+        "xml_fragment": "<hi rend=\"superscript\">4</hi>"
+      },
+      {
+        "id": "t11",
+        "form": "/",
+        "text_start": 40,
+        "text_end": 41,
+        "xml_start": 164,
+        "xml_end": 165,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t12",
+        "form": "7",
+        "text_start": 41,
+        "text_end": 42,
+        "xml_start": 165,
+        "xml_end": 192,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t13",
+        "form": "lot",
+        "text_start": 43,
+        "text_end": 46,
+        "xml_start": 193,
+        "xml_end": 196,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t14",
+        "form": "ſilbers",
+        "text_start": 47,
+        "text_end": 54,
+        "xml_start": 197,
+        "xml_end": 302,
+        "xml_fragment": "<choice><expan>ſilbers</expan><abbr><am><g ref=\"#longs\"/></am>ilb<am><g ref=\"#er\"/></am>s</abbr></choice>"
+      },
+      {
+        "id": "t15",
+        "form": "vnd",
+        "text_start": 55,
+        "text_end": 58,
+        "xml_start": 303,
+        "xml_end": 306,
+        "xml_fragment": "vnd"
+      },
+      {
+        "id": "t16",
+        "form": "kupfers",
+        "text_start": 59,
+        "text_end": 66,
+        "xml_start": 307,
+        "xml_end": 314,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t17",
+        "form": "daß",
+        "text_start": 67,
+        "text_end": 70,
+        "xml_start": 315,
+        "xml_end": 318,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t18",
+        "form": "halt",
+        "text_start": 71,
+        "text_end": 75,
+        "xml_start": 319,
+        "xml_end": 323,
+        "xml_fragment": "halt"
+      },
+      {
+        "id": "t19",
+        "form": "7",
+        "text_start": 76,
+        "text_end": 77,
+        "xml_start": 324,
+        "xml_end": 325,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t20",
+        "form": "lot",
+        "text_start": 78,
+        "text_end": 81,
+        "xml_start": 326,
+        "xml_end": 329,
+        "xml_fragment": "lot"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_54",
+    "xml": "alſo ſol es auch ſein",
+    "text": "alſo ſol es auch ſein",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "alſo",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "alſo"
+      },
+      {
+        "id": "t2",
+        "form": "ſol",
+        "text_start": 5,
+        "text_end": 8,
+        "xml_start": 5,
+        "xml_end": 8,
+        "xml_fragment": "ſol"
+      },
+      {
+        "id": "t3",
+        "form": "es",
+        "text_start": 9,
+        "text_end": 11,
+        "xml_start": 9,
+        "xml_end": 11,
+        "xml_fragment": "es"
+      },
+      {
+        "id": "t4",
+        "form": "auch",
+        "text_start": 12,
+        "text_end": 16,
+        "xml_start": 12,
+        "xml_end": 16,
+        "xml_fragment": "auch"
+      },
+      {
+        "id": "t5",
+        "form": "ſein",
+        "text_start": 17,
+        "text_end": 21,
+        "xml_start": 17,
+        "xml_end": 21,
+        "xml_fragment": "ſein"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_53",
+    "xml": "wilt vnd daß iſt 7 lot ſo pleibt <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">7</hi> einer marck daß iſt 4 lot <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> eins",
+    "text": "wilt vnd daß iſt 7 lot ſo pleibt 2/7 einer marck daß iſt 4 lot 4/7 eins",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "wilt",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "wilt"
+      },
+      {
+        "id": "t2",
+        "form": "vnd",
+        "text_start": 5,
+        "text_end": 8,
+        "xml_start": 5,
+        "xml_end": 8,
+        "xml_fragment": "vnd"
+      },
+      {
+        "id": "t3",
+        "form": "daß",
+        "text_start": 9,
+        "text_end": 12,
+        "xml_start": 9,
+        "xml_end": 12,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t4",
+        "form": "iſt",
+        "text_start": 13,
+        "text_end": 16,
+        "xml_start": 13,
+        "xml_end": 16,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t5",
+        "form": "7",
+        "text_start": 17,
+        "text_end": 18,
+        "xml_start": 17,
+        "xml_end": 18,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t6",
+        "form": "lot",
+        "text_start": 19,
+        "text_end": 22,
+        "xml_start": 19,
+        "xml_end": 22,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t7",
+        "form": "ſo",
+        "text_start": 23,
+        "text_end": 25,
+        "xml_start": 23,
+        "xml_end": 25,
+        "xml_fragment": "ſo"
+      },
+      {
+        "id": "t8",
+        "form": "pleibt",
+        "text_start": 26,
+        "text_end": 32,
+        "xml_start": 26,
+        "xml_end": 32,
+        "xml_fragment": "pleibt"
+      },
+      {
+        "id": "t9",
+        "form": "2",
+        "text_start": 33,
+        "text_end": 34,
+        "xml_start": 33,
+        "xml_end": 62,
+        "xml_fragment": "<hi rend=\"superscript\">2</hi>"
+      },
+      {
+        "id": "t10",
+        "form": "/",
+        "text_start": 34,
+        "text_end": 35,
+        "xml_start": 62,
+        "xml_end": 63,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t11",
+        "form": "7",
+        "text_start": 35,
+        "text_end": 36,
+        "xml_start": 63,
+        "xml_end": 90,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t12",
+        "form": "einer",
+        "text_start": 37,
+        "text_end": 42,
+        "xml_start": 91,
+        "xml_end": 96,
+        "xml_fragment": "einer"
+      },
+      {
+        "id": "t13",
+        "form": "marck",
+        "text_start": 43,
+        "text_end": 48,
+        "xml_start": 97,
+        "xml_end": 102,
+        "xml_fragment": "marck"
+      },
+      {
+        "id": "t14",
+        "form": "daß",
+        "text_start": 49,
+        "text_end": 52,
+        "xml_start": 103,
+        "xml_end": 106,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t15",
+        "form": "iſt",
+        "text_start": 53,
+        "text_end": 56,
+        "xml_start": 107,
+        "xml_end": 110,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t16",
+        "form": "4",
+        "text_start": 57,
+        "text_end": 58,
+        "xml_start": 111,
+        "xml_end": 112,
+        "xml_fragment": "4"
+      },
+      {
+        "id": "t17",
+        "form": "lot",
+        "text_start": 59,
+        "text_end": 62,
+        "xml_start": 113,
+        "xml_end": 116,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t18",
+        "form": "4",
+        "text_start": 63,
+        "text_end": 64,
+        "xml_start": 117,
+        "xml_end": 146,
+        "xml_fragment": "<hi rend=\"superscript\">4</hi>"
+      },
+      {
+        "id": "t19",
+        "form": "/",
+        "text_start": 64,
+        "text_end": 65,
+        "xml_start": 146,
+        "xml_end": 147,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t20",
+        "form": "7",
+        "text_start": 65,
+        "text_end": 66,
+        "xml_start": 147,
+        "xml_end": 174,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t21",
+        "form": "eins",
+        "text_start": 67,
+        "text_end": 71,
+        "xml_start": 175,
+        "xml_end": 179,
+        "xml_fragment": "eins"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1704967566658_510",
+    "xml": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> 4 rock <hi rend=\"superscript\">2</hi>/<hi rend=\"subscript\">3</hi> gebe̅n̅ 14 tag waß geben 8 rock <choice><expan>facit</expan><abbr>fa<hi rend=\"superscript\">t</hi></abbr></choice> 14 tag",
+    "text": "ſprich 4 rock 2/3 gebe̅n̅ 14 tag waß geben 8 rock facit 14 tag",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "ſprich",
+        "text_start": 0,
+        "text_end": 6,
+        "xml_start": 0,
+        "xml_end": 102,
+        "xml_fragment": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t2",
+        "form": "4",
+        "text_start": 7,
+        "text_end": 8,
+        "xml_start": 103,
+        "xml_end": 104,
+        "xml_fragment": "4"
+      },
+      {
+        "id": "t3",
+        "form": "rock",
+        "text_start": 9,
+        "text_end": 13,
+        "xml_start": 105,
+        "xml_end": 109,
+        "xml_fragment": "rock"
+      },
+      {
+        "id": "t4",
+        "form": "2",
+        "text_start": 14,
+        "text_end": 15,
+        "xml_start": 110,
+        "xml_end": 139,
+        "xml_fragment": "<hi rend=\"superscript\">2</hi>"
+      },
+      {
+        "id": "t5",
+        "form": "/",
+        "text_start": 15,
+        "text_end": 16,
+        "xml_start": 139,
+        "xml_end": 140,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t6",
+        "form": "3",
+        "text_start": 16,
+        "text_end": 17,
+        "xml_start": 140,
+        "xml_end": 167,
+        "xml_fragment": "<hi rend=\"subscript\">3</hi>"
+      },
+      {
+        "id": "t7",
+        "form": "gebe̅n̅",
+        "text_start": 18,
+        "text_end": 25,
+        "xml_start": 168,
+        "xml_end": 175,
+        "xml_fragment": "gebe̅n̅"
+      },
+      {
+        "id": "t8",
+        "form": "14",
+        "text_start": 26,
+        "text_end": 28,
+        "xml_start": 176,
+        "xml_end": 178,
+        "xml_fragment": "14"
+      },
+      {
+        "id": "t9",
+        "form": "tag",
+        "text_start": 29,
+        "text_end": 32,
+        "xml_start": 179,
+        "xml_end": 182,
+        "xml_fragment": "tag"
+      },
+      {
+        "id": "t10",
+        "form": "waß",
+        "text_start": 33,
+        "text_end": 36,
+        "xml_start": 183,
+        "xml_end": 186,
+        "xml_fragment": "waß"
+      },
+      {
+        "id": "t11",
+        "form": "geben",
+        "text_start": 37,
+        "text_end": 42,
+        "xml_start": 187,
+        "xml_end": 192,
+        "xml_fragment": "geben"
+      },
+      {
+        "id": "t12",
+        "form": "8",
+        "text_start": 43,
+        "text_end": 44,
+        "xml_start": 193,
+        "xml_end": 194,
+        "xml_fragment": "8"
+      },
+      {
+        "id": "t13",
+        "form": "rock",
+        "text_start": 45,
+        "text_end": 49,
+        "xml_start": 195,
+        "xml_end": 199,
+        "xml_fragment": "rock"
+      },
+      {
+        "id": "t14",
+        "form": "facit",
+        "text_start": 50,
+        "text_end": 55,
+        "xml_start": 200,
+        "xml_end": 281,
+        "xml_fragment": "<choice><expan>facit</expan><abbr>fa<hi rend=\"superscript\">t</hi></abbr></choice>"
+      },
+      {
+        "id": "t15",
+        "form": "14",
+        "text_start": 56,
+        "text_end": 58,
+        "xml_start": 282,
+        "xml_end": 284,
+        "xml_fragment": "14"
+      },
+      {
+        "id": "t16",
+        "form": "tag",
+        "text_start": 59,
+        "text_end": 62,
+        "xml_start": 285,
+        "xml_end": 288,
+        "xml_fragment": "tag"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_52",
+    "xml": "Oder machs alſo tail dy <choice><expan>müncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>ü<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice> dy du haſt daß iſt 9 lot mit <choice><expan>der</expan><abbr>d<am><g ref=\"#er\"/></am></abbr></choice> dy du <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice>",
+    "text": "Oder machs alſo tail dy müncʒ dy du haſt daß iſt 9 lot mit der dy du machen",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "Oder",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "Oder"
+      },
+      {
+        "id": "t2",
+        "form": "machs",
+        "text_start": 5,
+        "text_end": 10,
+        "xml_start": 5,
+        "xml_end": 10,
+        "xml_fragment": "machs"
+      },
+      {
+        "id": "t3",
+        "form": "alſo",
+        "text_start": 11,
+        "text_end": 15,
+        "xml_start": 11,
+        "xml_end": 15,
+        "xml_fragment": "alſo"
+      },
+      {
+        "id": "t4",
+        "form": "tail",
+        "text_start": 16,
+        "text_end": 20,
+        "xml_start": 16,
+        "xml_end": 20,
+        "xml_fragment": "tail"
+      },
+      {
+        "id": "t5",
+        "form": "dy",
+        "text_start": 21,
+        "text_end": 23,
+        "xml_start": 21,
+        "xml_end": 23,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t6",
+        "form": "müncʒ",
+        "text_start": 24,
+        "text_end": 29,
+        "xml_start": 24,
+        "xml_end": 159,
+        "xml_fragment": "<choice><expan>müncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>ü<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t7",
+        "form": "dy",
+        "text_start": 30,
+        "text_end": 32,
+        "xml_start": 160,
+        "xml_end": 162,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t8",
+        "form": "du",
+        "text_start": 33,
+        "text_end": 35,
+        "xml_start": 163,
+        "xml_end": 165,
+        "xml_fragment": "du"
+      },
+      {
+        "id": "t9",
+        "form": "haſt",
+        "text_start": 36,
+        "text_end": 40,
+        "xml_start": 166,
+        "xml_end": 170,
+        "xml_fragment": "haſt"
+      },
+      {
+        "id": "t10",
+        "form": "daß",
+        "text_start": 41,
+        "text_end": 44,
+        "xml_start": 171,
+        "xml_end": 174,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t11",
+        "form": "iſt",
+        "text_start": 45,
+        "text_end": 48,
+        "xml_start": 175,
+        "xml_end": 178,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t12",
+        "form": "9",
+        "text_start": 49,
+        "text_end": 50,
+        "xml_start": 179,
+        "xml_end": 180,
+        "xml_fragment": "9"
+      },
+      {
+        "id": "t13",
+        "form": "lot",
+        "text_start": 51,
+        "text_end": 54,
+        "xml_start": 181,
+        "xml_end": 184,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t14",
+        "form": "mit",
+        "text_start": 55,
+        "text_end": 58,
+        "xml_start": 185,
+        "xml_end": 188,
+        "xml_fragment": "mit"
+      },
+      {
+        "id": "t15",
+        "form": "der",
+        "text_start": 59,
+        "text_end": 62,
+        "xml_start": 189,
+        "xml_end": 261,
+        "xml_fragment": "<choice><expan>der</expan><abbr>d<am><g ref=\"#er\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t16",
+        "form": "dy",
+        "text_start": 63,
+        "text_end": 65,
+        "xml_start": 262,
+        "xml_end": 264,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t17",
+        "form": "du",
+        "text_start": 66,
+        "text_end": 68,
+        "xml_start": 265,
+        "xml_end": 267,
+        "xml_fragment": "du"
+      },
+      {
+        "id": "t18",
+        "form": "machen",
+        "text_start": 69,
+        "text_end": 75,
+        "xml_start": 268,
+        "xml_end": 353,
+        "xml_fragment": "<choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice>"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_51",
+    "xml": "feinſilber <choice><expan>halten</expan><abbr>haltn<am><g ref=\"#combover\"/></am></abbr></choice> vnd iſt gemacht",
+    "text": "feinſilber halten vnd iſt gemacht",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "feinſilber",
+        "text_start": 0,
+        "text_end": 10,
+        "xml_start": 0,
+        "xml_end": 10,
+        "xml_fragment": "feinſilber"
+      },
+      {
+        "id": "t2",
+        "form": "halten",
+        "text_start": 11,
+        "text_end": 17,
+        "xml_start": 11,
+        "xml_end": 96,
+        "xml_fragment": "<choice><expan>halten</expan><abbr>haltn<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t3",
+        "form": "vnd",
+        "text_start": 18,
+        "text_end": 21,
+        "xml_start": 97,
+        "xml_end": 100,
+        "xml_fragment": "vnd"
+      },
+      {
+        "id": "t4",
+        "form": "iſt",
+        "text_start": 22,
+        "text_end": 25,
+        "xml_start": 101,
+        "xml_end": 104,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t5",
+        "form": "gemacht",
+        "text_start": 26,
+        "text_end": 33,
+        "xml_start": 105,
+        "xml_end": 112,
+        "xml_fragment": "gemacht"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_50",
+    "xml": "4 lot <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> kupfers ſo vil kupfers ſol man ʒu der <choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice> thun ſo wirt dy <choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice> 7 lot",
+    "text": "4 lot 4/7 kupfers ſo vil kupfers ſol man ʒu der mark thun ſo wirt dy mark 7 lot",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "4",
+        "text_start": 0,
+        "text_end": 1,
+        "xml_start": 0,
+        "xml_end": 1,
+        "xml_fragment": "4"
+      },
+      {
+        "id": "t2",
+        "form": "lot",
+        "text_start": 2,
+        "text_end": 5,
+        "xml_start": 2,
+        "xml_end": 5,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t3",
+        "form": "4",
+        "text_start": 6,
+        "text_end": 7,
+        "xml_start": 6,
+        "xml_end": 35,
+        "xml_fragment": "<hi rend=\"superscript\">4</hi>"
+      },
+      {
+        "id": "t4",
+        "form": "/",
+        "text_start": 7,
+        "text_end": 8,
+        "xml_start": 35,
+        "xml_end": 36,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t5",
+        "form": "7",
+        "text_start": 8,
+        "text_end": 9,
+        "xml_start": 36,
+        "xml_end": 63,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t6",
+        "form": "kupfers",
+        "text_start": 10,
+        "text_end": 17,
+        "xml_start": 64,
+        "xml_end": 71,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t7",
+        "form": "ſo",
+        "text_start": 18,
+        "text_end": 20,
+        "xml_start": 72,
+        "xml_end": 74,
+        "xml_fragment": "ſo"
+      },
+      {
+        "id": "t8",
+        "form": "vil",
+        "text_start": 21,
+        "text_end": 24,
+        "xml_start": 75,
+        "xml_end": 78,
+        "xml_fragment": "vil"
+      },
+      {
+        "id": "t9",
+        "form": "kupfers",
+        "text_start": 25,
+        "text_end": 32,
+        "xml_start": 79,
+        "xml_end": 86,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t10",
+        "form": "ſol",
+        "text_start": 33,
+        "text_end": 36,
+        "xml_start": 87,
+        "xml_end": 90,
+        "xml_fragment": "ſol"
+      },
+      {
+        "id": "t11",
+        "form": "man",
+        "text_start": 37,
+        "text_end": 40,
+        "xml_start": 91,
+        "xml_end": 94,
+        "xml_fragment": "man"
+      },
+      {
+        "id": "t12",
+        "form": "ʒu",
+        "text_start": 41,
+        "text_end": 43,
+        "xml_start": 95,
+        "xml_end": 97,
+        "xml_fragment": "ʒu"
+      },
+      {
+        "id": "t13",
+        "form": "der",
+        "text_start": 44,
+        "text_end": 47,
+        "xml_start": 98,
+        "xml_end": 101,
+        "xml_fragment": "der"
+      },
+      {
+        "id": "t14",
+        "form": "mark",
+        "text_start": 48,
+        "text_end": 52,
+        "xml_start": 102,
+        "xml_end": 211,
+        "xml_fragment": "<choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t15",
+        "form": "thun",
+        "text_start": 53,
+        "text_end": 57,
+        "xml_start": 212,
+        "xml_end": 216,
+        "xml_fragment": "thun"
+      },
+      {
+        "id": "t16",
+        "form": "ſo",
+        "text_start": 58,
+        "text_end": 60,
+        "xml_start": 217,
+        "xml_end": 219,
+        "xml_fragment": "ſo"
+      },
+      {
+        "id": "t17",
+        "form": "wirt",
+        "text_start": 61,
+        "text_end": 65,
+        "xml_start": 220,
+        "xml_end": 224,
+        "xml_fragment": "wirt"
+      },
+      {
+        "id": "t18",
+        "form": "dy",
+        "text_start": 66,
+        "text_end": 68,
+        "xml_start": 225,
+        "xml_end": 227,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t19",
+        "form": "mark",
+        "text_start": 69,
+        "text_end": 73,
+        "xml_start": 228,
+        "xml_end": 337,
+        "xml_fragment": "<choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t20",
+        "form": "7",
+        "text_start": 74,
+        "text_end": 75,
+        "xml_start": 338,
+        "xml_end": 339,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t21",
+        "form": "lot",
+        "text_start": 76,
+        "text_end": 79,
+        "xml_start": 340,
+        "xml_end": 343,
+        "xml_fragment": "lot"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_49",
+    "xml": "lot feinſilbers helt 7 lot kupfers dy ʒeuch von 11 <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> lot kupfers ſo pleibt",
+    "text": "lot feinſilbers helt 7 lot kupfers dy ʒeuch von 11 4/7 lot kupfers ſo pleibt",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "lot",
+        "text_start": 0,
+        "text_end": 3,
+        "xml_start": 0,
+        "xml_end": 3,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t2",
+        "form": "feinſilbers",
+        "text_start": 4,
+        "text_end": 15,
+        "xml_start": 4,
+        "xml_end": 15,
+        "xml_fragment": "feinſilbers"
+      },
+      {
+        "id": "t3",
+        "form": "helt",
+        "text_start": 16,
+        "text_end": 20,
+        "xml_start": 16,
+        "xml_end": 20,
+        "xml_fragment": "helt"
+      },
+      {
+        "id": "t4",
+        "form": "7",
+        "text_start": 21,
+        "text_end": 22,
+        "xml_start": 21,
+        "xml_end": 22,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t5",
+        "form": "lot",
+        "text_start": 23,
+        "text_end": 26,
+        "xml_start": 23,
+        "xml_end": 26,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t6",
+        "form": "kupfers",
+        "text_start": 27,
+        "text_end": 34,
+        "xml_start": 27,
+        "xml_end": 34,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t7",
+        "form": "dy",
+        "text_start": 35,
+        "text_end": 37,
+        "xml_start": 35,
+        "xml_end": 37,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t8",
+        "form": "ʒeuch",
+        "text_start": 38,
+        "text_end": 43,
+        "xml_start": 38,
+        "xml_end": 43,
+        "xml_fragment": "ʒeuch"
+      },
+      {
+        "id": "t9",
+        "form": "von",
+        "text_start": 44,
+        "text_end": 47,
+        "xml_start": 44,
+        "xml_end": 47,
+        "xml_fragment": "von"
+      },
+      {
+        "id": "t10",
+        "form": "11",
+        "text_start": 48,
+        "text_end": 50,
+        "xml_start": 48,
+        "xml_end": 50,
+        "xml_fragment": "11"
+      },
+      {
+        "id": "t11",
+        "form": "4",
+        "text_start": 51,
+        "text_end": 52,
+        "xml_start": 51,
+        "xml_end": 80,
+        "xml_fragment": "<hi rend=\"superscript\">4</hi>"
+      },
+      {
+        "id": "t12",
+        "form": "/",
+        "text_start": 52,
+        "text_end": 53,
+        "xml_start": 80,
+        "xml_end": 81,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t13",
+        "form": "7",
+        "text_start": 53,
+        "text_end": 54,
+        "xml_start": 81,
+        "xml_end": 108,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t14",
+        "form": "lot",
+        "text_start": 55,
+        "text_end": 58,
+        "xml_start": 109,
+        "xml_end": 112,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t15",
+        "form": "kupfers",
+        "text_start": 59,
+        "text_end": 66,
+        "xml_start": 113,
+        "xml_end": 120,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t16",
+        "form": "ſo",
+        "text_start": 67,
+        "text_end": 69,
+        "xml_start": 121,
+        "xml_end": 123,
+        "xml_fragment": "ſo"
+      },
+      {
+        "id": "t17",
+        "form": "pleibt",
+        "text_start": 70,
+        "text_end": 76,
+        "xml_start": 124,
+        "xml_end": 130,
+        "xml_fragment": "pleibt"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_48",
+    "xml": "Machs nach der̅ Regel ſacit 11 lott <hi rend=\"superscript\">4</hi>/<hi rend=\"subscript\">7</hi> kupfer Nu ſind vor In der̅ marck 9",
+    "text": "Machs nach der̅ Regel ſacit 11 lott 4/7 kupfer Nu ſind vor In der̅ marck 9",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "Machs",
+        "text_start": 0,
+        "text_end": 5,
+        "xml_start": 0,
+        "xml_end": 5,
+        "xml_fragment": "Machs"
+      },
+      {
+        "id": "t2",
+        "form": "nach",
+        "text_start": 6,
+        "text_end": 10,
+        "xml_start": 6,
+        "xml_end": 10,
+        "xml_fragment": "nach"
+      },
+      {
+        "id": "t3",
+        "form": "der̅",
+        "text_start": 11,
+        "text_end": 15,
+        "xml_start": 11,
+        "xml_end": 15,
+        "xml_fragment": "der̅"
+      },
+      {
+        "id": "t4",
+        "form": "Regel",
+        "text_start": 16,
+        "text_end": 21,
+        "xml_start": 16,
+        "xml_end": 21,
+        "xml_fragment": "Regel"
+      },
+      {
+        "id": "t5",
+        "form": "ſacit",
+        "text_start": 22,
+        "text_end": 27,
+        "xml_start": 22,
+        "xml_end": 27,
+        "xml_fragment": "ſacit"
+      },
+      {
+        "id": "t6",
+        "form": "11",
+        "text_start": 28,
+        "text_end": 30,
+        "xml_start": 28,
+        "xml_end": 30,
+        "xml_fragment": "11"
+      },
+      {
+        "id": "t7",
+        "form": "lott",
+        "text_start": 31,
+        "text_end": 35,
+        "xml_start": 31,
+        "xml_end": 35,
+        "xml_fragment": "lott"
+      },
+      {
+        "id": "t8",
+        "form": "4",
+        "text_start": 36,
+        "text_end": 37,
+        "xml_start": 36,
+        "xml_end": 65,
+        "xml_fragment": "<hi rend=\"superscript\">4</hi>"
+      },
+      {
+        "id": "t9",
+        "form": "/",
+        "text_start": 37,
+        "text_end": 38,
+        "xml_start": 65,
+        "xml_end": 66,
+        "xml_fragment": "/"
+      },
+      {
+        "id": "t10",
+        "form": "7",
+        "text_start": 38,
+        "text_end": 39,
+        "xml_start": 66,
+        "xml_end": 93,
+        "xml_fragment": "<hi rend=\"subscript\">7</hi>"
+      },
+      {
+        "id": "t11",
+        "form": "kupfer",
+        "text_start": 40,
+        "text_end": 46,
+        "xml_start": 94,
+        "xml_end": 100,
+        "xml_fragment": "kupfer"
+      },
+      {
+        "id": "t12",
+        "form": "Nu",
+        "text_start": 47,
+        "text_end": 49,
+        "xml_start": 101,
+        "xml_end": 103,
+        "xml_fragment": "Nu"
+      },
+      {
+        "id": "t13",
+        "form": "ſind",
+        "text_start": 50,
+        "text_end": 54,
+        "xml_start": 104,
+        "xml_end": 108,
+        "xml_fragment": "ſind"
+      },
+      {
+        "id": "t14",
+        "form": "vor",
+        "text_start": 55,
+        "text_end": 58,
+        "xml_start": 109,
+        "xml_end": 112,
+        "xml_fragment": "vor"
+      },
+      {
+        "id": "t15",
+        "form": "In",
+        "text_start": 59,
+        "text_end": 61,
+        "xml_start": 113,
+        "xml_end": 115,
+        "xml_fragment": "In"
+      },
+      {
+        "id": "t16",
+        "form": "der̅",
+        "text_start": 62,
+        "text_end": 66,
+        "xml_start": 116,
+        "xml_end": 120,
+        "xml_fragment": "der̅"
+      },
+      {
+        "id": "t17",
+        "form": "marck",
+        "text_start": 67,
+        "text_end": 72,
+        "xml_start": 121,
+        "xml_end": 126,
+        "xml_fragment": "marck"
+      },
+      {
+        "id": "t18",
+        "form": "9",
+        "text_start": 73,
+        "text_end": 74,
+        "xml_start": 127,
+        "xml_end": 128,
+        "xml_fragment": "9"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1684747322772_1222",
+    "xml": "feinſilber <add place=\"below\">7</add> kupfer <add place=\"below\">9</add> feinsilb <add place=\"below\">9</add>",
+    "text": "feinſilber 7 kupfer 9 feinsilb 9",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "feinſilber",
+        "text_start": 0,
+        "text_end": 10,
+        "xml_start": 0,
+        "xml_end": 10,
+        "xml_fragment": "feinſilber"
+      },
+      {
+        "id": "t2",
+        "form": "7",
+        "text_start": 11,
+        "text_end": 12,
+        "xml_start": 11,
+        "xml_end": 37,
+        "xml_fragment": "<add place=\"below\">7</add>"
+      },
+      {
+        "id": "t3",
+        "form": "kupfer",
+        "text_start": 13,
+        "text_end": 19,
+        "xml_start": 38,
+        "xml_end": 44,
+        "xml_fragment": "kupfer"
+      },
+      {
+        "id": "t4",
+        "form": "9",
+        "text_start": 20,
+        "text_end": 21,
+        "xml_start": 45,
+        "xml_end": 71,
+        "xml_fragment": "<add place=\"below\">9</add>"
+      },
+      {
+        "id": "t5",
+        "form": "feinsilb",
+        "text_start": 22,
+        "text_end": 30,
+        "xml_start": 72,
+        "xml_end": 80,
+        "xml_fragment": "feinsilb"
+      },
+      {
+        "id": "t6",
+        "form": "9",
+        "text_start": 31,
+        "text_end": 32,
+        "xml_start": 81,
+        "xml_end": 107,
+        "xml_fragment": "<add place=\"below\">9</add>"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_line_1684747292469_1205",
+    "xml": "ſol ich kupfers dar ein thűn daß es ʒu 7 <choice><expan>loten</expan><abbr>lotn<am><g ref=\"#combover\"/></am></abbr></choice> werd ſecʒ alſo",
+    "text": "ſol ich kupfers dar ein thűn daß es ʒu 7 loten werd ſecʒ alſo",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "ſol",
+        "text_start": 0,
+        "text_end": 3,
+        "xml_start": 0,
+        "xml_end": 3,
+        "xml_fragment": "ſol"
+      },
+      {
+        "id": "t2",
+        "form": "ich",
+        "text_start": 4,
+        "text_end": 7,
+        "xml_start": 4,
+        "xml_end": 7,
+        "xml_fragment": "ich"
+      },
+      {
+        "id": "t3",
+        "form": "kupfers",
+        "text_start": 8,
+        "text_end": 15,
+        "xml_start": 8,
+        "xml_end": 15,
+        "xml_fragment": "kupfers"
+      },
+      {
+        "id": "t4",
+        "form": "dar",
+        "text_start": 16,
+        "text_end": 19,
+        "xml_start": 16,
+        "xml_end": 19,
+        "xml_fragment": "dar"
+      },
+      {
+        "id": "t5",
+        "form": "ein",
+        "text_start": 20,
+        "text_end": 23,
+        "xml_start": 20,
+        "xml_end": 23,
+        "xml_fragment": "ein"
+      },
+      {
+        "id": "t6",
+        "form": "thűn",
+        "text_start": 24,
+        "text_end": 29,
+        "xml_start": 24,
+        "xml_end": 29,
+        "xml_fragment": "thűn"
+      },
+      {
+        "id": "t7",
+        "form": "daß",
+        "text_start": 30,
+        "text_end": 33,
+        "xml_start": 30,
+        "xml_end": 33,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t8",
+        "form": "es",
+        "text_start": 34,
+        "text_end": 36,
+        "xml_start": 34,
+        "xml_end": 36,
+        "xml_fragment": "es"
+      },
+      {
+        "id": "t9",
+        "form": "ʒu",
+        "text_start": 37,
+        "text_end": 39,
+        "xml_start": 37,
+        "xml_end": 39,
+        "xml_fragment": "ʒu"
+      },
+      {
+        "id": "t10",
+        "form": "7",
+        "text_start": 40,
+        "text_end": 41,
+        "xml_start": 40,
+        "xml_end": 41,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t11",
+        "form": "loten",
+        "text_start": 42,
+        "text_end": 47,
+        "xml_start": 42,
+        "xml_end": 125,
+        "xml_fragment": "<choice><expan>loten</expan><abbr>lotn<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t12",
+        "form": "werd",
+        "text_start": 48,
+        "text_end": 52,
+        "xml_start": 126,
+        "xml_end": 130,
+        "xml_fragment": "werd"
+      },
+      {
+        "id": "t13",
+        "form": "ſecʒ",
+        "text_start": 53,
+        "text_end": 57,
+        "xml_start": 131,
+        "xml_end": 135,
+        "xml_fragment": "ſecʒ"
+      },
+      {
+        "id": "t14",
+        "form": "alſo",
+        "text_start": 58,
+        "text_end": 62,
+        "xml_start": 136,
+        "xml_end": 140,
+        "xml_fragment": "alſo"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_46",
+    "xml": "der̅ wil ich <choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice> ein ander <choice><expan>muncʒ</expan><abbr>mu<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice> dy 7 lot feinſilbers helt wieuil",
+    "text": "der̅ wil ich machen ein ander muncʒ dy 7 lot feinſilbers helt wieuil",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "der̅",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "der̅"
+      },
+      {
+        "id": "t2",
+        "form": "wil",
+        "text_start": 5,
+        "text_end": 8,
+        "xml_start": 5,
+        "xml_end": 8,
+        "xml_fragment": "wil"
+      },
+      {
+        "id": "t3",
+        "form": "ich",
+        "text_start": 9,
+        "text_end": 12,
+        "xml_start": 9,
+        "xml_end": 12,
+        "xml_fragment": "ich"
+      },
+      {
+        "id": "t4",
+        "form": "machen",
+        "text_start": 13,
+        "text_end": 19,
+        "xml_start": 13,
+        "xml_end": 98,
+        "xml_fragment": "<choice><expan>machen</expan><abbr>machn<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t5",
+        "form": "ein",
+        "text_start": 20,
+        "text_end": 23,
+        "xml_start": 99,
+        "xml_end": 102,
+        "xml_fragment": "ein"
+      },
+      {
+        "id": "t6",
+        "form": "ander",
+        "text_start": 24,
+        "text_end": 29,
+        "xml_start": 103,
+        "xml_end": 108,
+        "xml_fragment": "ander"
+      },
+      {
+        "id": "t7",
+        "form": "muncʒ",
+        "text_start": 30,
+        "text_end": 35,
+        "xml_start": 109,
+        "xml_end": 215,
+        "xml_fragment": "<choice><expan>muncʒ</expan><abbr>mu<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t8",
+        "form": "dy",
+        "text_start": 36,
+        "text_end": 38,
+        "xml_start": 216,
+        "xml_end": 218,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t9",
+        "form": "7",
+        "text_start": 39,
+        "text_end": 40,
+        "xml_start": 219,
+        "xml_end": 220,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t10",
+        "form": "lot",
+        "text_start": 41,
+        "text_end": 44,
+        "xml_start": 221,
+        "xml_end": 224,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t11",
+        "form": "feinſilbers",
+        "text_start": 45,
+        "text_end": 56,
+        "xml_start": 225,
+        "xml_end": 236,
+        "xml_fragment": "feinſilbers"
+      },
+      {
+        "id": "t12",
+        "form": "helt",
+        "text_start": 57,
+        "text_end": 61,
+        "xml_start": 237,
+        "xml_end": 241,
+        "xml_fragment": "helt"
+      },
+      {
+        "id": "t13",
+        "form": "wieuil",
+        "text_start": 62,
+        "text_end": 68,
+        "xml_start": 242,
+        "xml_end": 248,
+        "xml_fragment": "wieuil"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_44",
+    "xml": "lott iſt küpfer̅ <choice><expan>Sprich</expan><abbr>Spr<am><g ref=\"#is\"/></am></abbr></choice> alſo einer hat Müncʒ helt dy <choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice> 9 lot feinſilber von",
+    "text": "lott iſt küpfer̅ Sprich alſo einer hat Müncʒ helt dy mark 9 lot feinſilber von",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "lott",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 4,
+        "xml_fragment": "lott"
+      },
+      {
+        "id": "t2",
+        "form": "iſt",
+        "text_start": 5,
+        "text_end": 8,
+        "xml_start": 5,
+        "xml_end": 8,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t3",
+        "form": "küpfer̅",
+        "text_start": 9,
+        "text_end": 16,
+        "xml_start": 9,
+        "xml_end": 16,
+        "xml_fragment": "küpfer̅"
+      },
+      {
+        "id": "t4",
+        "form": "Sprich",
+        "text_start": 17,
+        "text_end": 23,
+        "xml_start": 17,
+        "xml_end": 94,
+        "xml_fragment": "<choice><expan>Sprich</expan><abbr>Spr<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t5",
+        "form": "alſo",
+        "text_start": 24,
+        "text_end": 28,
+        "xml_start": 95,
+        "xml_end": 99,
+        "xml_fragment": "alſo"
+      },
+      {
+        "id": "t6",
+        "form": "einer",
+        "text_start": 29,
+        "text_end": 34,
+        "xml_start": 100,
+        "xml_end": 105,
+        "xml_fragment": "einer"
+      },
+      {
+        "id": "t7",
+        "form": "hat",
+        "text_start": 35,
+        "text_end": 38,
+        "xml_start": 106,
+        "xml_end": 109,
+        "xml_fragment": "hat"
+      },
+      {
+        "id": "t8",
+        "form": "Müncʒ",
+        "text_start": 39,
+        "text_end": 44,
+        "xml_start": 110,
+        "xml_end": 115,
+        "xml_fragment": "Müncʒ"
+      },
+      {
+        "id": "t9",
+        "form": "helt",
+        "text_start": 45,
+        "text_end": 49,
+        "xml_start": 116,
+        "xml_end": 120,
+        "xml_fragment": "helt"
+      },
+      {
+        "id": "t10",
+        "form": "dy",
+        "text_start": 50,
+        "text_end": 52,
+        "xml_start": 121,
+        "xml_end": 123,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t11",
+        "form": "mark",
+        "text_start": 53,
+        "text_end": 57,
+        "xml_start": 124,
+        "xml_end": 233,
+        "xml_fragment": "<choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t12",
+        "form": "9",
+        "text_start": 58,
+        "text_end": 59,
+        "xml_start": 234,
+        "xml_end": 235,
+        "xml_fragment": "9"
+      },
+      {
+        "id": "t13",
+        "form": "lot",
+        "text_start": 60,
+        "text_end": 63,
+        "xml_start": 236,
+        "xml_end": 239,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t14",
+        "form": "feinſilber",
+        "text_start": 64,
+        "text_end": 74,
+        "xml_start": 240,
+        "xml_end": 250,
+        "xml_fragment": "feinſilber"
+      },
+      {
+        "id": "t15",
+        "form": "von",
+        "text_start": 75,
+        "text_end": 78,
+        "xml_start": 251,
+        "xml_end": 254,
+        "xml_fragment": "von"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_43",
+    "xml": "ſo <unclear>rdnim</unclear> daß dy ſelben lot feinſilber ſein vnd daß vbrig piß auff 16",
+    "text": "ſo rdnim daß dy ſelben lot feinſilber ſein vnd daß vbrig piß auff 16",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "ſo",
+        "text_start": 0,
+        "text_end": 2,
+        "xml_start": 0,
+        "xml_end": 2,
+        "xml_fragment": "ſo"
+      },
+      {
+        "id": "t2",
+        "form": "rdnim",
+        "text_start": 3,
+        "text_end": 8,
+        "xml_start": 3,
+        "xml_end": 27,
+        "xml_fragment": "<unclear>rdnim</unclear>"
+      },
+      {
+        "id": "t3",
+        "form": "daß",
+        "text_start": 9,
+        "text_end": 12,
+        "xml_start": 28,
+        "xml_end": 31,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t4",
+        "form": "dy",
+        "text_start": 13,
+        "text_end": 15,
+        "xml_start": 32,
+        "xml_end": 34,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t5",
+        "form": "ſelben",
+        "text_start": 16,
+        "text_end": 22,
+        "xml_start": 35,
+        "xml_end": 41,
+        "xml_fragment": "ſelben"
+      },
+      {
+        "id": "t6",
+        "form": "lot",
+        "text_start": 23,
+        "text_end": 26,
+        "xml_start": 42,
+        "xml_end": 45,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t7",
+        "form": "feinſilber",
+        "text_start": 27,
+        "text_end": 37,
+        "xml_start": 46,
+        "xml_end": 56,
+        "xml_fragment": "feinſilber"
+      },
+      {
+        "id": "t8",
+        "form": "ſein",
+        "text_start": 38,
+        "text_end": 42,
+        "xml_start": 57,
+        "xml_end": 61,
+        "xml_fragment": "ſein"
+      },
+      {
+        "id": "t9",
+        "form": "vnd",
+        "text_start": 43,
+        "text_end": 46,
+        "xml_start": 62,
+        "xml_end": 65,
+        "xml_fragment": "vnd"
+      },
+      {
+        "id": "t10",
+        "form": "daß",
+        "text_start": 47,
+        "text_end": 50,
+        "xml_start": 66,
+        "xml_end": 69,
+        "xml_fragment": "daß"
+      },
+      {
+        "id": "t11",
+        "form": "vbrig",
+        "text_start": 51,
+        "text_end": 56,
+        "xml_start": 70,
+        "xml_end": 75,
+        "xml_fragment": "vbrig"
+      },
+      {
+        "id": "t12",
+        "form": "piß",
+        "text_start": 57,
+        "text_end": 60,
+        "xml_start": 76,
+        "xml_end": 79,
+        "xml_fragment": "piß"
+      },
+      {
+        "id": "t13",
+        "form": "auff",
+        "text_start": 61,
+        "text_end": 65,
+        "xml_start": 80,
+        "xml_end": 84,
+        "xml_fragment": "auff"
+      },
+      {
+        "id": "t14",
+        "form": "16",
+        "text_start": 66,
+        "text_end": 68,
+        "xml_start": 85,
+        "xml_end": 87,
+        "xml_fragment": "16"
+      }
+    ]
+  },
+  {
+    "doc_id": "München_Staatsbibliothek_14111",
+    "lb_ID": "#IMAGE.5_region_1684301320066_157_tl_42",
+    "xml": "<choice><expan>Item</expan><abbr>Itm<am><g ref=\"#combover\"/></am></abbr></choice> 16 lot iſt 1 <choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice> vnd wen <choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice> ich hab <choice><expan>muncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>u<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice> dy helt ain ſtrich 7 lot",
+    "text": "Item 16 lot iſt 1 mark vnd wen ſprich ich hab muncʒ dy helt ain ſtrich 7 lot",
+    "tokens": [
+      {
+        "id": "t1",
+        "form": "Item",
+        "text_start": 0,
+        "text_end": 4,
+        "xml_start": 0,
+        "xml_end": 81,
+        "xml_fragment": "<choice><expan>Item</expan><abbr>Itm<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t2",
+        "form": "16",
+        "text_start": 5,
+        "text_end": 7,
+        "xml_start": 82,
+        "xml_end": 84,
+        "xml_fragment": "16"
+      },
+      {
+        "id": "t3",
+        "form": "lot",
+        "text_start": 8,
+        "text_end": 11,
+        "xml_start": 85,
+        "xml_end": 88,
+        "xml_fragment": "lot"
+      },
+      {
+        "id": "t4",
+        "form": "iſt",
+        "text_start": 12,
+        "text_end": 15,
+        "xml_start": 89,
+        "xml_end": 92,
+        "xml_fragment": "iſt"
+      },
+      {
+        "id": "t5",
+        "form": "1",
+        "text_start": 16,
+        "text_end": 17,
+        "xml_start": 93,
+        "xml_end": 94,
+        "xml_fragment": "1"
+      },
+      {
+        "id": "t6",
+        "form": "mark",
+        "text_start": 18,
+        "text_end": 22,
+        "xml_start": 95,
+        "xml_end": 204,
+        "xml_fragment": "<choice><expan>mark</expan><abbr>m<am><g ref=\"#combover\"/></am>r<am><g ref=\"#combover\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t7",
+        "form": "vnd",
+        "text_start": 23,
+        "text_end": 26,
+        "xml_start": 205,
+        "xml_end": 208,
+        "xml_fragment": "vnd"
+      },
+      {
+        "id": "t8",
+        "form": "wen",
+        "text_start": 27,
+        "text_end": 30,
+        "xml_start": 209,
+        "xml_end": 212,
+        "xml_fragment": "wen"
+      },
+      {
+        "id": "t9",
+        "form": "ſprich",
+        "text_start": 31,
+        "text_end": 37,
+        "xml_start": 213,
+        "xml_end": 315,
+        "xml_fragment": "<choice><expan>ſprich</expan><abbr><am><g ref=\"#longs\"/></am>pr<am><g ref=\"#is\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t10",
+        "form": "ich",
+        "text_start": 38,
+        "text_end": 41,
+        "xml_start": 316,
+        "xml_end": 319,
+        "xml_fragment": "ich"
+      },
+      {
+        "id": "t11",
+        "form": "hab",
+        "text_start": 42,
+        "text_end": 45,
+        "xml_start": 320,
+        "xml_end": 323,
+        "xml_fragment": "hab"
+      },
+      {
+        "id": "t12",
+        "form": "muncʒ",
+        "text_start": 46,
+        "text_end": 51,
+        "xml_start": 324,
+        "xml_end": 459,
+        "xml_fragment": "<choice><expan>muncʒ</expan><abbr>m<am><g ref=\"#combover\"/></am>u<am><g ref=\"#combover\"/></am>c<am><g ref=\"#ezh\"/></am></abbr></choice>"
+      },
+      {
+        "id": "t13",
+        "form": "dy",
+        "text_start": 52,
+        "text_end": 54,
+        "xml_start": 460,
+        "xml_end": 462,
+        "xml_fragment": "dy"
+      },
+      {
+        "id": "t14",
+        "form": "helt",
+        "text_start": 55,
+        "text_end": 59,
+        "xml_start": 463,
+        "xml_end": 467,
+        "xml_fragment": "helt"
+      },
+      {
+        "id": "t15",
+        "form": "ain",
+        "text_start": 60,
+        "text_end": 63,
+        "xml_start": 468,
+        "xml_end": 471,
+        "xml_fragment": "ain"
+      },
+      {
+        "id": "t16",
+        "form": "ſtrich",
+        "text_start": 64,
+        "text_end": 70,
+        "xml_start": 472,
+        "xml_end": 478,
+        "xml_fragment": "ſtrich"
+      },
+      {
+        "id": "t17",
+        "form": "7",
+        "text_start": 71,
+        "text_end": 72,
+        "xml_start": 479,
+        "xml_end": 480,
+        "xml_fragment": "7"
+      },
+      {
+        "id": "t18",
+        "form": "lot",
+        "text_start": 73,
+        "text_end": 76,
+        "xml_start": 481,
+        "xml_end": 484,
+        "xml_fragment": "lot"
+      }
+    ]
+  }
+]

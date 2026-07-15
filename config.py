@@ -17,10 +17,12 @@ try:
     import keys
     OPENAI_API_KEY = keys.OPENAI
     ANTHROPIC_API_KEY = keys.ANTHROPIC
+    DH_INFRA_API_KEY = keys.DHINFRA
 except (ImportError, AttributeError):
     # Keys not available - only a problem if API calls are enabled
     OPENAI_API_KEY = None
     ANTHROPIC_API_KEY = None
+    DH_INFRA_API_KEY = None
 
 
 # =============================================================================
@@ -35,15 +37,19 @@ ENABLE_API_CALLS = True
 # =============================================================================
 
 # Model Selection - Uncomment ONE model to use
-# MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
-# MODEL_NAME = "claude-sonnet-4-6"    # Anthropic Claude Sonnet 4.5
+#MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
+# MODEL_NAME = "claude-sonnet-4-5-20250929"    # Anthropic Claude Sonnet 4.5
+MODEL_NAME = "qwen3.5-397b"
 # MODEL_NAME = "qwen3-14B-Q6"                # Alibaba Qwen3 (local)
-MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
+# MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
 # MODEL_NAME = "olmo2-32B-instruct-Q4"         # AI2 OLMo2 32B (local)
-# MODEL_NAME = "gpt-4o-mini"    # DeepSeek R1 (local)
+# MODEL_NAME = "gpt-4o-mini"
+
+# DH Infra cluster API base URL (OpenAI-compatible endpoint)
+DH_INFRA_BASE_URL = "https://api.dhinfra.uni-graz.at/v1"
 
 # Qwen-specific: Enable/disable thinking mode
-QWEN_USE_THINKING = False
+QWEN_USE_THINKING = True
 
 
 # Local Model Paths - Adjust based on your hardware
@@ -58,28 +64,11 @@ MODEL_PATH_QWEN3 = os.path.join('models', 'Qwen_Qwen3-14B-IQ2_XS.gguf')
 
 
 # Model Parameters
-TEMPERATURE = 0.3
-MAX_TOKENS = 7000
+TEMPERATURE = 0.6
+MAX_TOKENS = 10000
 
 # Hardware Acceleration
-USE_GPU = False  # Set to False to run on CPU only (slower but works without GPU)
-
-# =============================================================================
-# LLAMA SERVER SETTINGS (only used for local models: Qwen)
-# =============================================================================
-# Path to the llama-server binary.
-# Use "llama-server" if it is on your PATH, or provide the full path.
-# Download pre-built binaries from: https://github.com/ggml-org/llama.cpp/releases
-# Pick the build that matches your OS and GPU (CPU-only, CUDA 12.x, Vulkan, …).
-LLAMA_SERVER_PATH = r"C:\Users\strutzs\.llama-cpp\llama-server.exe"
-
-# Port the llama-server HTTP API will listen on (default: 8080).
-# Change this if another application is already using port 8080.
-LLAMA_SERVER_PORT = 8080
-
-# Seconds to wait for the server to finish loading the model on startup.
-# Increase this for very large models or slow machines.
-LLAMA_SERVER_STARTUP_TIMEOUT = 120
+USE_GPU = True  # Set to False to run on CPU only (slower but works without GPU)
 
 # =============================================================================
 # PROMPT CONFIGURATION
@@ -89,7 +78,7 @@ LLAMA_SERVER_STARTUP_TIMEOUT = 120
 # Available versions should be in prompts/{version}/ directories
 # Each version must contain prompt.txt (required)
 # Optional files: encoding_rules.txt, few_shot_examples.txt
-PROMPT_VERSION = "ner"
+PROMPT_VERSION = "disambiguation/few-shot"
 
 # Derived path to prompt directory (do not modify)
 PROMPT_DIR = os.path.join("prompts", PROMPT_VERSION)
@@ -110,7 +99,8 @@ INPUT_TYPE = "json"  # Options: "txt" or "json"
 # Input Path:
 #   - For "txt": path to directory containing .txt files
 #   - For "json": path to the JSON file
-INPUT_PATH = os.path.join("data", "input", "json", "ner", "Leipzig_1681_dummy.json")
+INPUT_PATH = os.path.join(".." , "data", "input", "metadata-disambiguation", "qwen3.5-397b", "processing_20260710_163435", "disambiguation_review.json")
+
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 #   - "key_extraction": Extracts and analyzes specific keys from JSON objects
@@ -118,7 +108,7 @@ INPUT_PATH = os.path.join("data", "input", "json", "ner", "Leipzig_1681_dummy.js
 JSON_PROCESSING_MODE = "object_processing"  # Options: "key_extraction" or "object_processing"
 
 # Output: Directory for generated output files
-OUTPUT_DIR = os.path.join("data", "output", "new-test", "ner")
+OUTPUT_DIR = os.path.join("..", "data", "output", "metadata-disambiguation")
 
 # Output file extension
 # Options: ".xml" for XML files, ".json" for JSON output
@@ -158,7 +148,7 @@ KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Options: "xml_mapping" or "json"
 # For workflows that encode text segments with TEI markup
 
 # Key containing the context text
-JSON_CONTEXT_KEY = "context"
+JSON_CONTEXT_KEY = "full_element_text"
 
 # Key containing the text segments to encode
 # Can be either a list of strings or a single string
@@ -194,10 +184,10 @@ XML_MAPPING_XPATH_KEY = "xpath"
 # Update these if your prompt generates different field names.
 
 # Field name for the TEI encoding in LLM output
-JSON_OUTPUT_TEI_FIELD = "tei"  # e.g., "tei" or "tei_encoding"
+JSON_OUTPUT_TEI_FIELD = "tei_encoding"  # e.g., "tei" or "tei_encoding"
 
 # Field name for the intervention type in LLM output
-JSON_OUTPUT_TYPE_FIELD = "type"  # e.g., "type" or "intervention_type"
+JSON_OUTPUT_TYPE_FIELD = "intervention_type"  # e.g., "type" or "intervention_type"
 
 # Field name for the explanation in LLM output (optional)
 JSON_OUTPUT_EXPLANATION_FIELD = None  # Set to None if not used

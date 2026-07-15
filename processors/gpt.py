@@ -29,15 +29,108 @@ from utils.utils import (
 
 def get_openai_client() -> OpenAI:
     """
-    Get OpenAI client with lazy-loaded API key.
+    Get OpenAI client. Routes to DH Infra cluster endpoint for qwen3.5 models,
+    otherwise uses the standard OpenAI API.
+    """
+    if "qwen3.5" in config.MODEL_NAME.lower():
+        return OpenAI(
+            api_key=config.DH_INFRA_API_KEY,
+            base_url=config.DH_INFRA_BASE_URL
+        )
+    return OpenAI(api_key=config.OPENAI_API_KEY)
+
+
+def _build_api_params(system_message: str, user_message: str) -> Dict[str, Any]:
+    """Build the API parameters dict based on the configured model."""
+    api_params = {
+        "model": config.MODEL_NAME,
+        "messages": [
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": user_message}
+        ]
+    }
+    is_reasoning_model = any(m in config.MODEL_NAME.lower() for m in ['o1-', 'o3-'])
+    is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
+
+    if is_reasoning_model:
+        api_params['max_completion_tokens'] = config.MAX_TOKENS
+    elif not is_gpt5:
+        api_params['max_tokens'] = config.MAX_TOKENS
+        api_params['temperature'] = config.TEMPERATURE
+
+    if "qwen3" in config.MODEL_NAME.lower():
+        # The DH Infra cluster (vLLM/SGLang-style OpenAI endpoint) reads the
+        # thinking toggle from chat_template_kwargs; a top-level "enable_thinking"
+        # key is silently ignored. Verified against qwen3.5-397b: nested True keeps
+        # the reasoning field, nested False removes it.
+        api_params["extra_body"] = {"chat_template_kwargs": {"enable_thinking": config.QWEN_USE_THINKING}}
+
+    return api_params
+
+
+def _stream_completion(
+    client: OpenAI,
+    api_params: Dict[str, Any],
+    system_message: str,
+    user_message: str
+) -> Tuple[str, int, int, int]:
+    """
+    Call the API with streaming enabled, printing tokens live to stdout.
 
     Returns:
-        Initialized OpenAI client instance.
-
-    Raises:
-        ValueError: If API key is not configured when API calls are enabled.
+        Tuple of (raw_response, total_tokens, input_tokens, output_tokens).
+        Token counts come from the API if available, otherwise estimated.
     """
-    return OpenAI(api_key=config.OPENAI_API_KEY)
+    stream_params = {**api_params, 'stream': True, 'stream_options': {'include_usage': True}}
+
+    try:
+        stream = client.chat.completions.create(**stream_params)
+    except Exception:
+        # Endpoint does not support stream_options — retry without it
+        stream_params.pop('stream_options', None)
+        stream = client.chat.completions.create(**stream_params)
+
+    chunks = []
+    reasoning_chunks = []
+    input_tokens = 0
+    output_tokens = 0
+    total_tokens = 0
+
+    for chunk in stream:
+        if chunk.choices:
+            delta = chunk.choices[0].delta
+            # Reasoning-parser endpoints (e.g. the DH Infra qwen3.5 cluster) stream
+            # thinking on delta.reasoning, separate from the answer on delta.content.
+            reasoning = getattr(delta, 'reasoning', None)
+            if reasoning:
+                print(reasoning, end='', flush=True)
+                reasoning_chunks.append(reasoning)
+            if delta.content:
+                print(delta.content, end='', flush=True)
+                chunks.append(delta.content)
+        if hasattr(chunk, 'usage') and chunk.usage:
+            input_tokens = chunk.usage.prompt_tokens or 0
+            output_tokens = chunk.usage.completion_tokens or 0
+            total_tokens = chunk.usage.total_tokens or 0
+
+    print(flush=True)
+    content = ''.join(chunks).strip()
+    reasoning_text = ''.join(reasoning_chunks).strip()
+    # Preserve the reasoning trace in the raw response by wrapping it in <think>
+    # tags. Every downstream parser strips through </think>, so JSON/XML extraction
+    # is unaffected, and the response log now shows whether thinking actually ran
+    # (mirroring the inline <think> blocks the local qwen3 model emits).
+    if reasoning_text:
+        raw_response = f"<think>\n{reasoning_text}\n</think>\n{content}"
+    else:
+        raw_response = content
+
+    if total_tokens == 0:
+        input_tokens = int(len((system_message + user_message).split()) * 1.3)
+        output_tokens = int(len(raw_response.split()) * 1.3)
+        total_tokens = input_tokens + output_tokens
+
+    return raw_response, total_tokens, input_tokens, output_tokens
 
 
 def encode_text_segment_gpt(
@@ -69,73 +162,25 @@ def encode_text_segment_gpt(
         ValueError: If required fields are missing from text_segment.
     """
     try:
-        # Prepare prompts using centralized routing logic
         system_message, user_message, items_to_analyze = prepare_prompts_for_segment(text_segment, coordinator)
 
-        # Call the OpenAI API (if enabled in config)
         if config.ENABLE_API_CALLS:
-            # Determine which parameters to use based on model
-            api_params = {
-                "model": config.MODEL_NAME,
-                "messages": [
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": user_message}
-                ]
-            }
-
-            # Reasoning models (o1, o3) use max_completion_tokens
-            is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
-                'o1-', 'o3-'
-            ])
-            
-            # GPT-5 models don't support token limit parameters in Chat Completions API
-            is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
-
-            if is_reasoning_model:
-                api_params['max_completion_tokens'] = config.MAX_TOKENS
-            elif not is_gpt5:
-                # Standard models use max_tokens
-                api_params['max_tokens'] = config.MAX_TOKENS
-                api_params['temperature'] = config.TEMPERATURE
-            # For GPT-5, don't set any token limit parameter
-
+            api_params = _build_api_params(system_message, user_message)
             client = get_openai_client()
-            response = client.chat.completions.create(**api_params)
-
-            # Get the raw response content
-            raw_response = response.choices[0].message.content.strip()
-
-            # Get exact token usage from API response
-            if hasattr(response, 'usage') and response.usage:
-                input_tokens = response.usage.prompt_tokens
-                output_tokens = response.usage.completion_tokens
-                total_tokens = response.usage.total_tokens
-            else:
-                # Fallback: estimate token counts (rough approximation)
-                input_tokens = len((system_message + user_message).split()) * 1.3  # Rough token estimate
-                output_tokens = len(raw_response.split()) * 1.3
-                total_tokens = input_tokens + output_tokens
+            raw_response, total_tokens, input_tokens, output_tokens = _stream_completion(
+                client, api_params, system_message, user_message
+            )
         else:
-            # Test mode - use shared test response generator
             results = create_test_response(items_to_analyze)
             raw_response = f"TEST MODE RESPONSE\n{json.dumps(results, indent=2)}"
-
-            # For test mode, estimate token count
             input_tokens = int(len((system_message + user_message).split()) * 1.3)
             output_tokens = int(len(raw_response.split()) * 1.3)
             total_tokens = input_tokens + output_tokens
-
             parsing_metadata = {'parse_success': True, 'parse_method': 'test_mode'}
-
             return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, parsing_metadata
 
-        # Parse the response using shared JSON parser
         results, parse_success, parse_method = parse_json_response(raw_response, items_to_analyze)
-
-        parsing_metadata = {
-            'parse_success': parse_success,
-            'parse_method': parse_method
-        }
+        parsing_metadata = {'parse_success': parse_success, 'parse_method': parse_method}
 
         return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, parsing_metadata
 
@@ -146,7 +191,6 @@ def encode_text_segment_gpt(
             text_segment.get(items_key, []), "GPT", str(e)
         )
         error_response = f"ERROR: {str(e)}"
-        # Create fallback messages for error case
         system_message = "Error occurred before message creation"
         user_message = f"Error prompt for: {text_segment.get(context_key, 'unknown text')}"
         parsing_metadata = {'parse_success': False, 'parse_method': 'error'}
@@ -178,74 +222,28 @@ def encode_text_gpt(
         ValueError: If 'filename' or 'content' fields are missing from text_data.
     """
     try:
-        # Validate and extract required fields
         filename, text_content = validate_text_data(text_data)
 
-        # Create the prompt using the coordinator's methods
         if coordinator:
             system_message = coordinator.create_system_message()
             user_message = coordinator.create_user_message_for_text(text_content)
         else:
-            # Fallback for backward compatibility
             system_message = "System message placeholder"
             user_message = f"Encode this text: {text_content}"
 
-        # Call the OpenAI API (if enabled in config)
         if config.ENABLE_API_CALLS:
-            # Determine which parameters to use based on model
-            api_params = {
-                "model": config.MODEL_NAME,
-                "messages": [
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": user_message}
-                ]
-            }
-
-            # Reasoning models (o1, o3) use max_completion_tokens
-            is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
-                'o1-', 'o3-'
-            ])
-            
-            # GPT-5 models don't support token limit parameters in Chat Completions API
-            is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
-
-            if is_reasoning_model:
-                api_params['max_completion_tokens'] = config.MAX_TOKENS
-            elif not is_gpt5:
-                # Standard models use max_tokens
-                api_params['max_tokens'] = config.MAX_TOKENS
-                api_params['temperature'] = config.TEMPERATURE
-            # For GPT-5, don't set any token limit parameter
-
+            api_params = _build_api_params(system_message, user_message)
             client = get_openai_client()
-            response = client.chat.completions.create(**api_params)
-
-            # Get the raw response content
-            raw_response = response.choices[0].message.content.strip()
-
-            # Get exact token usage from API response
-            if hasattr(response, 'usage') and response.usage:
-                input_tokens = response.usage.prompt_tokens
-                output_tokens = response.usage.completion_tokens
-                total_tokens = response.usage.total_tokens
-            else:
-                # Fallback: estimate token counts
-                input_tokens = int(len((system_message + user_message).split()) * 1.3)
-                output_tokens = int(len(raw_response.split()) * 1.3)
-                total_tokens = input_tokens + output_tokens
+            raw_response, total_tokens, input_tokens, output_tokens = _stream_completion(
+                client, api_params, system_message, user_message
+            )
         else:
-            # Test mode - return realistic fake TEI XML response
             raw_response = create_test_tei_response("GPT", filename)
-
-            # For test mode, estimate token count
             input_tokens = int(len((system_message + user_message).split()) * 1.3)
             output_tokens = int(len(raw_response.split()) * 1.3)
             total_tokens = input_tokens + output_tokens
 
-        # Parse the response to extract TEI XML
         tei_xml = extract_xml_from_response(raw_response)
-
-        # Create results dictionary
         results = create_text_encoding_result(tei_xml)
 
         return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
@@ -253,7 +251,6 @@ def encode_text_gpt(
     except Exception as e:
         results = create_text_encoding_error(str(e))
         error_response = f"ERROR: {str(e)}"
-        # Create fallback messages for error case
         system_message = "Error occurred before message creation"
         user_message = f"Error prompt for file: {text_data.get('filename', 'unknown')}"
         return results, (system_message, user_message), error_response, 0, 0, 0
@@ -262,16 +259,13 @@ def encode_text_gpt(
 def process_json_object_gpt(
     json_object: Dict[str, Any],
     coordinator: Optional[Any] = None
-) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int]:
+) -> Tuple[Dict[str, Any], Tuple[str, str], str, int, int, int, Dict[str, Any]]:
     """
     GPT-specific implementation for processing a complete JSON object.
-
-    Processes the entire JSON object as a unit (object processing mode).
 
     Args:
         json_object: A single JSON object from the input array (any structure).
         coordinator: LLMProcessingCoordinator instance for accessing shared methods.
-            If None, uses fallback placeholder messages.
 
     Returns:
         Tuple containing:
@@ -281,102 +275,40 @@ def process_json_object_gpt(
             - total_tokens: Total token count (input + output).
             - input_tokens: Input token count.
             - output_tokens: Output token count.
+            - gpu_usage: Empty dict (not applicable for API models).
     """
     try:
-        # Create the prompt using the coordinator's methods
         if coordinator:
             system_message = coordinator.create_system_message()
             user_message = coordinator.create_user_message_for_json_object(json_object)
         else:
-            # Fallback for backward compatibility
             system_message = "System message placeholder"
             user_message = f"Process this JSON object: {json.dumps(json_object, indent=2)}"
 
-        # Handle test mode
-        if not config.ENABLE_API_CALLS:
-            object_id = json_object.get('id') or json_object.get('object_id') or 'unknown'
-            raw_response = f"""<!-- GPT TEST MODE OUTPUT for object: {object_id} -->
-<rdf:RDF>
-  <rdf:Description>
-    <content>{json_object.get('content', 'N/A')}</content>
-  </rdf:Description>
-</rdf:RDF>"""
-
-            # For test mode, estimate token count
-            input_tokens = int(len((system_message + user_message).split()) * 1.3)
-            output_tokens = int(len(raw_response.split()) * 1.3)
-            total_tokens = input_tokens + output_tokens
-
-            results = {
-                'output_content': raw_response,
-                'success': True
-            }
-
-            return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
-
-        # API calls enabled - call the OpenAI API
-        api_params = {
-            "model": config.MODEL_NAME,
-            "messages": [
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": user_message}
-            ]
-        }
-
-        # Reasoning models (o1, o3) use max_completion_tokens
-        is_reasoning_model = any(model_name in config.MODEL_NAME.lower() for model_name in [
-            'o1-', 'o3-'
-        ])
-
-        # GPT-5 models don't support token limit parameters in Chat Completions API
-        is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
-
-        if is_reasoning_model:
-            api_params['max_completion_tokens'] = config.MAX_TOKENS
-        elif not is_gpt5:
-            api_params['max_tokens'] = config.MAX_TOKENS
-            api_params['temperature'] = config.TEMPERATURE
-        # For GPT-5, don't set any token limit parameter
-
-        client = get_openai_client()
-        response = client.chat.completions.create(**api_params)
-
-        raw_response = response.choices[0].message.content.strip()
-
-        # Get exact token usage from API response
-        if hasattr(response, 'usage') and response.usage:
-            input_tokens = response.usage.prompt_tokens
-            output_tokens = response.usage.completion_tokens
-            total_tokens = response.usage.total_tokens
+        if config.ENABLE_API_CALLS:
+            api_params = _build_api_params(system_message, user_message)
+            client = get_openai_client()
+            raw_response, total_tokens, input_tokens, output_tokens = _stream_completion(
+                client, api_params, system_message, user_message
+            )
         else:
+            object_id = json_object.get('id') or json_object.get('object_id') or 'unknown'
+            raw_response = f"TEST MODE RESPONSE for object: {object_id}"
             input_tokens = int(len((system_message + user_message).split()) * 1.3)
             output_tokens = int(len(raw_response.split()) * 1.3)
             total_tokens = input_tokens + output_tokens
-
-        # Strip markdown code blocks if present
-        output_content = raw_response
-        if output_content.startswith('```'):
-            lines = output_content.split('\n')
-            lines = lines[1:]
-            if lines and lines[-1].strip() == '```':
-                lines = lines[:-1]
-            output_content = '\n'.join(lines).strip()
 
         results = {
-            'output_content': output_content,
-            'success': bool(output_content and output_content.strip())
+            'output_content': raw_response,
+            'success': bool(raw_response and raw_response.strip())
         }
 
-        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens
+        return results, (system_message, user_message), raw_response, total_tokens, input_tokens, output_tokens, {}
 
     except Exception as e:
-        results = {
-            'output_content': '',
-            'success': False,
-            'error': str(e)
-        }
+        results = {'output_content': '', 'success': False, 'error': str(e)}
         error_response = f"ERROR: {str(e)}"
-        return results, ("", ""), error_response, 0, 0, 0
+        return results, ("", ""), error_response, 0, 0, 0, {}
 
 
 if __name__ == "__main__":

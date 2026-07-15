@@ -224,9 +224,24 @@ class LLMProcessingCoordinator:
             'token_count': self.total_tokens_processed,
             'input_tokens': self.total_input_tokens,
             'output_tokens': self.total_output_tokens,
-            'thinking_mode': config.QWEN_USE_THINKING if model == 'qwen' else None,
+            'thinking_mode': config.QWEN_USE_THINKING if (model == 'qwen' or 'qwen3' in config.MODEL_NAME.lower()) else None,
             'date_processed': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
+
+        # Aggregate measured GPU energy for local models (NVML power sampling).
+        # Each inference records a 'power' dict (energy_wh, elapsed_s) in gpu_usage;
+        # sum them for the whole run so cost can be derived downstream.
+        power_samples = [
+            g.get('power') for g in self.gpu_usage_data
+            if isinstance(g, dict) and isinstance(g.get('power'), dict)
+        ]
+        total_energy_wh = sum(p.get('energy_wh', 0.0) for p in power_samples)
+        if total_energy_wh > 0:
+            total_sampled_s = sum(p.get('elapsed_s', 0.0) for p in power_samples)
+            metrics_entry['total_energy_wh'] = round(total_energy_wh, 4)
+            if total_sampled_s > 0:
+                # Energy-weighted mean board power across all sampled inferences.
+                metrics_entry['avg_power_w'] = round(total_energy_wh * 3600.0 / total_sampled_s, 2)
 
         # If processing disambiguation, check for source extraction metadata
         if 'disambiguation' in config.PROMPT_VERSION.lower():
@@ -413,6 +428,8 @@ class LLMProcessingCoordinator:
             return "gpt"
         elif "claude" in model_name_lower or "anthropic" in model_name_lower:
             return "claude"
+        elif "qwen3.5" in model_name_lower:
+            return "gpt"  # OpenAI-compatible API via DH Infra cluster
         elif "qwen" in model_name_lower:
             return "qwen"
         elif "olmo" in model_name_lower:
@@ -2717,39 +2734,132 @@ USER MESSAGE:
 
         return stats
 
+    @staticmethod
+    def _iter_balanced_json_spans(content: str):
+        """Yield every top-level {...} / [...] substring in reading order.
+
+        String-aware: braces and brackets inside JSON string literals (and any
+        prose the model writes between blocks) do not affect nesting, so a run
+        of reasoning that happens to contain a stray '{' cannot merge two real
+        blocks into one malformed span. Each yielded span is a self-contained,
+        balanced value — an object or an array — but is not guaranteed to parse
+        (the model may still emit invalid JSON inside it); the caller validates.
+        """
+        openers = {'{': '}', '[': ']'}
+        i, n = 0, len(content)
+        while i < n:
+            ch = content[i]
+            if ch in openers:
+                close = openers[ch]
+                depth = 0
+                in_str = False
+                esc = False
+                j = i
+                while j < n:
+                    cj = content[j]
+                    if in_str:
+                        if esc:
+                            esc = False
+                        elif cj == '\\':
+                            esc = True
+                        elif cj == '"':
+                            in_str = False
+                    else:
+                        if cj == '"':
+                            in_str = True
+                        elif cj == ch:
+                            depth += 1
+                        elif cj == close:
+                            depth -= 1
+                            if depth == 0:
+                                yield content[i:j + 1]
+                                i = j
+                                break
+                    j += 1
+                else:
+                    # No matching close before end of string; nothing balanced
+                    # starts here — advance one char and keep scanning.
+                    pass
+            i += 1
+
     def extract_json_after_think(self, content: str) -> str:
         """
-        Extract JSON content after <think> or </think> tags.
-        Finds content that starts with { and ends with }.
+        Extract the JSON answer that follows the model's reasoning.
+
+        Reasoning-parser endpoints (e.g. the DH Infra qwen3.5 cluster) wrap the
+        chain-of-thought in <think>...</think> and place the answer after it, but
+        the model also frequently writes its reasoning as plain prose (no tags)
+        and then emits the answer — sometimes emitting the JSON block more than
+        once. The answer may be a JSON object ({...}) OR a JSON array ([...]) —
+        the disambiguation task returns an array — so both are handled.
+
+        Strategy, robust to prose reasoning and repeated blocks:
+          1. Drop everything up to the last </think>.
+          2. Prefer the contents of ```...``` code fences, last fence first
+             (the final fenced block is the model's committed answer).
+          3. Otherwise scan for balanced top-level {...}/[...] spans, last first.
+          4. In every case, return the last candidate that actually parses as
+             JSON; only if none parse fall back to the first-open/last-close
+             heuristic so behaviour is never worse than a naive slice.
 
         Args:
             content: Raw output from LLM
 
         Returns:
-            Extracted JSON string, or empty string if not found
+            Extracted JSON string (parseable when possible), or empty string.
         """
         if not content or not content.strip():
             return ""
 
-        # Look for content after </think> tag first
-        think_patterns = [
-            r'</think>\s*(\{.*\})',  # After closing think tag
-            r'<think>.*?</think>\s*(\{.*\})',  # After think block
-        ]
+        # 1) Drop everything up to and including the reasoning block so braces or
+        # brackets inside the thinking can't be picked up as the answer. Use the
+        # last </think> in case the reasoning echoes the tag.
+        close_tag = '</think>'
+        tag_idx = content.lower().rfind(close_tag)
+        if tag_idx != -1:
+            content = content[tag_idx + len(close_tag):]
+        content = content.strip()
 
-        for pattern in think_patterns:
-            match = re.search(pattern, content, re.DOTALL | re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
+        # 2) Fenced code blocks first. Take the JSON value inside each fence and
+        # try them from last to first — when the model restates its answer, the
+        # final fence is the committed one.
+        fence_bodies = re.findall(r'```[a-zA-Z0-9_]*\s*\n?(.*?)```', content, re.DOTALL)
+        for body in reversed(fence_bodies):
+            for span in reversed(list(self._iter_balanced_json_spans(body))):
+                try:
+                    json.loads(span)
+                    return span.strip()
+                except (json.JSONDecodeError, ValueError):
+                    continue
 
-        # If no think tags found, try to find JSON content directly
-        # Find the first { and the last }
+        # 3) No usable fenced JSON — scan the whole (fence-free or fence-mixed)
+        # content for balanced spans and return the last one that parses.
+        spans = list(self._iter_balanced_json_spans(content))
+        for span in reversed(spans):
+            try:
+                json.loads(span)
+                return span.strip()
+            except (json.JSONDecodeError, ValueError):
+                continue
+
+        # 4) Nothing parsed. Fall back to the legacy first-open/last-close slice
+        # (better than nothing for a single truncated block); prefer the last
+        # balanced span's opener if we found any.
+        if spans:
+            return spans[-1].strip()
+        candidates = []
         first_brace = content.find('{')
-        last_brace = content.rfind('}')
-
-        if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
-            return content[first_brace:last_brace + 1].strip()
-
+        if first_brace != -1:
+            candidates.append((first_brace, '}'))
+        first_bracket = content.find('[')
+        if first_bracket != -1:
+            candidates.append((first_bracket, ']'))
+        if not candidates:
+            return ""
+        start, close_char = min(candidates, key=lambda c: c[0])
+        end = content.rfind(close_char)
+        if end != -1 and end > start:
+            return content[start:end + 1].strip()
         return ""
 
     def clean_rdf_output(self, content: str) -> str:

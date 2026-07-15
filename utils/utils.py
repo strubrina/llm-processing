@@ -154,9 +154,10 @@ def extract_json_from_response(response: str) -> str:
     Returns:
         Extracted JSON string, or empty string if not found
     """
-    # Remove thinking process tags if present (Qwen with thinking mode)
+    # Remove thinking process tags if present (Qwen with thinking mode).
+    # Cut at the last </think> in case the reasoning itself echoes the tag.
     if '<think>' in response and '</think>' in response:
-        think_end = response.find('</think>')
+        think_end = response.rfind('</think>')
         response = response[think_end + len('</think>'):].strip()
 
     # Remove markdown code blocks if present
@@ -172,14 +173,23 @@ def extract_json_from_response(response: str) -> str:
             lines = lines[:-1]
         response = '\n'.join(lines).strip()
 
-    # Try to extract content between { and }
+    # Extract the outermost JSON value — object ({...}) or array ([...]),
+    # whichever opens first. The disambiguation task returns an array, so
+    # matching only braces would drop it and store the raw string instead.
+    candidates = []
     first_brace = response.find('{')
-    last_brace = response.rfind('}')
-    
-    if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
-        return response[first_brace:last_brace + 1].strip()
+    if first_brace != -1:
+        candidates.append((first_brace, '}'))
+    first_bracket = response.find('[')
+    if first_bracket != -1:
+        candidates.append((first_bracket, ']'))
+    if candidates:
+        start, close_char = min(candidates, key=lambda c: c[0])
+        end = response.rfind(close_char)
+        if end != -1 and end > start:
+            return response[start:end + 1].strip()
 
-    # If no braces found, return the entire response (might be malformed)
+    # If no JSON delimiters found, return the entire response (might be malformed)
     return response
 
 

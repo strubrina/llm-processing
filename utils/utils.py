@@ -314,6 +314,7 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Tuple
     Parse JSON response from LLM, handling both thinking mode and regular responses.
     
     Attempts to extract JSON object and falls back to structured text parsing.
+    Handles duplicate keys by indexing them (e.g., "key", "key__2", "key__3").
 
     Args:
         raw_response: Raw text response from LLM.
@@ -326,6 +327,23 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Tuple
             - parse_method: "json" if JSON parsing succeeded, "fallback" if structured text 
                 parsing used, "error" if parsing failed.
     """
+    def handle_duplicate_keys(pairs):
+        """
+        Custom object_pairs_hook to handle duplicate keys in JSON.
+        Appends __2, __3, etc. suffix to duplicate keys.
+        """
+        result = {}
+        key_counts = {}
+        for key, value in pairs:
+            if key in result:
+                # Duplicate key found - append index suffix
+                key_counts[key] = key_counts.get(key, 1) + 1
+                new_key = f"{key}__{key_counts[key]}"
+                result[new_key] = value
+            else:
+                result[key] = value
+        return result
+
     try:
         # Extract thinking process and final output (for models with thinking mode)
         content = raw_response
@@ -337,7 +355,8 @@ def parse_json_response(raw_response: str, items_to_analyze: List[str]) -> Tuple
         json_match = re.search(r'\{.*\}', content, re.DOTALL)
         if json_match:
             try:
-                parsed_json = json.loads(json_match.group())
+                # Use custom hook to handle duplicate keys
+                parsed_json = json.loads(json_match.group(), object_pairs_hook=handle_duplicate_keys)
                 # Validate that the parsed JSON is a dictionary, not a list
                 if isinstance(parsed_json, dict):
                     return parsed_json, True, 'json'

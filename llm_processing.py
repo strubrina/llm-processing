@@ -3164,8 +3164,11 @@ USER MESSAGE:
                 # Create replacements for this element
                 element_replacements = []
                 for item_seq, encoding_info in element_result['tei_encodings'].items():
+                    # Strip duplicate index suffix (e.g., "__2", "__3") from key
+                    # These are added by parse_json_response when LLM returns duplicate keys
+                    original_item = re.sub(r'__\d+$', '', item_seq)
                     replacement = {
-                        'original_item': item_seq,
+                        'original_item': original_item,
                         'tei_encoding': encoding_info.get(tei_field, ''),
                         'intervention_type': encoding_info.get(type_field, 'unknown')
                     }

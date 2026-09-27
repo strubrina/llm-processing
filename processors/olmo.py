@@ -56,6 +56,121 @@ MODEL_PARAMS = {
     'n_threads': multiprocessing.cpu_count() - 1,
     'temperature': config.TEMPERATURE
 }
+if getattr(config, 'SEED', None) is not None:
+    MODEL_PARAMS['seed'] = config.SEED  # fixed sampling seed for repeatable runs
+
+PROMPT_FORMATS = ("chat_template", "legacy")
+
+
+def get_prompt_format() -> str:
+    """
+    Get the configured prompt format for OLMo (config.OLMO_PROMPT_FORMAT).
+
+    - "chat_template" (default): llama.cpp renders the chat template stored in
+      the GGUF file, with separate system, user and assistant turns.
+    - "legacy": the hand-built prompt used until September 2026, which puts the
+      system prompt in the user turn and the user message in the assistant turn.
+      Only for reproducing runs made with that version.
+
+    Returns:
+        The prompt format name.
+
+    Raises:
+        ValueError: If OLMO_PROMPT_FORMAT has an unknown value.
+    """
+    prompt_format = getattr(config, 'OLMO_PROMPT_FORMAT', 'chat_template')
+    if prompt_format not in PROMPT_FORMATS:
+        raise ValueError(f"OLMO_PROMPT_FORMAT must be one of {PROMPT_FORMATS}, got '{prompt_format}'")
+    return prompt_format
+
+
+def _format_legacy_prompt(system_message: str, user_message: str) -> str:
+    """Build the legacy prompt exactly as the published OLMo run received it."""
+    return f"""<|user|>
+{system_message}
+
+
+<|assistant|>
+{user_message}
+"""
+
+
+def _run_olmo_inference(llm: Any, system_message: str, user_message: str) -> Tuple[str, str, int, int]:
+    """
+    Generate a response with the configured prompt format.
+
+    Checks the context window before generating and shortens max_tokens if needed.
+
+    Args:
+        llm: Loaded llama_cpp.Llama model.
+        system_message: System prompt message.
+        user_message: User prompt message.
+
+    Returns:
+        Tuple of (raw_response, finish_reason, input_tokens, output_tokens).
+
+    Raises:
+        Exception: If the prompt leaves too little room for a response.
+    """
+    prompt_format = get_prompt_format()
+    if prompt_format == "legacy":
+        prompt_text = _format_legacy_prompt(system_message, user_message)
+    else:
+        # Only used to estimate the prompt length; llama.cpp renders the real prompt.
+        prompt_text = f"<|system|>\n{system_message}\n<|user|>\n{user_message}\n<|assistant|>\n"
+
+    # Check if prompt exceeds context window BEFORE making API call
+    prompt_tokens = count_tokens(prompt_text)
+    context_window = MODEL_PARAMS['n_ctx']
+    max_output_tokens = MODEL_PARAMS['max_tokens']
+
+    # Calculate available space for response
+    available_tokens = context_window - prompt_tokens
+
+    # Fail immediately if prompt is too large (leaving no room for response)
+    # 200 tokens is an estimated minimum needed for a useful response
+    if available_tokens < 200:
+        raise Exception(
+            f"Prompt is too large and leaves insufficient space for response.\n"
+            f"  Prompt tokens: {prompt_tokens}\n"
+            f"  Context window: {context_window}\n"
+            f"  Available for output: {available_tokens}\n"
+            f"  Solution: Reduce prompt size (use fewer examples, shorter text, etc.)"
+        )
+
+    # Warn if output will be constrained, and adjust max_tokens if needed
+    actual_max_tokens = max_output_tokens
+    if prompt_tokens + max_output_tokens > context_window:
+        actual_max_tokens = available_tokens
+        print(f"Warning: Reducing max_tokens to {actual_max_tokens} to fit context window ({context_window} tokens)")
+
+    if prompt_format == "legacy":
+        response = llm(
+            prompt_text,
+            max_tokens=actual_max_tokens,
+            temperature=MODEL_PARAMS['temperature'],
+            stop=["<|user|>", "<|assistant|>"]
+        )
+        raw_response = response['choices'][0]['text'].strip()
+        finish_reason = response['choices'][0].get('finish_reason', '')
+        input_tokens = count_tokens(prompt_text)
+        output_tokens = count_tokens(raw_response)
+    else:
+        response = llm.create_chat_completion(
+            messages=[
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message}
+            ],
+            max_tokens=actual_max_tokens,
+            temperature=MODEL_PARAMS['temperature']
+        )
+        raw_response = (response['choices'][0]['message'].get('content') or '').strip()
+        finish_reason = response['choices'][0].get('finish_reason', '')
+        usage = response.get('usage') or {}
+        input_tokens = usage.get('prompt_tokens') or count_tokens(prompt_text)
+        output_tokens = usage.get('completion_tokens') or count_tokens(raw_response)
+
+    return raw_response, finish_reason, input_tokens, output_tokens
 
 
 def count_tokens(text: str) -> int:
@@ -108,6 +223,14 @@ def get_olmo_model() -> Optional[Any]:
                 **MODEL_PARAMS,
                 verbose=False
             )
+            # Without an embedded chat template llama.cpp would fall back to a generic
+            # format, which is wrong for OLMo 2.
+            metadata = getattr(_olmo_model, 'metadata', None) or {}
+            if get_prompt_format() == "chat_template" and not metadata.get('tokenizer.chat_template'):
+                raise ValueError(
+                    "The GGUF file contains no chat template (tokenizer.chat_template). "
+                    "Use an OLMo 2 Instruct GGUF that includes it."
+                )
             print("Model loaded successfully!")
         except Exception as e:
             print(f"Error loading OLMo model: {e}")
@@ -172,55 +295,15 @@ def encode_text_segment_olmo(
         else:
             raise Exception("Coordinator required for OLMo in API mode")
 
-        # Format prompt for OLMo using its native chat format
-        combined_prompt = f"""<|user|>
-{system_message}
-
-
-<|assistant|>
-{user_message}
-"""
-
-        # Check if prompt exceeds context window BEFORE making API call
-        prompt_tokens = count_tokens(combined_prompt)
-        context_window = MODEL_PARAMS['n_ctx']
-        max_output_tokens = MODEL_PARAMS['max_tokens']
-
-        # Calculate available space for response
-        available_tokens = context_window - prompt_tokens
-
-        # Fail immediately if prompt is too large (leaving no room for response)
-        # We believe 200 tokens is the minimum needed for a useful response
-        if available_tokens < 200:
-            raise Exception(
-                f"Prompt is too large and leaves insufficient space for response.\n"
-                f"  Prompt tokens: {prompt_tokens}\n"
-                f"  Context window: {context_window}\n"
-                f"  Available for output: {available_tokens}\n"
-                f"  Solution: Reduce prompt size (use fewer examples, shorter text, etc.)"
-            )
-
-        # Warn if output will be constrained, and adjust max_tokens if needed
-        actual_max_tokens = max_output_tokens
-        if prompt_tokens + max_output_tokens > context_window:
-            actual_max_tokens = available_tokens
-            print(f"Warning: Reducing max_tokens to {actual_max_tokens} to fit context window ({context_window} tokens)")
-
         # Get GPU usage before inference
         gpu_usage_before = get_gpu_usage()
 
-        # Generate response with adjusted max_tokens
-        response = llm(
-            combined_prompt,
-            max_tokens=actual_max_tokens,
-            temperature=MODEL_PARAMS['temperature'],
-            stop=["<|user|>", "<|assistant|>"]
+        # Generate response (prompt format from config.OLMO_PROMPT_FORMAT)
+        raw_response, finish_reason, input_tokens, output_tokens = _run_olmo_inference(
+            llm, system_message, user_message
         )
 
-        raw_response = response['choices'][0]['text'].strip()
-
         # Check if response was truncated
-        finish_reason = response['choices'][0].get('finish_reason', '')
         if finish_reason == 'length':
             print("Warning: Response truncated. Consider increasing MAX_TOKENS in config.py")
 
@@ -237,9 +320,6 @@ def encode_text_segment_olmo(
         # Get GPU usage after inference
         gpu_usage_after = get_gpu_usage()
 
-        # Calculate token counts
-        input_tokens = count_tokens(combined_prompt)
-        output_tokens = count_tokens(raw_response)
         total_tokens = input_tokens + output_tokens
 
         # Combine GPU usage info
@@ -344,55 +424,15 @@ def encode_text_olmo(
         if not llm:
             raise Exception("Failed to initialize OLMo model")
 
-        # Format prompt for OLMo using its native chat format
-        combined_prompt = f"""<|user|>
-{system_message}
-
-
-<|assistant|>
-{user_message}
-"""
-
-        # Check if prompt exceeds context window BEFORE making API call
-        prompt_tokens = count_tokens(combined_prompt)
-        context_window = MODEL_PARAMS['n_ctx']
-        max_output_tokens = MODEL_PARAMS['max_tokens']
-
-        # Calculate available space for response
-        available_tokens = context_window - prompt_tokens
-
-        # Fail immediately if prompt is too large (leaving no room for response)
-        # 200 tokens is an estimated minimum needed for a useful response
-        if available_tokens < 200:
-            raise Exception(
-                f"Prompt is too large and leaves insufficient space for response.\n"
-                f"  Prompt tokens: {prompt_tokens}\n"
-                f"  Context window: {context_window}\n"
-                f"  Available for output: {available_tokens}\n"
-                f"  Solution: Reduce prompt size (use fewer examples, shorter text, etc.)"
-            )
-
-        # Warn if output will be constrained, and adjust max_tokens if needed
-        actual_max_tokens = max_output_tokens
-        if prompt_tokens + max_output_tokens > context_window:
-            actual_max_tokens = available_tokens
-            print(f"Warning: Reducing max_tokens to {actual_max_tokens} to fit context window ({context_window} tokens)")
-
         # Get GPU usage before inference
         gpu_usage_before = get_gpu_usage()
 
-        # Generate response with adjusted max_tokens
-        response = llm(
-            combined_prompt,
-            max_tokens=actual_max_tokens,
-            temperature=MODEL_PARAMS['temperature'],
-            stop=["<|user|>", "<|assistant|>"]
+        # Generate response (prompt format from config.OLMO_PROMPT_FORMAT)
+        raw_response, finish_reason, input_tokens, output_tokens = _run_olmo_inference(
+            llm, system_message, user_message
         )
 
-        raw_response = response['choices'][0]['text'].strip()
-
         # Check if response was truncated
-        finish_reason = response['choices'][0].get('finish_reason', '')
         if finish_reason == 'length':
             print("Warning: Response truncated. Consider increasing MAX_TOKENS in config.py")
 
@@ -409,9 +449,6 @@ def encode_text_olmo(
         # Get GPU usage after inference
         gpu_usage_after = get_gpu_usage()
 
-        # Calculate token counts
-        input_tokens = count_tokens(combined_prompt)
-        output_tokens = count_tokens(raw_response)
         total_tokens = input_tokens + output_tokens
 
         # Combine GPU usage info

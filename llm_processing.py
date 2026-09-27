@@ -49,7 +49,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import pandas as pd
 
 # Local imports
-import config
+from config_loader import load_config
+config = load_config()  # config.py, or the file given with --config
 from utils.utils import extract_xml_from_response, extract_json_from_response
 
 
@@ -126,8 +127,8 @@ class LLMProcessingCoordinator:
         """
         output_base_dir = output_base_dir or config.OUTPUT_DIR
 
-        # Create model-specific subdirectory
-        model_name = config.MODEL_NAME
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name = self.get_run_folder_name()
 
         # Create timestamped processing directory
         timestamp = self.get_processing_timestamp()
@@ -148,6 +149,16 @@ class LLMProcessingCoordinator:
         if not hasattr(self, '_processing_timestamp'):
             self._processing_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         return self._processing_timestamp
+
+    def get_run_folder_name(self) -> str:
+        """
+        Get the name of the output folder for this run.
+
+        Returns:
+            config.RUN_NAME if it is set, otherwise config.MODEL_NAME. RUN_NAME
+            separates several runs of the same model (e.g. different settings).
+        """
+        return getattr(config, 'RUN_NAME', None) or config.MODEL_NAME
 
     def format_processing_time(self, seconds: float) -> str:
         """
@@ -228,6 +239,17 @@ class LLMProcessingCoordinator:
             'date_processed': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
+        # Settings needed to reproduce the run
+        metrics_entry['run_name'] = self.get_run_folder_name()
+        metrics_entry['max_tokens'] = config.MAX_TOKENS
+        metrics_entry['config_file'] = os.path.basename(getattr(config, '__file__', '') or 'config.py')
+        if model == 'gpt':
+            from processors.gpt import sends_temperature
+            metrics_entry['temperature_sent_to_api'] = sends_temperature()
+        elif model == 'olmo':
+            from processors.olmo import get_prompt_format
+            metrics_entry['prompt_format'] = get_prompt_format()
+
         # Aggregate measured GPU energy for local models (NVML power sampling).
         # Each inference records a 'power' dict (energy_wh, elapsed_s) in gpu_usage;
         # sum them for the whole run so cost can be derived downstream.
@@ -272,8 +294,8 @@ class LLMProcessingCoordinator:
             )
             metrics_entry['estimated_cost_usd'] = round(total_cost, 6)
 
-        # Create model-specific subdirectory
-        model_name_with_suffix = model_name
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name_with_suffix = self.get_run_folder_name()
 
         # Create path to log directory in processing output
         processing_dir = os.path.join(output_base_dir, model_name_with_suffix, f"processing_{timestamp}")
@@ -459,9 +481,9 @@ class LLMProcessingCoordinator:
             print("\nPlease set MODEL_NAME to a valid model name in config.py.")
             return False
 
-        # Check for multiple MODEL_NAME definitions in config.py
-        # Read config.py and count uncommented MODEL_NAME lines
-        config_path = os.path.join(os.path.dirname(__file__), 'config.py')
+        # Check for multiple MODEL_NAME definitions in the loaded configuration file
+        # Read it and count uncommented MODEL_NAME lines
+        config_path = getattr(config, '__file__', None) or os.path.join(os.path.dirname(__file__), 'config.py')
         try:
             with open(config_path, 'r', encoding='utf-8') as f:
                 config_lines = f.readlines()
@@ -933,7 +955,7 @@ class LLMProcessingCoordinator:
             return
 
         # Construct the correct output directory path
-        output_model_name = config.MODEL_NAME
+        output_model_name = self.get_run_folder_name()
 
         # Get the processing timestamp for display
         timestamp = self.get_processing_timestamp()
@@ -1112,7 +1134,7 @@ class LLMProcessingCoordinator:
 
         # Get the processing timestamp for display
         timestamp = self.get_processing_timestamp()
-        output_model_name = config.MODEL_NAME
+        output_model_name = self.get_run_folder_name()
 
         print("\n" + "=" * 50)
         print("Object processing workflow finished successfully!")
@@ -2477,8 +2499,8 @@ USER MESSAGE:
         """
         output_base_dir = output_dir or config.OUTPUT_DIR
 
-        # Create model-specific subdirectory
-        model_name = config.MODEL_NAME
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name = self.get_run_folder_name()
 
         # Create timestamped processing directory
         timestamp = self.get_processing_timestamp()
@@ -2939,8 +2961,8 @@ USER MESSAGE:
         """
         output_base_dir = output_dir or config.OUTPUT_DIR
 
-        # Create model-specific subdirectory
-        model_name = config.MODEL_NAME
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name = self.get_run_folder_name()
 
         # Create timestamped processing directory
         timestamp = self.get_processing_timestamp()
@@ -3061,8 +3083,8 @@ USER MESSAGE:
         output_base_dir = output_dir or config.OUTPUT_DIR
         output_ext = config.OUTPUT_EXTENSION
 
-        # Create model-specific subdirectory
-        model_name = config.MODEL_NAME
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name = self.get_run_folder_name()
 
         # Create timestamped processing directory
         timestamp = self.get_processing_timestamp()
@@ -3226,8 +3248,8 @@ USER MESSAGE:
         if model_name is None:
             model_name = config.MODEL_NAME
 
-        # Create model-specific subdirectory
-        model_name_with_suffix = model_name
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name_with_suffix = self.get_run_folder_name()
 
         # Create path to log directory in processing output
         timestamp = self.get_processing_timestamp()
@@ -3265,8 +3287,8 @@ USER MESSAGE:
         """
         output_base_dir = output_dir or config.OUTPUT_DIR
 
-        # Create model-specific subdirectory
-        model_name = config.MODEL_NAME
+        # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
+        model_name = self.get_run_folder_name()
 
         # Create timestamped processing directory
         timestamp = self.get_processing_timestamp()
@@ -3407,6 +3429,9 @@ Examples:
   # Run JSON processing workflow directly
   python llm_processing.py --workflow json
 
+  # Use a project-specific configuration file instead of config.py
+  python llm_processing.py --config ../configs/my_run.py --workflow json
+
   # Show version
   python llm_processing.py --version
         """
@@ -3417,6 +3442,13 @@ Examples:
         '-w',
         choices=['text', 'json', 'text_processing', 'json_processing'],
         help='Workflow to run: "text" or "json". If not specified, interactive mode is used.'
+    )
+
+    parser.add_argument(
+        '--config',
+        '-c',
+        help='Path to a configuration file to use instead of config.py '
+             '(also settable via the LLM_PROCESSING_CONFIG environment variable).'
     )
 
     parser.add_argument(

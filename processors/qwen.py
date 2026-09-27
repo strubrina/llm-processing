@@ -192,6 +192,8 @@ MODEL_PARAMS = {
     'n_threads': multiprocessing.cpu_count() - 1,
     'temperature': config.TEMPERATURE
 }
+if getattr(config, 'SEED', None) is not None:
+    MODEL_PARAMS['seed'] = config.SEED  # fixed sampling seed for repeatable runs
 
 
 def count_tokens_qwen(text: str) -> int:

@@ -16,6 +16,47 @@ This project processes plaintext files and generates structured output (TEI XML 
 - **Batch processing**: Process multiple text files with error handling and logging
 - **Test mode**: Generate prompts without making API calls for development
 
+## Using the Engine in Your Own Project
+
+The engine is meant to be included in other projects, e.g. as a git subtree in a folder `llm_processing/`.
+Keep everything project-specific outside that folder, so it stays identical to this repository and updates stay
+clean:
+
+```
+your-project/
+├── llm_processing/            # this engine, unchanged
+├── configs/
+│   └── my_run.py              # copy of llm_processing/config.py, adjusted
+└── data/
+    ├── prompts/my_prompt/     # prompt.txt, encoding_rules.txt, ...
+    ├── input/
+    └── output/
+```
+
+1. Copy `config.py` into your project (e.g. `configs/my_run.py`) and set `MODEL_NAME`, `PROMPT_DIR`, `INPUT_PATH`,
+   `OUTPUT_DIR` and the workflow settings. Resolve paths relative to the config file, so the run works from any
+   directory:
+   ```python
+   _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+   PROMPT_DIR = os.path.join(_PROJECT_ROOT, "data", "prompts", PROMPT_VERSION)
+   INPUT_PATH = os.path.join(_PROJECT_ROOT, "data", "input", "my_input.json")
+   OUTPUT_DIR = os.path.join(_PROJECT_ROOT, "data", "output")
+   ```
+   `keys.py` stays in `llm_processing/`; add that folder to `sys.path` in your config before `import keys`.
+2. Pass the file with `--config` (or the `LLM_PROCESSING_CONFIG` environment variable). The engine's own
+   `config.py` is then not read at all:
+   ```bash
+   python llm_processing/llm_processing.py --config configs/my_run.py --workflow json
+   ```
+
+The engine's own `config.py` is a template for exactly this layout: its paths point to `data/prompts/`,
+`data/input/` and `data/output/` in the folder that contains `llm_processing/`. `ENABLE_API_CALLS` is `False` by
+default, so a first run only builds the prompts and writes them to
+`{OUTPUT_DIR}/<model>/processing_<timestamp>/log/prompts.txt`; no model is called and nothing is paid. Set it to
+`True` and add your API key (see Installation) to send them to the model.
+
+In the rest of this README, "`config.py`" means whichever configuration file you run with.
+
 ## Supported Workflows
 
 ### 1. Text Processing Workflow
@@ -131,13 +172,13 @@ Before you begin, ensure you have the following ready:
 
 ### Minimal Requirements
 - **Input data**: A folder containing plaintext files (`.txt`) OR a JSON file, depending on your workflow
-- **Prompt**: A prompt directory in `prompts/` containing at least a `prompt.txt` file (see Prompt Configuration section for details)
+- **Prompt**: A prompt directory (anywhere, set as `PROMPT_DIR`) containing at least a `prompt.txt` file (see Prompt Configuration section for details)
 
 ### Model-Specific Requirements
 
 **For Cloud Models (GPT, Claude):**
 - **API Key**: Either:
-  - Create a `keys.py` file in the project root with your API keys, OR
+  - Create a `keys.py` file next to `llm_processing.py` with your API keys, OR
   - Set environment variables with your API keys (see Installation section)
 
 **For Local Models (Qwen, OLMo):**
@@ -167,10 +208,11 @@ Before you begin, ensure you have the following ready:
 
    **Option A: Using a `keys.py` file** (default)
 
-   Create a `keys.py` file in the project root and add your API keys:
+   Create a `keys.py` file next to `llm_processing.py` (it is git-ignored) and add the keys you need:
    ```python
    OPENAI = "your-openai-api-key-here"
    ANTHROPIC = "your-anthropic-api-key-here"
+   DHINFRA = "your-dh-infra-api-key-here"  # only for models on the DH Infra cluster
    ```
 
    **Option B: Using environment variables** (recommended for production)
@@ -197,7 +239,8 @@ Before you begin, ensure you have the following ready:
 
 3. **Configure the model and settings**
 
-   Edit `config.py` to select your desired model and settings (see Configuration section below).
+   Copy `config.py` into your project, adjust it and pass it with `--config` (see "Using the Engine in Your Own
+   Project" above and the Configuration section below).
 
 ## Usage
 
@@ -250,38 +293,38 @@ This is useful for:
 
 ### Processing Plaintext to XML
 
-1. Place your plaintext files in `data/input/` (or a custom directory)
+1. Place your plaintext files in a folder of your project (outside `llm_processing/`)
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "txt"
-   INPUT_PATH = "data/input"  # Your input directory
+   INPUT_PATH = "/path/to/your/input"  # Your input directory
    OUTPUT_EXTENSION = ".xml"  # Generate TEI XML files
    ```
-3. Run `python llm_processing.py`
+3. Run `python llm_processing.py --config <your config>`
 
 ### Processing Plaintext to JSON
 
 **Option 1: Individual JSON Objects (Raw Mode)**
-1. Place your plaintext files in `data/input/` (or a custom directory)
+1. Place your plaintext files in a folder of your project (outside `llm_processing/`)
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "txt"
-   INPUT_PATH = "data/input"  # Your input directory
+   INPUT_PATH = "/path/to/your/input"  # Your input directory
    OUTPUT_EXTENSION = ".json"  # Generate JSON files
    JSON_OUTPUT_MODE = "raw"  # One JSON file per input
    ```
-3. Run `python llm_processing.py`
+3. Run `python llm_processing.py --config <your config>`
 
 **Option 2: Combined JSON Array (JSON-Array Mode)**
-1. Place your plaintext files in `data/input/` (or a custom directory)
+1. Place your plaintext files in a folder of your project (outside `llm_processing/`)
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "txt"
-   INPUT_PATH = "data/input"  # Your input directory
+   INPUT_PATH = "/path/to/your/input"  # Your input directory
    OUTPUT_EXTENSION = ".json"  # Generate JSON output
    JSON_OUTPUT_MODE = "json-array"  # Combine all outputs in one file
    ```
-3. Run `python llm_processing.py`
+3. Run `python llm_processing.py --config <your config>`
 
 **Result**: All outputs are combined into a single `output.json` file with this structure:
 ```json
@@ -306,7 +349,7 @@ This is useful for:
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "json"
-   INPUT_PATH = "data/input/json/your_file.json"
+   INPUT_PATH = "/path/to/your_file.json"
    JSON_PROCESSING_MODE = "key_extraction"
    KEY_EXTRACTION_OUTPUT_FORMAT = "xml_mapping"  # Creates XML update mappings
 
@@ -315,14 +358,14 @@ This is useful for:
    JSON_ITEMS_KEY = "your_items_field"
    JSON_METADATA_KEYS = ["id", "filename", "xpath"]
    ```
-3. Run `python llm_processing.py`
+3. Run `python llm_processing.py --config <your config>`
 
 **Option 2: JSON Output**
 1. Prepare your JSON file with the appropriate structure
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "json"
-   INPUT_PATH = "data/input/json/your_file.json"
+   INPUT_PATH = "/path/to/your_file.json"
    JSON_PROCESSING_MODE = "key_extraction"
    KEY_EXTRACTION_OUTPUT_FORMAT = "json"  # Output as JSON
    JSON_OUTPUT_MODE = "json-array"  # or "raw" for individual files
@@ -332,7 +375,7 @@ This is useful for:
    JSON_ITEMS_KEY = "your_items_field"
    JSON_METADATA_KEYS = ["id", "filename", "xpath"]
    ```
-3. Run `python llm_processing.py`
+3. Run `python llm_processing.py --config <your config>`
 
 #### Object Processing Mode
 
@@ -340,21 +383,10 @@ This is useful for:
 2. Update `config.py`:
    ```python
    INPUT_TYPE = "json"
-   INPUT_PATH = "data/input/json/your_file.json"
+   INPUT_PATH = "/path/to/your_file.json"
    JSON_PROCESSING_MODE = "object_processing"
    ```
-3. Run `python llm_processing.py`
-
-### Creating Few-Shot Examples
-
-If using a prompt version that includes few-shot examples:
-
-```bash
-python create_few_shot_examples.py
-```
-
-This extracts examples from paired XML/TXT files in `data/original_sample/few-shot_sample/`.
-It requires to have a txt subfolder with the plaintext files and all the corresponding XML reference files in the main folder.
+3. Run `python llm_processing.py --config <your config>`
 
 ## Configuration
 
@@ -409,12 +441,13 @@ Newer model versions may have different API parameters or response formats. If y
 
 ### Prompt Configuration
 
-Switch between different prompt versions:
+Point the engine to a prompt directory:
 ```python
-PROMPT_VERSION = "prompts_editorial_interventions"  # Example: prompts_editorial_interventions
+PROMPT_VERSION = "editorial_interventions"  # Name of the prompt design, recorded in processing_metadata.json
+PROMPT_DIR = os.path.join(_PROJECT_ROOT, "data", "prompts", PROMPT_VERSION)  # Directory with the prompt files
 ```
 
-Each prompt version directory should be in `prompts/{version}/` and contain:
+The prompt directory can be anywhere (keep it outside the engine) and contains:
 - `prompt.txt` (required) - Main prompt instructions for system message
 - `encoding_rules.txt` (optional) - TEI encoding guidelines (added to system message)
 - `few_shot_examples.txt` (optional) - Input-output examples (added to system message)
@@ -433,13 +466,13 @@ INPUT_TYPE = "txt"  # Options: "txt" or "json"
 # Note: When INPUT_TYPE = "txt", the system always processes .txt files
 
 # Input path (directory for txt, file path for json)
-INPUT_PATH = "data/input/json/editorial_interventions"
+INPUT_PATH = os.path.join(_PROJECT_ROOT, "data", "input", "my_input.json")
 
 # JSON Processing Mode (only used when INPUT_TYPE = "json")
 JSON_PROCESSING_MODE = "key_extraction"  # Options: "key_extraction" or "object_processing"
 
 # Output directory for generated files
-OUTPUT_DIR = "data/output"
+OUTPUT_DIR = os.path.join(_PROJECT_ROOT, "data", "output")
 
 # Output file extension (for text processing workflows)
 # Options: ".xml" for XML files, ".json" for JSON output
@@ -603,7 +636,7 @@ Processing results are organized in timestamped directories:
 
 ### XML Output (OUTPUT_EXTENSION = ".xml"):
 ```
-data/output/{model_name}/processing_{timestamp}/
+{OUTPUT_DIR}/{model_name}/processing_{timestamp}/
 ├── letter1.xml                    # LLM-generated TEI XML files
 ├── letter2.xml
 ├── ...
@@ -615,7 +648,7 @@ data/output/{model_name}/processing_{timestamp}/
 
 ### JSON Output - Raw Mode (OUTPUT_EXTENSION = ".json", JSON_OUTPUT_MODE = "raw"):
 ```
-data/output/{model_name}/processing_{timestamp}/
+{OUTPUT_DIR}/{model_name}/processing_{timestamp}/
 ├── letter1.json                   # Individual JSON files
 ├── letter2.json
 ├── ...
@@ -627,7 +660,7 @@ data/output/{model_name}/processing_{timestamp}/
 
 ### JSON Output - Array Mode (OUTPUT_EXTENSION = ".json", JSON_OUTPUT_MODE = "json-array"):
 ```
-data/output/{model_name}/processing_{timestamp}/
+{OUTPUT_DIR}/{model_name}/processing_{timestamp}/
 ├── output.json                    # Combined JSON array with all outputs
 └── log/
     ├── processing_metadata.json   # Processing metrics and costs
@@ -666,7 +699,8 @@ The `processing_metadata.json` file contains:
 ```
 llm_processing/
 ├── llm_processing.py              # Main coordinator script
-├── config.py                      # Configuration settings
+├── config.py                      # Configuration template (copy it into your project)
+├── config_loader.py               # Loads config.py, or the file given with --config
 ├── requirements.txt               # Python dependencies
 ├── processors/                    # Model-specific implementations
 │   ├── __init__.py
@@ -674,19 +708,13 @@ llm_processing/
 │   ├── claude.py                 # Anthropic Claude
 │   ├── qwen.py                   # Alibaba Qwen
 │   └── olmo.py                   # OLMo
-├── utils/                         # Shared utility functions
-│   ├── __init__.py
-│   └── utils.py                  # Utility functions for processors
-├── prompts/                       # Prompt versions
-│   └── {prompt_version}/         # e.g., prompts_editorial_interventions/
-│       ├── prompt.txt
-│       ├── encoding_rules.txt
-│       └── few_shot_examples.txt
-└── data/
-    ├── input/                     # Input files (txt or json)
-    ├── output/                    # Generated TEI XML files
-    └── original_sample/           # Sample files for examples
+└── utils/                         # Shared utility functions
+    ├── __init__.py
+    └── utils.py                  # Utility functions for processors
 ```
+
+Project-specific prompts, input and output do not belong in this folder (see "Using the Engine in Your Own
+Project").
 
 ## Cost Estimation
 
@@ -731,7 +759,7 @@ This installs the CUDA 12.1 version with proper GPU acceleration. Adjust the `cu
 1. Check console output for errors
 2. Verify input directory contains `.txt` files
 3. Ensure output directory has write permissions
-4. Review `log/llm_responses.txt` for LLM errors
+4. Review `log/responses.txt` for LLM errors
 
 ## Development
 
@@ -804,7 +832,7 @@ This installs the CUDA 12.1 version with proper GPU acceleration. Adjust the `cu
 
 ### Creating a New Prompt Version
 
-1. Create directory: `prompts/prompt_v6/`
+1. Create a directory in your project, outside the engine, e.g. `data/prompts/prompt_v6/`
 2. Add required files:
    - `prompt.txt` - Main instructions (required)
    - `encoding_rules.txt` - Guidelines (optional)
@@ -813,6 +841,7 @@ This installs the CUDA 12.1 version with proper GPU acceleration. Adjust the `cu
 3. Update `config.py`:
    ```python
    PROMPT_VERSION = "prompt_v6"
+   PROMPT_DIR = os.path.join(_PROJECT_ROOT, "data", "prompts", PROMPT_VERSION)
    USER_MESSAGE = "user_message.txt"  # Optional, defaults to this filename
    ```
 
@@ -836,8 +865,6 @@ The JSON key extraction workflow is designed to work with any JSON structure. To
    - `JSON_CONTEXT_KEY` should contain a string
    - `JSON_ITEMS_KEY` should contain a list
    - `JSON_METADATA_KEYS` can be any fields you want preserved
-
-See `WORKFLOW_ANALYSIS.md` for detailed information about the JSON processing workflows.
 
 ## Reproducibility
 
@@ -922,9 +949,9 @@ All settings are in `config.py`. For published results, record:
    MAX_TOKENS = 10000
    ```
 
-4. **Prompt Version**:
+4. **Prompt Version** (and the prompt files in `PROMPT_DIR`):
    ```python
-   PROMPT_VERSION = "prompts_editorial_interventions"
+   PROMPT_VERSION = "editorial_interventions"
    ```
 
 5. **Hardware Settings**:
@@ -965,8 +992,7 @@ Before running, record the exact configuration used:
 # Save git commit hash
 git rev-parse HEAD > reproducibility_info.txt
 
-# Save config.py contents
-cp config.py config_backup.py
+# Keep the config file you pass with --config under version control in your project
 
 # Record Python version
 python --version >> reproducibility_info.txt
@@ -977,7 +1003,7 @@ pip freeze > requirements_versions.txt
 
 #### Step 2: Set Configuration
 
-1. Edit `config.py` to match published configuration
+1. Use the published run's config file (pass it with `--config`)
 2. Ensure model files are in correct locations (for local models)
 3. Verify API keys are set (for cloud models)
 
@@ -985,11 +1011,11 @@ pip freeze > requirements_versions.txt
 
 ```bash
 # Interactive mode
-python llm_processing.py
+python llm_processing.py --config <published config>
 
 # Or with workflow selection
-python llm_processing.py --workflow text
-python llm_processing.py --workflow json
+python llm_processing.py --config <published config> --workflow text
+python llm_processing.py --config <published config> --workflow json
 ```
 
 #### Step 4: Verify Outputs

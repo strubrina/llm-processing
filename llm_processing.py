@@ -243,10 +243,7 @@ class LLMProcessingCoordinator:
         metrics_entry['run_name'] = self.get_run_folder_name()
         metrics_entry['max_tokens'] = config.MAX_TOKENS
         metrics_entry['config_file'] = os.path.basename(getattr(config, '__file__', '') or 'config.py')
-        if model == 'gpt':
-            from processors.gpt import sends_temperature
-            metrics_entry['temperature_sent_to_api'] = sends_temperature()
-        elif model == 'olmo':
+        if model == 'olmo':
             from processors.olmo import get_prompt_format
             metrics_entry['prompt_format'] = get_prompt_format()
 

@@ -40,24 +40,6 @@ def get_openai_client() -> OpenAI:
     return OpenAI(api_key=config.OPENAI_API_KEY)
 
 
-def sends_temperature() -> bool:
-    """
-    Tell whether config.TEMPERATURE is sent to the API for the configured model.
-
-    GPT-5 models get no temperature unless GPT5_SEND_TEMPERATURE is True in the
-    configuration; the API default applies then. o1/o3 models never get one.
-
-    Returns:
-        True if the temperature is part of the API request, False otherwise.
-    """
-    model_name = config.MODEL_NAME.lower()
-    if any(m in model_name for m in ['o1-', 'o3-']):
-        return False
-    if 'gpt-5' in model_name:
-        return bool(getattr(config, 'GPT5_SEND_TEMPERATURE', False))
-    return True
-
-
 def _build_api_params(system_message: str, user_message: str) -> Dict[str, Any]:
     """Build the API parameters dict based on the configured model."""
     api_params = {
@@ -65,7 +47,8 @@ def _build_api_params(system_message: str, user_message: str) -> Dict[str, Any]:
         "messages": [
             {"role": "system", "content": system_message},
             {"role": "user", "content": user_message}
-        ]
+        ],
+        "temperature": config.TEMPERATURE
     }
     is_reasoning_model = any(m in config.MODEL_NAME.lower() for m in ['o1-', 'o3-'])
     is_gpt5 = 'gpt-5' in config.MODEL_NAME.lower()
@@ -74,11 +57,8 @@ def _build_api_params(system_message: str, user_message: str) -> Dict[str, Any]:
         api_params['max_completion_tokens'] = config.MAX_TOKENS
     elif not is_gpt5:
         api_params['max_tokens'] = config.MAX_TOKENS
-        api_params['temperature'] = config.TEMPERATURE
     else:
-        # GPT-5: by default neither temperature nor a token limit is sent (API defaults).
-        if sends_temperature():
-            api_params['temperature'] = config.TEMPERATURE
+        # GPT-5: no token limit is sent (API default).
         reasoning_effort = getattr(config, 'GPT5_REASONING_EFFORT', None)
         if reasoning_effort:
             api_params['reasoning_effort'] = reasoning_effort
@@ -216,7 +196,7 @@ def encode_text_segment_gpt(
             raise RuntimeError(
                 f"The API rejected the request parameters: {e}\n"
                 "If the model does not accept a temperature, set GPT5_REASONING_EFFORT = \"none\" "
-                "or GPT5_SEND_TEMPERATURE = False in the configuration."
+                "in the configuration."
             ) from e
         items_key = config.JSON_ITEMS_KEY
         context_key = config.JSON_CONTEXT_KEY

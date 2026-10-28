@@ -54,6 +54,23 @@ config = load_config()  # config.py, or the file given with --config
 from utils.utils import extract_xml_from_response, extract_json_from_response
 
 
+def configured_api_prices() -> Optional[Tuple[float, float]]:
+    """
+    Return the API prices set in the configuration, if any.
+
+    INPUT_PRICE_USD_PER_MILLION and OUTPUT_PRICE_USD_PER_MILLION override the built-in
+    price tables of calculate_openai_pricing() and calculate_anthropic_pricing().
+
+    Returns:
+        (input_rate, output_rate) in USD per million tokens, or None if not both are set.
+    """
+    input_rate = getattr(config, 'INPUT_PRICE_USD_PER_MILLION', None)
+    output_rate = getattr(config, 'OUTPUT_PRICE_USD_PER_MILLION', None)
+    if input_rate is None or output_rate is None:
+        return None
+    return float(input_rate), float(output_rate)
+
+
 class LLMProcessingCoordinator:
     """
     Coordinates LLM processing workflows for TEI XML generation.
@@ -293,6 +310,10 @@ class LLMProcessingCoordinator:
                 self.total_input_tokens, self.total_output_tokens, model_name
             )
             metrics_entry['estimated_cost_usd'] = round(total_cost, 6)
+        if configured_api_prices():
+            input_rate, output_rate = configured_api_prices()
+            metrics_entry['input_price_usd_per_million'] = input_rate
+            metrics_entry['output_price_usd_per_million'] = output_rate
 
         # Create run-specific subdirectory (RUN_NAME, or MODEL_NAME by default)
         model_name_with_suffix = self.get_run_folder_name()
@@ -329,7 +350,7 @@ class LLMProcessingCoordinator:
         """
         # Current Anthropic pricing (as of 2025) - per million tokens
         pricing_rates = {
-            "claude-opus-4.6": {"input": 5.0, "output": 25.0},
+            "claude-opus-4-6": {"input": 5.0, "output": 25.0},
             "claude-sonnet-4": {"input": 3.0, "output": 15.0}
         }
 
@@ -346,6 +367,10 @@ class LLMProcessingCoordinator:
                 input_rate = rates["input"]
                 output_rate = rates["output"]
                 break
+
+        # Prices set in the configuration take precedence
+        if configured_api_prices():
+            input_rate, output_rate = configured_api_prices()
 
         # Calculate costs
         input_cost = (input_tokens / 1_000_000) * input_rate
@@ -364,27 +389,34 @@ class LLMProcessingCoordinator:
         Calculate estimated pricing for OpenAI GPT models.
         Returns: (input_cost, output_cost, total_cost) in USD
         """
-        # Current OpenAI pricing (as of 2025) - per million tokens
+        # OpenAI list prices in USD per million tokens
         pricing_rates = {
             "gpt-5-nano": {"input": 0.05, "output": 0.40},
             "gpt-5-mini": {"input": 0.25, "output": 2.00},
             "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+            "gpt-5.2": {"input": 1.75, "output": 14.00},
             "gpt-5": {"input": 1.25, "output": 10.00}
         }
 
         # Use model from config if not provided
         if model_name is None:
-            model_name = config.MODEL_NAME.lower()
+            model_name = config.MODEL_NAME
+        model_name = model_name.lower()
 
-        # Find matching pricing (handle partial matches)
+        # Find matching pricing: the longest key contained in the model name wins,
+        # so "gpt-5.2-2025-12-11" gets the gpt-5.2 rates, not the gpt-5 ones
         input_rate = 0.05  # Default to GPT-5-nano rates
         output_rate = 0.40
 
-        for model_key, rates in pricing_rates.items():
-            if model_key in model_name or model_name in model_key:
-                input_rate = rates["input"]
-                output_rate = rates["output"]
+        for model_key in sorted(pricing_rates, key=len, reverse=True):
+            if model_key in model_name:
+                input_rate = pricing_rates[model_key]["input"]
+                output_rate = pricing_rates[model_key]["output"]
                 break
+
+        # Prices set in the configuration take precedence
+        if configured_api_prices():
+            input_rate, output_rate = configured_api_prices()
 
         # Calculate costs
         input_cost = (input_tokens / 1_000_000) * input_rate
@@ -1781,7 +1813,7 @@ RAW LLM RESPONSE:
                     input_cost, output_cost, total_cost = self.calculate_anthropic_pricing(
                         self.total_input_tokens, self.total_output_tokens, config.MODEL_NAME
                     )
-                    f.write(f"Estimated cost breakdown (Claude Sonnet 4):\n")
+                    f.write(f"Estimated cost breakdown ({config.MODEL_NAME}):\n")
                     f.write(f"  Input cost: ${input_cost:.6f}\n")
                     f.write(f"  Output cost: ${output_cost:.6f}\n")
                     f.write(f"  Total estimated cost: ${total_cost:.6f}\n")
@@ -1793,7 +1825,7 @@ RAW LLM RESPONSE:
                     input_cost, output_cost, total_cost = self.calculate_openai_pricing(
                         self.total_input_tokens, self.total_output_tokens, config.MODEL_NAME
                     )
-                    f.write(f"Estimated cost breakdown (GPT-5-nano):\n")
+                    f.write(f"Estimated cost breakdown ({config.MODEL_NAME}):\n")
                     f.write(f"  Input cost: ${input_cost:.6f}\n")
                     f.write(f"  Output cost: ${output_cost:.6f}\n")
                     f.write(f"  Total estimated cost: ${total_cost:.6f}\n")
@@ -2123,7 +2155,7 @@ RAW LLM RESPONSE:
                     input_cost, output_cost, total_cost = self.calculate_anthropic_pricing(
                         self.total_input_tokens, self.total_output_tokens, config.MODEL_NAME
                     )
-                    f.write(f"Estimated cost breakdown (Claude Sonnet 4):\n")
+                    f.write(f"Estimated cost breakdown ({config.MODEL_NAME}):\n")
                     f.write(f"  Input cost: ${input_cost:.6f}\n")
                     f.write(f"  Output cost: ${output_cost:.6f}\n")
                     f.write(f"  Total estimated cost: ${total_cost:.6f}\n")
@@ -2135,7 +2167,7 @@ RAW LLM RESPONSE:
                     input_cost, output_cost, total_cost = self.calculate_openai_pricing(
                         self.total_input_tokens, self.total_output_tokens, config.MODEL_NAME
                     )
-                    f.write(f"Estimated cost breakdown (GPT):\n")
+                    f.write(f"Estimated cost breakdown ({config.MODEL_NAME}):\n")
                     f.write(f"  Input cost: ${input_cost:.6f}\n")
                     f.write(f"  Output cost: ${output_cost:.6f}\n")
                     f.write(f"  Total estimated cost: ${total_cost:.6f}\n")

@@ -84,6 +84,11 @@ MODEL_PATH_QWEN3 = os.path.join(_ENGINE_DIR, 'models', 'Qwen_Qwen3-14B-IQ2_XS.gg
 TEMPERATURE = 0.3
 MAX_TOKENS = 8000
 
+# API prices in USD per million tokens, used for the estimated cost of GPT and Claude runs
+# and recorded in processing_metadata.json. None = use the engine's built-in price table.
+INPUT_PRICE_USD_PER_MILLION = None
+OUTPUT_PRICE_USD_PER_MILLION = None
+
 # Hardware Acceleration
 USE_GPU = True  # Set to False to run on CPU only (slower but works without GPU)
 

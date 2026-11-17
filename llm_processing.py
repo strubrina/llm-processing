@@ -51,7 +51,7 @@ import pandas as pd
 # Local imports
 from config_loader import load_config
 config = load_config()  # config.py, or the file given with --config
-from utils.utils import extract_xml_from_response, extract_json_from_response
+from utils.utils import extract_xml_from_response, extract_json_from_response, is_dh_infra_model
 
 
 def configured_api_prices() -> Optional[Tuple[float, float]]:
@@ -479,7 +479,7 @@ class LLMProcessingCoordinator:
             return "gpt"
         elif "claude" in model_name_lower or "anthropic" in model_name_lower:
             return "claude"
-        elif "qwen3.5" in model_name_lower:
+        elif is_dh_infra_model(config.MODEL_NAME):
             return "gpt"  # OpenAI-compatible API via DH Infra cluster
         elif "qwen" in model_name_lower:
             return "qwen"

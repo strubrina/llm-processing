@@ -57,6 +57,7 @@ ENABLE_API_CALLS = False
 # MODEL_NAME = "gpt-5-mini-2025-08-07"         # OpenAI GPT-5
 MODEL_NAME = "claude-sonnet-4-6"               # Anthropic Claude Sonnet 4.6
 # MODEL_NAME = "qwen3.5-397b"                  # Qwen3.5 on the DH Infra cluster (needs DHINFRA key)
+# MODEL_NAME = "deepseek-v4.1-flash"           # DeepSeek on the DH Infra cluster (needs DHINFRA key)
 # MODEL_NAME = "qwen3-14B-Q6"                # Alibaba Qwen3 (local)
 # MODEL_NAME = "qwen3-14B-IQ2_XS"                # Alibaba Qwen3 (local) - small model for CPU!
 # MODEL_NAME = "olmo2-32B-instruct-Q4"         # AI2 OLMo2 32B (local)

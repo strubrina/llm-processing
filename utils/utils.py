@@ -10,6 +10,33 @@ import json
 import re
 from typing import Any, Dict, List, Tuple
 
+# Model names served by the DH Infra cluster (OpenAI-compatible endpoint), matched as substrings.
+DH_INFRA_MODEL_MARKERS = ("qwen3.5", "deepseek")
+
+
+# =============================================================================
+# MODEL ROUTING
+# =============================================================================
+
+def is_dh_infra_model(model_name: str) -> bool:
+    """
+    Tell whether a model is served by the DH Infra cluster.
+
+    Args:
+        model_name: The configured MODEL_NAME.
+
+    Returns:
+        True if the name contains one of DH_INFRA_MODEL_MARKERS (case-insensitive).
+
+    Examples:
+        >>> is_dh_infra_model("deepseek-v4.1-flash")
+        True
+        >>> is_dh_infra_model("gpt-4o-mini")
+        False
+    """
+    name = model_name.lower()
+    return any(marker in name for marker in DH_INFRA_MODEL_MARKERS)
+
 
 # =============================================================================
 # TEI XML EXTRACTION

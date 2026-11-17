@@ -21,6 +21,7 @@ from utils.utils import (
     create_text_encoding_error,
     create_text_encoding_result,
     extract_xml_from_response,
+    is_dh_infra_model,
     parse_json_response,
     prepare_prompts_for_segment,
     validate_text_data
@@ -29,10 +30,10 @@ from utils.utils import (
 
 def get_openai_client() -> OpenAI:
     """
-    Get OpenAI client. Routes to DH Infra cluster endpoint for qwen3.5 models,
-    otherwise uses the standard OpenAI API.
+    Get OpenAI client. Routes to the DH Infra cluster endpoint for the models it serves
+    (qwen3.5, deepseek; see is_dh_infra_model), otherwise uses the standard OpenAI API.
     """
-    if "qwen3.5" in config.MODEL_NAME.lower():
+    if is_dh_infra_model(config.MODEL_NAME):
         return OpenAI(
             api_key=config.DH_INFRA_API_KEY,
             base_url=config.DH_INFRA_BASE_URL
@@ -106,7 +107,8 @@ def _stream_completion(
             delta = chunk.choices[0].delta
             # Reasoning-parser endpoints (e.g. the DH Infra qwen3.5 cluster) stream
             # thinking on delta.reasoning, separate from the answer on delta.content.
-            reasoning = getattr(delta, 'reasoning', None)
+            # Depending on the server version the field is "reasoning" or "reasoning_content".
+            reasoning = getattr(delta, 'reasoning', None) or getattr(delta, 'reasoning_content', None)
             if reasoning:
                 print(reasoning, end='', flush=True)
                 reasoning_chunks.append(reasoning)

@@ -15,6 +15,7 @@ from .utils import (
     extract_tei_xml_from_response,
     get_gpu_usage,
     get_system_usage,
+    is_dh_infra_model,
     parse_json_response,
     validate_text_data,
     validate_text_segment
@@ -30,6 +31,7 @@ __all__ = [
     'extract_tei_xml_from_response',
     'get_gpu_usage',
     'get_system_usage',
+    'is_dh_infra_model',
     'parse_json_response',
     'validate_text_data',
     'validate_text_segment'
